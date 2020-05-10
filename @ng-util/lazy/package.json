@@ -1,0 +1,34 @@
+{
+  "name": "@ng-util/lazy",
+  "version": "9.0.0",
+  "author": "cipchk<cipchk@qq.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ng-util/ng-util.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ng-util/ng-util/issues"
+  },
+  "homepage": "https://github.com/ng-util/ng-util",
+  "keywords": [
+    "angular",
+    "util",
+    "Angular utilities",
+    "lazy",
+    "load"
+  ],
+  "sideEffects": false,
+  "main": "bundles/ng-util-lazy.umd.js",
+  "module": "fesm5/ng-util-lazy.js",
+  "es2015": "fesm2015/ng-util-lazy.js",
+  "esm5": "esm5/ng-util-lazy.js",
+  "esm2015": "esm2015/ng-util-lazy.js",
+  "fesm5": "fesm5/ng-util-lazy.js",
+  "fesm2015": "fesm2015/ng-util-lazy.js",
+  "typings": "ng-util-lazy.d.ts",
+  "metadata": "ng-util-lazy.metadata.json",
+  "peerDependencies": {
+    "tslib": "^1.10.0"
+  }
+}
