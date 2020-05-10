@@ -12,6 +12,7 @@ Lazy load javascript, css resources for Angular.
 ## Demo
 
 - [Stackblitz](https://stackblitz.com/edit/ng-util-lazy?file=src/app/app.component.ts)
+- [Codesandbox](https://codesandbox.io/s/ng-util-lazy-mt7k2?file=/src/app/app.component.ts)
 
 ## Usage
 
