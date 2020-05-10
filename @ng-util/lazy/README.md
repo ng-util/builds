@@ -3,7 +3,7 @@
 Lazy load javascript, css resources for Angular.
 
 [![NPM version](https://img.shields.io/npm/v/@ng-util/lazy.svg?style=flat-square)](https://www.npmjs.com/package/@ng-util/lazy)
-[![Build Status](https://github.com/ng-util/ng-util/workflows/.github/workflows/build.yml/badge.svg)](https://github.com/ng-util/ng-util/actions)
+[![Build Status](https://github.com/ng-util/ng-util/workflows/Build/badge.svg?branch=master)](https://github.com/ng-util/ng-util/actions)
 [![codecov](https://codecov.io/gh/ng-util/ng-util/branch/master/graph/badge.svg)](https://codecov.io/gh/ng-util/ng-util)
 [![Dependency Status](https://david-dm.org/ng-util/ng-util/status.svg?style=flat-square)](https://david-dm.org/ng-util/ng-util)
 [![prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://prettier.io/)
