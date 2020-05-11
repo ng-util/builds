@@ -1,0 +1,35 @@
+{
+  "name": "@ng-util/monaco-editor",
+  "version": "9.0.0",
+  "author": "cipchk<cipchk@qq.com>",
+  "description": "Monaco Code Editor for Angular",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ng-util/ng-util.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ng-util/ng-util/issues"
+  },
+  "homepage": "https://github.com/ng-util/ng-util",
+  "keywords": [
+    "angular",
+    "util",
+    "Angular utilities",
+    "monaco-editor",
+    "monaco"
+  ],
+  "sideEffects": false,
+  "main": "bundles/ng-util-monaco-editor.umd.js",
+  "module": "fesm5/ng-util-monaco-editor.js",
+  "es2015": "fesm2015/ng-util-monaco-editor.js",
+  "esm5": "esm5/ng-util-monaco-editor.js",
+  "esm2015": "esm2015/ng-util-monaco-editor.js",
+  "fesm5": "fesm5/ng-util-monaco-editor.js",
+  "fesm2015": "fesm2015/ng-util-monaco-editor.js",
+  "typings": "ng-util-monaco-editor.d.ts",
+  "metadata": "ng-util-monaco-editor.metadata.json",
+  "peerDependencies": {
+    "tslib": "^1.10.0"
+  }
+}
