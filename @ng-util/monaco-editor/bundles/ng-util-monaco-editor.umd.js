@@ -256,12 +256,17 @@
      */
     function NuMonacoEditorEvent() { }
     if (false) {
-        /** @type {?} */
+        /** @type {?|undefined} */
         NuMonacoEditorEvent.prototype.type;
         /** @type {?|undefined} */
         NuMonacoEditorEvent.prototype.editor;
         /** @type {?|undefined} */
         NuMonacoEditorEvent.prototype.error;
+        /**
+         * Just only `nu-monaco-editor-diff` component
+         * @type {?|undefined}
+         */
+        NuMonacoEditorEvent.prototype.diffValue;
     }
 
     /**
@@ -304,7 +309,6 @@
             this.height = 200;
             this.disabled = false;
             this.event = new core.EventEmitter();
-            // https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/base/worker/workerMain.min.js
             this._config = __assign({ baseUrl: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min' }, config);
             this.options = (/** @type {?} */ (this._config.defaultOptions));
         }
@@ -328,15 +332,17 @@
         /**
          * @protected
          * @param {?} type
+         * @param {?=} other
          * @return {?}
          */
         NuMonacoEditorBase.prototype.notifyEvent = /**
          * @protected
          * @param {?} type
+         * @param {?=} other
          * @return {?}
          */
-        function (type) {
-            this.event.emit({ type: type, editor: (/** @type {?} */ (this._editor)) });
+        function (type, other) {
+            this.event.emit(__assign({ type: type, editor: (/** @type {?} */ (this._editor)) }, other));
         };
         /**
          * @protected
@@ -772,6 +778,7 @@
          * @return {?}
          */
         function (options) {
+            var _this = this;
             if (!this.old || !this.new) {
                 throw new Error('old or new not found for nu-monaco-editor-diff');
             }
@@ -784,6 +791,10 @@
                 original: monaco.editor.createModel(this.old.code, this.old.language || options.language),
                 modified: monaco.editor.createModel(this.new.code, this.new.language || options.language),
             });
+            editor.onDidUpdateDiff((/**
+             * @return {?}
+             */
+            function () { return _this.notifyEvent('update-diff', { diffValue: editor.getModifiedEditor().getValue() }); }));
             this.registerResize().notifyEvent('init');
         };
         NuMonacoEditorDiffComponent.decorators = [

@@ -7,9 +7,11 @@ export interface NuMonacoEditorDiffModel {
     code: string;
     language?: string;
 }
-export declare type NuMonacoEditorEventType = 'load-error' | 'init' | 'resize';
+export declare type NuMonacoEditorEventType = 'load-error' | 'init' | 'resize' | 'update-diff';
 export interface NuMonacoEditorEvent {
-    type: NuMonacoEditorEventType;
+    type?: NuMonacoEditorEventType;
     editor?: monaco.editor.IStandaloneCodeEditor | monaco.editor.IStandaloneDiffEditor;
     error?: string;
+    /** Just only `nu-monaco-editor-diff` component */
+    diffValue?: string;
 }

@@ -17,7 +17,7 @@ export declare abstract class NuMonacoEditorBase implements AfterViewInit, OnCha
     event: EventEmitter<NuMonacoEditorEvent>;
     constructor(el: ElementRef<HTMLElement>, config: NuMonacoEditorConfig, doc: any, ngZone: NgZone);
     protected abstract initMonaco(options: monaco.editor.IStandaloneEditorConstructionOptions): void;
-    protected notifyEvent(type: NuMonacoEditorEventType): void;
+    protected notifyEvent(type: NuMonacoEditorEventType, other?: NuMonacoEditorEvent): void;
     protected setDisabled(): this;
     private init;
     protected cleanResize(): this;

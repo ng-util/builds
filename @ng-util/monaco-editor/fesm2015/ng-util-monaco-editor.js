@@ -37,12 +37,17 @@ if (false) {
  */
 function NuMonacoEditorEvent() { }
 if (false) {
-    /** @type {?} */
+    /** @type {?|undefined} */
     NuMonacoEditorEvent.prototype.type;
     /** @type {?|undefined} */
     NuMonacoEditorEvent.prototype.editor;
     /** @type {?|undefined} */
     NuMonacoEditorEvent.prototype.error;
+    /**
+     * Just only `nu-monaco-editor-diff` component
+     * @type {?|undefined}
+     */
+    NuMonacoEditorEvent.prototype.diffValue;
 }
 
 /**
@@ -91,7 +96,6 @@ class NuMonacoEditorBase {
         this.height = 200;
         this.disabled = false;
         this.event = new EventEmitter();
-        // https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/base/worker/workerMain.min.js
         this._config = Object.assign({ baseUrl: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min' }, config);
         this.options = (/** @type {?} */ (this._config.defaultOptions));
     }
@@ -111,10 +115,11 @@ class NuMonacoEditorBase {
     /**
      * @protected
      * @param {?} type
+     * @param {?=} other
      * @return {?}
      */
-    notifyEvent(type) {
-        this.event.emit({ type, editor: (/** @type {?} */ (this._editor)) });
+    notifyEvent(type, other) {
+        this.event.emit(Object.assign({ type, editor: (/** @type {?} */ (this._editor)) }, other));
     }
     /**
      * @protected
@@ -494,6 +499,10 @@ class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
             original: monaco.editor.createModel(this.old.code, this.old.language || options.language),
             modified: monaco.editor.createModel(this.new.code, this.new.language || options.language),
         });
+        editor.onDidUpdateDiff((/**
+         * @return {?}
+         */
+        () => this.notifyEvent('update-diff', { diffValue: editor.getModifiedEditor().getValue() })));
         this.registerResize().notifyEvent('init');
     }
 }
