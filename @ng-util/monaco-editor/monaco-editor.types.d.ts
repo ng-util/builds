@@ -1,4 +1,4 @@
-/// <reference types="monaco" />
+/// <reference path="monaco.d.ts" />
 export interface NuMonacoEditorModel {
     language?: string;
     uri?: monaco.Uri;

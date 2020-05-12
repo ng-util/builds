@@ -228,9 +228,9 @@
      * Generated from: monaco-editor.types.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    /// <reference path="monaco.d.ts" />
+    /// <reference path="./monaco.d.ts" />
     // tslint:disable-next-line: no-reference
-    /// <reference path="monaco.d.ts" />
+    /// <reference path="./monaco.d.ts" />
     /**
      * @record
      */
@@ -385,7 +385,7 @@
          */
         function () {
             if ((/** @type {?} */ (this))._editor) {
-                (/** @type {?} */ (this))._editor.updateOptions({ readOnly: (/** @type {?} */ (this))._disabled });
+                ((/** @type {?} */ ((/** @type {?} */ (this))._editor))).updateOptions({ readOnly: (/** @type {?} */ (this))._disabled });
             }
             return (/** @type {?} */ (this));
         };
