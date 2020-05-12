@@ -19,6 +19,8 @@ import { debounceTime } from 'rxjs/operators';
 function NuMonacoEditorModel() { }
 if (false) {
     /** @type {?|undefined} */
+    NuMonacoEditorModel.prototype.value;
+    /** @type {?|undefined} */
     NuMonacoEditorModel.prototype.language;
     /** @type {?|undefined} */
     NuMonacoEditorModel.prototype.uri;
@@ -328,13 +330,18 @@ var NuMonacoEditorBase = /** @class */ (function () {
         function () { return _this.init(); }));
     };
     /**
+     * @param {?} changes
      * @return {?}
      */
     NuMonacoEditorBase.prototype.ngOnChanges = /**
+     * @param {?} changes
      * @return {?}
      */
-    function () {
-        console.log('ngOnChanges');
+    function (changes) {
+        /** @type {?} */
+        var allKeys = Object.keys(changes);
+        if (allKeys.length === 1 && allKeys[0] === 'disabled')
+            return;
         this.updateOptions();
     };
     /**
@@ -473,11 +480,10 @@ var NuMonacoEditorComponent = /** @class */ (function (_super) {
                 options.model.setValue(this._value);
             }
             else {
-                var _a = (/** @type {?} */ (this.model)), language = _a.language, uri = _a.uri;
-                options.model = monaco.editor.createModel(this._value, language, uri);
+                var _a = (/** @type {?} */ (this.model)), value = _a.value, language = _a.language, uri = _a.uri;
+                options.model = monaco.editor.createModel(value || this._value, language, uri);
             }
         }
-        console.log(options.model);
         /** @type {?} */
         var editor = (this._editor = monaco.editor.create(this.el.nativeElement, options));
         if (!hasModel) {
@@ -509,6 +515,7 @@ var NuMonacoEditorComponent = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
+            // this.setDisabled();
             _this.notifyEvent(initEvent ? 'init' : 're-init');
         }));
     };
@@ -651,6 +658,7 @@ var NuMonacoEditorDiffComponent = /** @class */ (function (_super) {
             original: monaco.editor.createModel(this.old.code, this.old.language || options.language),
             modified: monaco.editor.createModel(this.new.code, this.new.language || options.language),
         });
+        // this.setDisabled();
         editor.onDidUpdateDiff((/**
          * @return {?}
          */

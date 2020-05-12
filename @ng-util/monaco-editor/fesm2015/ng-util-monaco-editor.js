@@ -18,6 +18,8 @@ import { debounceTime } from 'rxjs/operators';
 function NuMonacoEditorModel() { }
 if (false) {
     /** @type {?|undefined} */
+    NuMonacoEditorModel.prototype.value;
+    /** @type {?|undefined} */
     NuMonacoEditorModel.prototype.language;
     /** @type {?|undefined} */
     NuMonacoEditorModel.prototype.uri;
@@ -285,10 +287,14 @@ class NuMonacoEditorBase {
         () => this.init()));
     }
     /**
+     * @param {?} changes
      * @return {?}
      */
-    ngOnChanges() {
-        console.log('ngOnChanges');
+    ngOnChanges(changes) {
+        /** @type {?} */
+        const allKeys = Object.keys(changes);
+        if (allKeys.length === 1 && allKeys[0] === 'disabled')
+            return;
         this.updateOptions();
     }
     /**
@@ -411,11 +417,10 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
                 options.model.setValue(this._value);
             }
             else {
-                const { language, uri } = (/** @type {?} */ (this.model));
-                options.model = monaco.editor.createModel(this._value, language, uri);
+                const { value, language, uri } = (/** @type {?} */ (this.model));
+                options.model = monaco.editor.createModel(value || this._value, language, uri);
             }
         }
-        console.log(options.model);
         /** @type {?} */
         const editor = (this._editor = monaco.editor.create(this.el.nativeElement, options));
         if (!hasModel) {
@@ -447,6 +452,7 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
          * @return {?}
          */
         () => {
+            // this.setDisabled();
             this.notifyEvent(initEvent ? 'init' : 're-init');
         }));
     }
@@ -558,6 +564,7 @@ class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
             original: monaco.editor.createModel(this.old.code, this.old.language || options.language),
             modified: monaco.editor.createModel(this.new.code, this.new.language || options.language),
         });
+        // this.setDisabled();
         editor.onDidUpdateDiff((/**
          * @return {?}
          */

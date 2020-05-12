@@ -1,5 +1,6 @@
 /// <reference path="monaco.d.ts" />
 export interface NuMonacoEditorModel {
+    value?: string;
     language?: string;
     uri?: monaco.Uri;
 }

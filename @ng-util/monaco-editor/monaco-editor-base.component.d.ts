@@ -1,4 +1,4 @@
-import { AfterViewInit, ElementRef, EventEmitter, NgZone, OnChanges, OnDestroy } from '@angular/core';
+import { AfterViewInit, ElementRef, EventEmitter, NgZone, OnChanges, OnDestroy, SimpleChange, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NuMonacoEditorConfig } from './monaco-editor.config';
 import { NuMonacoEditorEvent, NuMonacoEditorEventType } from './monaco-editor.types';
@@ -25,6 +25,8 @@ export declare abstract class NuMonacoEditorBase implements AfterViewInit, OnCha
     protected registerResize(): this;
     protected updateOptions(): void;
     ngAfterViewInit(): void;
-    ngOnChanges(): void;
+    ngOnChanges(changes: {
+        [P in keyof this]?: SimpleChange;
+    } & SimpleChanges): void;
     ngOnDestroy(): void;
 }
