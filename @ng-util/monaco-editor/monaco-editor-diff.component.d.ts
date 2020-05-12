@@ -3,5 +3,6 @@ import { NuMonacoEditorDiffModel } from './monaco-editor.types';
 export declare class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
     old: NuMonacoEditorDiffModel;
     new: NuMonacoEditorDiffModel;
-    initMonaco(options: monaco.editor.IStandaloneEditorConstructionOptions): void;
+    get editor(): monaco.editor.IStandaloneDiffEditor;
+    initMonaco(options: monaco.editor.IStandaloneEditorConstructionOptions, initEvent: boolean): void;
 }

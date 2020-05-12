@@ -63,11 +63,22 @@ var NU_MONACO_EDITOR_CONFIG = new InjectionToken('NU_MONACO_EDITOR_CONFIG');
  */
 function NuMonacoEditorConfig() { }
 if (false) {
-    /** @type {?|undefined} */
+    /**
+     * The base URL to monaco editor library assets via AMD (RequireJS), Default: `https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min`
+     * You can using local path, e.g.: `assets/monaco-editor/min`.
+     * @type {?|undefined}
+     */
     NuMonacoEditorConfig.prototype.baseUrl;
-    /** @type {?|undefined} */
+    /**
+     * Default options when creating editors
+     * @type {?|undefined}
+     */
     NuMonacoEditorConfig.prototype.defaultOptions;
-    /** @type {?|undefined} */
+    /**
+     * The event after the first loading of the monaco editor library is completed, use this function to extend monaco editor functionalities.
+     * - \@param `_monaco` equar to `window.monaco`
+     * @type {?|undefined}
+     */
     NuMonacoEditorConfig.prototype.monacoLoad;
 }
 
@@ -88,12 +99,24 @@ var NuMonacoEditorBase = /** @class */ (function () {
         this.el = el;
         this.doc = doc;
         this.ngZone = ngZone;
-        this.height = 200;
-        this.disabled = false;
+        this._disabled = false;
+        this.height = "200px";
         this.event = new EventEmitter();
         this._config = __assign({ baseUrl: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min' }, config);
         this.options = (/** @type {?} */ (this._config.defaultOptions));
     }
+    Object.defineProperty(NuMonacoEditorBase.prototype, "disabled", {
+        set: /**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            this._disabled = typeof val === 'string' ? true : val;
+            this.setDisabled();
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(NuMonacoEditorBase.prototype, "options", {
         get: /**
          * @return {?}
@@ -124,7 +147,11 @@ var NuMonacoEditorBase = /** @class */ (function () {
      * @return {?}
      */
     function (type, other) {
-        this.event.emit(__assign({ type: type, editor: (/** @type {?} */ (this._editor)) }, other));
+        var _this = this;
+        this.ngZone.run((/**
+         * @return {?}
+         */
+        function () { return _this.event.emit(__assign({ type: type, editor: (/** @type {?} */ (_this._editor)) }, other)); }));
     };
     /**
      * @protected
@@ -140,7 +167,7 @@ var NuMonacoEditorBase = /** @class */ (function () {
      */
     function () {
         if ((/** @type {?} */ (this))._editor) {
-            (/** @type {?} */ (this))._editor.updateOptions({ readOnly: (/** @type {?} */ (this)).disabled });
+            (/** @type {?} */ (this))._editor.updateOptions({ readOnly: (/** @type {?} */ (this))._disabled });
         }
         return (/** @type {?} */ (this));
     };
@@ -158,7 +185,7 @@ var NuMonacoEditorBase = /** @class */ (function () {
             loadPromise.then((/**
              * @return {?}
              */
-            function () { return _this.initMonaco(_this.options); }));
+            function () { return _this.initMonaco(_this.options, true); }));
             return;
         }
         loadedMonaco = true;
@@ -193,7 +220,7 @@ var NuMonacoEditorBase = /** @class */ (function () {
                     if (typeof _this._config.monacoLoad === 'function') {
                         _this._config.monacoLoad(win.monaco);
                     }
-                    _this.initMonaco(_this.options);
+                    _this.initMonaco(_this.options, true);
                     resolve();
                 }), (/**
                  * @return {?}
@@ -221,7 +248,7 @@ var NuMonacoEditorBase = /** @class */ (function () {
          * @param {?} error
          * @return {?}
          */
-        function (error) { return _this.event.emit({ type: 'load-error', error: error }); }));
+        function (error) { return _this.notifyEvent('load-error', { error: error }); }));
     };
     /**
      * @protected
@@ -268,6 +295,26 @@ var NuMonacoEditorBase = /** @class */ (function () {
         return (/** @type {?} */ (this));
     };
     /**
+     * @protected
+     * @return {?}
+     */
+    NuMonacoEditorBase.prototype.updateOptions = /**
+     * @protected
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (!this._editor)
+            return;
+        this.ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        function () {
+            (/** @type {?} */ (_this._editor)).dispose();
+            _this.initMonaco(_this._options, false);
+        }));
+    };
+    /**
      * @return {?}
      */
     NuMonacoEditorBase.prototype.ngAfterViewInit = /**
@@ -281,22 +328,14 @@ var NuMonacoEditorBase = /** @class */ (function () {
         function () { return _this.init(); }));
     };
     /**
-     * @param {?} changes
      * @return {?}
      */
     NuMonacoEditorBase.prototype.ngOnChanges = /**
-     * @param {?} changes
      * @return {?}
      */
-    function (changes) {
-        if (this._editor) {
-            if (Object.keys(changes).length === 1 && changes.disabled) {
-                this.setDisabled();
-                return;
-            }
-            this._editor.dispose();
-            this.initMonaco(this._options);
-        }
+    function () {
+        console.log('ngOnChanges');
+        this.updateOptions();
     };
     /**
      * @return {?}
@@ -347,10 +386,13 @@ if (false) {
      * @protected
      */
     NuMonacoEditorBase.prototype._config;
+    /**
+     * @type {?}
+     * @protected
+     */
+    NuMonacoEditorBase.prototype._disabled;
     /** @type {?} */
     NuMonacoEditorBase.prototype.height;
-    /** @type {?} */
-    NuMonacoEditorBase.prototype.disabled;
     /** @type {?} */
     NuMonacoEditorBase.prototype.event;
     /**
@@ -372,9 +414,10 @@ if (false) {
      * @abstract
      * @protected
      * @param {?} options
+     * @param {?} initEvent
      * @return {?}
      */
-    NuMonacoEditorBase.prototype.initMonaco = function (options) { };
+    NuMonacoEditorBase.prototype.initMonaco = function (options, initEvent) { };
 }
 
 /**
@@ -398,15 +441,27 @@ var NuMonacoEditorComponent = /** @class */ (function (_super) {
         function () { });
         return _this;
     }
+    Object.defineProperty(NuMonacoEditorComponent.prototype, "editor", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return (/** @type {?} */ (this._editor));
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @param {?} options
+     * @param {?} initEvent
      * @return {?}
      */
     NuMonacoEditorComponent.prototype.initMonaco = /**
      * @param {?} options
+     * @param {?} initEvent
      * @return {?}
      */
-    function (options) {
+    function (options, initEvent) {
         var _this = this;
         /** @type {?} */
         var hasModel = !!this.model;
@@ -422,6 +477,7 @@ var NuMonacoEditorComponent = /** @class */ (function (_super) {
                 options.model = monaco.editor.createModel(this._value, language, uri);
             }
         }
+        console.log(options.model);
         /** @type {?} */
         var editor = (this._editor = monaco.editor.create(this.el.nativeElement, options));
         if (!hasModel) {
@@ -445,7 +501,16 @@ var NuMonacoEditorComponent = /** @class */ (function (_super) {
          * @return {?}
          */
         function () { return _this.onTouched(); }));
-        this.registerResize().notifyEvent('init');
+        this.registerResize();
+        editor
+            .getAction('editor.action.formatDocument')
+            .run()
+            .then((/**
+         * @return {?}
+         */
+        function () {
+            _this.notifyEvent(initEvent ? 'init' : 're-init');
+        }));
     };
     /**
      * @param {?} value
@@ -499,9 +564,10 @@ var NuMonacoEditorComponent = /** @class */ (function (_super) {
         { type: Component, args: [{
                     selector: 'nu-monaco-editor',
                     template: "",
+                    exportAs: 'nuMonacoEditor',
                     host: {
                         '[style.display]': "'block'",
-                        '[style.height.px]': 'height',
+                        '[style.height]': 'height',
                     },
                     providers: [
                         {
@@ -551,18 +617,30 @@ var NuMonacoEditorDiffComponent = /** @class */ (function (_super) {
     function NuMonacoEditorDiffComponent() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Object.defineProperty(NuMonacoEditorDiffComponent.prototype, "editor", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return (/** @type {?} */ (this._editor));
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @param {?} options
+     * @param {?} initEvent
      * @return {?}
      */
     NuMonacoEditorDiffComponent.prototype.initMonaco = /**
      * @param {?} options
+     * @param {?} initEvent
      * @return {?}
      */
-    function (options) {
+    function (options, initEvent) {
         var _this = this;
         if (!this.old || !this.new) {
-            throw new Error('old or new not found for nu-monaco-editor-diff');
+            throw new Error('old or new not found for nu-monaco-diff-editor');
         }
         /** @type {?} */
         var theme = options.theme;
@@ -577,15 +655,18 @@ var NuMonacoEditorDiffComponent = /** @class */ (function (_super) {
          * @return {?}
          */
         function () { return _this.notifyEvent('update-diff', { diffValue: editor.getModifiedEditor().getValue() }); }));
-        this.registerResize().notifyEvent('init');
+        this.registerResize();
+        if (initEvent)
+            this.notifyEvent('init');
     };
     NuMonacoEditorDiffComponent.decorators = [
         { type: Component, args: [{
-                    selector: 'nu-monaco-editor-diff',
+                    selector: 'nu-monaco-diff-editor',
                     template: "",
+                    exportAs: 'nuMonacoDiffEditor',
                     host: {
                         '[style.display]': "'block'",
-                        '[style.height.px]': 'height',
+                        '[style.height]': 'height',
                     },
                     changeDetection: ChangeDetectionStrategy.OnPush
                 }] }
