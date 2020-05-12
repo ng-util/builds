@@ -213,12 +213,12 @@ class NuMonacoEditorBase {
                 const loaderScript = (/** @type {?} */ (this.doc.createElement('script')));
                 loaderScript.type = 'text/javascript';
                 loaderScript.src = `${baseUrl}/vs/loader.js`;
-                loaderScript.addEventListener('load', amdLoader);
-                loaderScript.addEventListener('error', (/**
+                loaderScript.onload = amdLoader;
+                loaderScript.onerror = (/**
                  * @return {?}
                  */
-                () => reject(`Unable to load ${loaderScript.src}, please check your network environment.`)));
-                this.doc.body.appendChild(loaderScript);
+                () => reject(`Unable to load ${loaderScript.src}, please check your network environment.`));
+                this.doc.getElementsByTagName('head')[0].appendChild(loaderScript);
             }
             else {
                 amdLoader();

@@ -234,12 +234,12 @@ var NuMonacoEditorBase = /** @class */ (function () {
                 var loaderScript_1 = (/** @type {?} */ (_this.doc.createElement('script')));
                 loaderScript_1.type = 'text/javascript';
                 loaderScript_1.src = baseUrl + "/vs/loader.js";
-                loaderScript_1.addEventListener('load', amdLoader);
-                loaderScript_1.addEventListener('error', (/**
+                loaderScript_1.onload = amdLoader;
+                loaderScript_1.onerror = (/**
                  * @return {?}
                  */
-                function () { return reject("Unable to load " + loaderScript_1.src + ", please check your network environment."); }));
-                _this.doc.body.appendChild(loaderScript_1);
+                function () { return reject("Unable to load " + loaderScript_1.src + ", please check your network environment."); });
+                _this.doc.getElementsByTagName('head')[0].appendChild(loaderScript_1);
             }
             else {
                 amdLoader();
