@@ -521,10 +521,7 @@ var NuMonacoEditorComponent = /** @class */ (function (_super) {
             .then((/**
          * @return {?}
          */
-        function () {
-            // this.setDisabled();
-            _this.notifyEvent(initEvent ? 'init' : 're-init');
-        }));
+        function () { return _this.notifyEvent(initEvent ? 'init' : 're-init'); }));
     };
     /**
      * @param {?} value

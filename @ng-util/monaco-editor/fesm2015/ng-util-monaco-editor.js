@@ -458,10 +458,7 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
             .then((/**
          * @return {?}
          */
-        () => {
-            // this.setDisabled();
-            this.notifyEvent(initEvent ? 'init' : 're-init');
-        }));
+        () => this.notifyEvent(initEvent ? 'init' : 're-init')));
     }
     /**
      * @param {?} value
