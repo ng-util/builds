@@ -114,8 +114,13 @@
         }
     }
 
+    function __createBinding(o, m, k, k2) {
+        if (k2 === undefined) k2 = k;
+        o[k2] = m[k];
+    }
+
     function __exportStar(m, exports) {
-        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+        for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) exports[p] = m[p];
     }
 
     function __values(o) {
@@ -321,6 +326,7 @@
             this.ngZone = ngZone;
             this._disabled = false;
             this.height = "200px";
+            this.delay = 0;
             this.event = new core.EventEmitter();
             this._config = __assign({ baseUrl: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min' }, config);
             this.options = (/** @type {?} */ (this._config.defaultOptions));
@@ -545,7 +551,10 @@
             this.ngZone.runOutsideAngular((/**
              * @return {?}
              */
-            function () { return _this.init(); }));
+            function () { return setTimeout((/**
+             * @return {?}
+             */
+            function () { return _this.init(); }), +_this.delay); }));
         };
         /**
          * @param {?} changes
@@ -584,6 +593,7 @@
         ]; };
         NuMonacoEditorBase.propDecorators = {
             height: [{ type: core.Input }],
+            delay: [{ type: core.Input }],
             disabled: [{ type: core.Input }],
             options: [{ type: core.Input }],
             event: [{ type: core.Output }]
@@ -618,6 +628,8 @@
         NuMonacoEditorBase.prototype._disabled;
         /** @type {?} */
         NuMonacoEditorBase.prototype.height;
+        /** @type {?} */
+        NuMonacoEditorBase.prototype.delay;
         /** @type {?} */
         NuMonacoEditorBase.prototype.event;
         /**
