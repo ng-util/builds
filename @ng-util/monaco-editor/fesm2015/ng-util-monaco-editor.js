@@ -108,7 +108,6 @@ class NuMonacoEditorBase {
         this.ngZone = ngZone;
         this._disabled = false;
         this.height = `200px`;
-        this.delay = 0;
         this.event = new EventEmitter();
         this._config = Object.assign({ baseUrl: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min' }, config);
         this.options = (/** @type {?} */ (this._config.defaultOptions));
@@ -285,10 +284,7 @@ class NuMonacoEditorBase {
         this.ngZone.runOutsideAngular((/**
          * @return {?}
          */
-        () => setTimeout((/**
-         * @return {?}
-         */
-        () => this.init()), +this.delay)));
+        () => this.init()));
     }
     /**
      * @param {?} changes
@@ -321,7 +317,6 @@ NuMonacoEditorBase.ctorParameters = () => [
 ];
 NuMonacoEditorBase.propDecorators = {
     height: [{ type: Input }],
-    delay: [{ type: Input }],
     disabled: [{ type: Input }],
     options: [{ type: Input }],
     event: [{ type: Output }]
@@ -354,8 +349,6 @@ if (false) {
     NuMonacoEditorBase.prototype._disabled;
     /** @type {?} */
     NuMonacoEditorBase.prototype.height;
-    /** @type {?} */
-    NuMonacoEditorBase.prototype.delay;
     /** @type {?} */
     NuMonacoEditorBase.prototype.event;
     /**
@@ -458,7 +451,10 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
             .then((/**
          * @return {?}
          */
-        () => this.notifyEvent(initEvent ? 'init' : 're-init')));
+        () => {
+            // this.setDisabled();
+            this.notifyEvent(initEvent ? 'init' : 're-init');
+        }));
     }
     /**
      * @param {?} value

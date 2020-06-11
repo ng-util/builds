@@ -1,5 +1,5 @@
 {
-  "name": "@ng-util/lazy",
+  "name": "@ng-util/util",
   "version": "9.1.1",
   "author": "cipchk<cipchk@qq.com>",
   "license": "MIT",
@@ -14,20 +14,18 @@
   "keywords": [
     "angular",
     "util",
-    "Angular utilities",
-    "lazy",
-    "load"
+    "Angular utilities"
   ],
   "sideEffects": false,
-  "main": "bundles/ng-util-lazy.umd.js",
-  "module": "fesm5/ng-util-lazy.js",
-  "es2015": "fesm2015/ng-util-lazy.js",
-  "esm5": "esm5/ng-util-lazy.js",
-  "esm2015": "esm2015/ng-util-lazy.js",
-  "fesm5": "fesm5/ng-util-lazy.js",
-  "fesm2015": "fesm2015/ng-util-lazy.js",
-  "typings": "ng-util-lazy.d.ts",
-  "metadata": "ng-util-lazy.metadata.json",
+  "main": "bundles/ng-util-util.umd.js",
+  "module": "fesm5/ng-util-util.js",
+  "es2015": "fesm2015/ng-util-util.js",
+  "esm5": "esm5/ng-util-util.js",
+  "esm2015": "esm2015/ng-util-util.js",
+  "fesm5": "fesm5/ng-util-util.js",
+  "fesm2015": "fesm2015/ng-util-util.js",
+  "typings": "ng-util-util.d.ts",
+  "metadata": "ng-util-util.metadata.json",
   "dependencies": {
     "tslib": "^1.10.0"
   }

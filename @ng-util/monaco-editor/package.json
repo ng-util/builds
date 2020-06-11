@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/ng-util/ng-util/issues"
   },
-  "homepage": "https://github.com/ng-util/ng-util/tree/master/packages/monaco-editor",
+  "homepage": "https://github.com/ng-util/ng-util",
   "keywords": [
     "angular",
     "util",
@@ -29,7 +29,7 @@
   "fesm2015": "fesm2015/ng-util-monaco-editor.js",
   "typings": "ng-util-monaco-editor.d.ts",
   "metadata": "ng-util-monaco-editor.metadata.json",
-  "peerDependencies": {
+  "dependencies": {
     "tslib": "^1.10.0"
   }
 }

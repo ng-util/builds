@@ -12,7 +12,6 @@ export declare abstract class NuMonacoEditorBase implements AfterViewInit, OnCha
     protected _config: NuMonacoEditorConfig;
     protected _disabled: boolean;
     height: string;
-    delay: number;
     set disabled(val: boolean | string);
     set options(val: monaco.editor.IStandaloneEditorConstructionOptions);
     get options(): monaco.editor.IStandaloneEditorConstructionOptions;
