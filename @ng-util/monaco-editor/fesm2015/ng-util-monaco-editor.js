@@ -1,4 +1,4 @@
-import { InjectionToken, EventEmitter, ElementRef, Inject, NgZone, Input, Output, Component, forwardRef, ChangeDetectionStrategy, NgModule } from '@angular/core';
+import { InjectionToken, EventEmitter, Component, ElementRef, Inject, NgZone, Input, Output, forwardRef, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { fromEvent } from 'rxjs';
@@ -95,6 +95,7 @@ let loadPromise;
 /**
  * @abstract
  */
+// tslint:disable-next-line: component-class-suffix
 class NuMonacoEditorBase {
     /**
      * @param {?} el
@@ -312,6 +313,12 @@ class NuMonacoEditorBase {
         }
     }
 }
+NuMonacoEditorBase.decorators = [
+    { type: Component, args: [{
+                selector: 'nu-monaco-base',
+                template: ``
+            }] }
+];
 /** @nocollapse */
 NuMonacoEditorBase.ctorParameters = () => [
     { type: ElementRef },

@@ -21,15 +21,13 @@
   ],
   "sideEffects": false,
   "main": "bundles/ng-util-monaco-editor.umd.js",
-  "module": "fesm5/ng-util-monaco-editor.js",
+  "module": "fesm2015/ng-util-monaco-editor.js",
   "es2015": "fesm2015/ng-util-monaco-editor.js",
-  "esm5": "esm5/ng-util-monaco-editor.js",
   "esm2015": "esm2015/ng-util-monaco-editor.js",
-  "fesm5": "fesm5/ng-util-monaco-editor.js",
   "fesm2015": "fesm2015/ng-util-monaco-editor.js",
   "typings": "ng-util-monaco-editor.d.ts",
   "metadata": "ng-util-monaco-editor.metadata.json",
   "dependencies": {
-    "tslib": "^1.10.0"
+    "tslib": "^2.0.0"
   }
 }

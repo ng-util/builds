@@ -39,17 +39,17 @@
                 writable: true,
             });
             return {
-                get: /**
+                /**
                  * @return {?}
                  */
-                function () {
+                get: function () {
                     return originalDescriptor && originalDescriptor.get ? originalDescriptor.get.bind(this)() : this[privatePropName];
                 },
-                set: /**
+                /**
                  * @param {?} value
                  * @return {?}
                  */
-                function (value) {
+                set: function (value) {
                     if (originalDescriptor && originalDescriptor.set) {
                         originalDescriptor.set.bind(this)(fallback(value, defaultValue));
                     }
@@ -88,7 +88,7 @@
      */
     function toNumber(value, fallbackValue) {
         if (fallbackValue === void 0) { fallbackValue = 0; }
-        return !isNaN(parseFloat((/** @type {?} */ (value)))) && !isNaN(Number(value)) ? Number(value) : fallbackValue;
+        return !isNaN(parseFloat(( /** @type {?} */(value)))) && !isNaN(Number(value)) ? Number(value) : fallbackValue;
     }
     /**
      * Input decorator that handle a prop to do get/set automatically with toNumber
@@ -103,6 +103,30 @@
         if (defaultValue === void 0) { defaultValue = 0; }
         return propDecoratorFactory('InputNumber', toNumber, defaultValue);
     }
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: convert/public-api.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: convert/index.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: util.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: ng-util-util.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
 
     exports.InputBoolean = InputBoolean;
     exports.InputNumber = InputNumber;
