@@ -1,5 +1,5 @@
 /**
- * @license ng-util(cipchk@qq.com) v10.1.0-rc.1
+ * @license ng-util(cipchk@qq.com) v10.1.0-rc.2
  * (c) 2020 cipchk https://github.com/ng-util
  * License: MIT
  */
@@ -693,6 +693,12 @@
                     exports: COMPONENTS,
                 },] }
     ];
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: public-api.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
 
     /**
      * @fileoverview added by tsickle

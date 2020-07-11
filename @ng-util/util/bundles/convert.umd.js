@@ -1,17 +1,17 @@
 /**
- * @license ng-util(cipchk@qq.com) v10.1.0-rc.1
+ * @license ng-util(cipchk@qq.com) v10.1.0-rc.2
  * (c) 2020 cipchk https://github.com/ng-util
  * License: MIT
  */
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define('@ng-util/util', ['exports'], factory) :
-    (global = global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].util = {})));
+    typeof define === 'function' && define.amd ? define('@ng-util/util/convert', ['exports'], factory) :
+    (global = global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].util = global['ng-util'].util || {}, global['ng-util'].util.convert = {})));
 }(this, (function (exports) { 'use strict';
 
     /**
      * @fileoverview added by tsickle
-     * Generated from: convert/convert.ts
+     * Generated from: prop.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /**
@@ -106,25 +106,13 @@
 
     /**
      * @fileoverview added by tsickle
-     * Generated from: convert/public-api.ts
+     * Generated from: public-api.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
 
     /**
      * @fileoverview added by tsickle
-     * Generated from: convert/index.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: util.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: ng-util-util.ts
+     * Generated from: convert.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
 
@@ -136,4 +124,4 @@
     Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
-//# sourceMappingURL=ng-util-util.umd.js.map
+//# sourceMappingURL=convert.umd.js.map

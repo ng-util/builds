@@ -1,6 +1,6 @@
 {
   "name": "@ng-util/util",
-  "version": "10.1.0-rc.1",
+  "version": "10.1.0-rc.2",
   "author": "cipchk<cipchk@qq.com>",
   "license": "MIT",
   "repository": {
@@ -17,13 +17,13 @@
     "Angular utilities"
   ],
   "sideEffects": false,
-  "main": "bundles/ng-util-util.umd.js",
-  "module": "fesm2015/ng-util-util.js",
-  "es2015": "fesm2015/ng-util-util.js",
-  "esm2015": "esm2015/ng-util-util.js",
-  "fesm2015": "fesm2015/ng-util-util.js",
-  "typings": "ng-util-util.d.ts",
-  "metadata": "ng-util-util.metadata.json",
+  "main": "bundles/util.umd.js",
+  "module": "fesm2015/util.js",
+  "es2015": "fesm2015/util.js",
+  "esm2015": "esm2015/util.js",
+  "fesm2015": "fesm2015/util.js",
+  "typings": "util.d.ts",
+  "metadata": "util.metadata.json",
   "dependencies": {
     "tslib": "^2.0.0"
   }

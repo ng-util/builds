@@ -1,6 +1,6 @@
 {
   "name": "@ng-util/markdown",
-  "version": "10.1.0-rc.1",
+  "version": "10.1.0-rc.2",
   "author": "cipchk<cipchk@qq.com>",
   "description": "Vditor for Angular",
   "license": "MIT",
@@ -19,7 +19,9 @@
     "markdown",
     "Vditor"
   ],
-  "sideEffects": false,
+  "peerDependencies": {
+    "@ng-util/util": "^10.0.0"
+  },
   "main": "bundles/ng-util-markdown.umd.js",
   "module": "fesm2015/ng-util-markdown.js",
   "es2015": "fesm2015/ng-util-markdown.js",
@@ -27,6 +29,7 @@
   "fesm2015": "fesm2015/ng-util-markdown.js",
   "typings": "ng-util-markdown.d.ts",
   "metadata": "ng-util-markdown.metadata.json",
+  "sideEffects": false,
   "dependencies": {
     "tslib": "^2.0.0"
   }
