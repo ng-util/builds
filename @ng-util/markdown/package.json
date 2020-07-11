@@ -1,0 +1,33 @@
+{
+  "name": "@ng-util/markdown",
+  "version": "10.1.0-rc.1",
+  "author": "cipchk<cipchk@qq.com>",
+  "description": "Vditor for Angular",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ng-util/ng-util.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ng-util/ng-util/issues"
+  },
+  "homepage": "https://github.com/ng-util/ng-util/tree/master/packages/markdown",
+  "keywords": [
+    "angular",
+    "util",
+    "Angular utilities",
+    "markdown",
+    "Vditor"
+  ],
+  "sideEffects": false,
+  "main": "bundles/ng-util-markdown.umd.js",
+  "module": "fesm2015/ng-util-markdown.js",
+  "es2015": "fesm2015/ng-util-markdown.js",
+  "esm2015": "esm2015/ng-util-markdown.js",
+  "fesm2015": "fesm2015/ng-util-markdown.js",
+  "typings": "ng-util-markdown.d.ts",
+  "metadata": "ng-util-markdown.metadata.json",
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
+}
