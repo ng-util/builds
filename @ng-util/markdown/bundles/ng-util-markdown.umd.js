@@ -4,10 +4,10 @@
  * License: MIT
  */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('@ng-util/util/convert'), require('@ng-util/lazy'), require('rxjs'), require('rxjs/operators'), require('@angular/common')) :
-    typeof define === 'function' && define.amd ? define('@ng-util/markdown', ['exports', '@angular/core', '@angular/forms', '@ng-util/util/convert', '@ng-util/lazy', 'rxjs', 'rxjs/operators', '@angular/common'], factory) :
-    (global = global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].markdown = {}), global.ng.core, global.ng.forms, global['@ng-util/util/convert'], global['@ng-util/lazy'], global.rxjs, global.rxjs.operators, global.ng.common));
-}(this, (function (exports, i0, forms, convert, i2, rxjs, operators, common) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('@ng-util/util/convert'), require('@ng-util/lazy'), require('rxjs'), require('@angular/common')) :
+    typeof define === 'function' && define.amd ? define('@ng-util/markdown', ['exports', '@angular/core', '@angular/forms', '@ng-util/util/convert', '@ng-util/lazy', 'rxjs', '@angular/common'], factory) :
+    (global = global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].markdown = {}), global.ng.core, global.ng.forms, global['@ng-util/util/convert'], global['@ng-util/lazy'], global.rxjs, global.ng.common));
+}(this, (function (exports, i0, forms, convert, i2, rxjs, common) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -380,25 +380,14 @@
             ( /** @type {?} */(this)).loading = true;
             /** @type {?} */
             var libs = ( /** @type {?} */(( /** @type {?} */(this)).libs));
-            ( /** @type {?} */(this)).lazySrv.change
-                .pipe(operators.filter(( /**
-         * @param {?} ls
-         * @return {?}
-         */function (/**
-         * @param {?} ls
-         * @return {?}
-         */ ls) {
-                return ls.length === libs.length && ls.some(( /**
-                 * @param {?} v
-                 * @return {?}
-                 */function (/**
-                 * @param {?} v
-                 * @return {?}
-                 */ v) { return v.status === 'ok' && libs.includes(v.path); }));
-            })))
+            ( /** @type {?} */(this)).lazySrv
+                .monitor(libs)
                 .subscribe(( /**
          * @return {?}
-         */function () { return ( /** @type {?} */(_this)).notify$.next(); }));
+         */function () { return ( /** @type {?} */(_this)).notify$.next(); }))
+                .add(( /**
+         * @return {?}
+         */function () { return (( /** @type {?} */(_this)).loaded = true); }));
             ( /** @type {?} */(this)).lazySrv.load(libs);
             return ( /** @type {?} */(this));
         };

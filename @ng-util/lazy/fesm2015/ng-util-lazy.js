@@ -1,6 +1,7 @@
+import { __awaiter } from 'tslib';
 import { DOCUMENT } from '@angular/common';
 import { Injectable, Inject, ɵɵdefineInjectable, ɵɵinject } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, pipe } from 'rxjs';
 import { share, filter } from 'rxjs/operators';
 
 /**
@@ -31,6 +32,7 @@ class NuLazyService {
         this._notify = new BehaviorSubject([]);
     }
     /**
+     * @deprecated Use `monitor()` method instead, removed it in `11.0.0`
      * @return {?}
      */
     get change() {
@@ -41,6 +43,46 @@ class NuLazyService {
         ls => ls.length !== 0)));
     }
     /**
+     * @private
+     * @param {?=} paths
+     * @return {?}
+     */
+    fixPaths(paths) {
+        if (typeof paths === 'string') {
+            paths = [paths];
+        }
+        return (/** @type {?} */ (paths)) || [];
+    }
+    /**
+     * Monitor for the finished of `paths`
+     *
+     * - It's recommended to pass the value in accordance with the `load()` method
+     * @param {?=} paths
+     * @return {?}
+     */
+    monitor(paths) {
+        /** @type {?} */
+        const libs = this.fixPaths(paths);
+        /** @type {?} */
+        const pipes = [share(), filter((/**
+             * @param {?} ls
+             * @return {?}
+             */
+            (ls) => ls.length !== 0))];
+        if (libs.length > 0) {
+            pipes.push(filter((/**
+             * @param {?} ls
+             * @return {?}
+             */
+            (ls) => ls.length === libs.length && ls.some((/**
+             * @param {?} v
+             * @return {?}
+             */
+            v => v.status === 'ok' && libs.includes(v.path))))));
+        }
+        return this._notify.asObservable().pipe(pipe.apply(this, pipes));
+    }
+    /**
      * @return {?}
      */
     clear() {
@@ -48,35 +90,29 @@ class NuLazyService {
         this.cached = {};
     }
     /**
+     * Load the specified resources, includes `.js`, `.css`
+     *
+     * - The returned Promise does not mean that it was successfully loaded
+     * - You can monitor load is success via `monitor()`
      * @param {?} paths
      * @return {?}
      */
     load(paths) {
-        if (!Array.isArray(paths)) {
-            paths = [paths];
-        }
-        /** @type {?} */
-        const promises = [];
-        paths.forEach((/**
-         * @param {?} path
-         * @return {?}
-         */
-        path => {
-            if (path.endsWith('.js')) {
-                promises.push(this.loadScript(path));
-            }
-            else {
-                promises.push(this.loadStyle(path));
-            }
-        }));
-        return Promise.all(promises).then((/**
-         * @param {?} res
-         * @return {?}
-         */
-        res => {
-            this._notify.next(res);
-            return Promise.resolve(res);
-        }));
+        return __awaiter(this, void 0, void 0, function* () {
+            paths = this.fixPaths(paths);
+            return Promise.all(paths.map((/**
+             * @param {?} path
+             * @return {?}
+             */
+            path => (path.endsWith('.js') ? this.loadScript(path) : this.loadStyle(path))))).then((/**
+             * @param {?} res
+             * @return {?}
+             */
+            res => {
+                this._notify.next(res);
+                return Promise.resolve(res);
+            }));
+        });
     }
     /**
      * @param {?} path

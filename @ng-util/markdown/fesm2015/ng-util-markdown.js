@@ -4,7 +4,6 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputNumber } from '@ng-util/util/convert';
 import { NuLazyService } from '@ng-util/lazy';
 import { Subject } from 'rxjs';
-import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -72,22 +71,16 @@ class NuMarkdownService {
         (/** @type {?} */ (this)).loading = true;
         /** @type {?} */
         const libs = (/** @type {?} */ ((/** @type {?} */ (this)).libs));
-        (/** @type {?} */ (this)).lazySrv.change
-            .pipe(filter((/**
-         * @param {?} ls
-         * @return {?}
-         */
-        ls => {
-            return ls.length === libs.length && ls.some((/**
-             * @param {?} v
-             * @return {?}
-             */
-            v => v.status === 'ok' && libs.includes(v.path)));
-        })))
+        (/** @type {?} */ (this)).lazySrv
+            .monitor(libs)
             .subscribe((/**
          * @return {?}
          */
-        () => (/** @type {?} */ (this)).notify$.next()));
+        () => (/** @type {?} */ (this)).notify$.next()))
+            .add((/**
+         * @return {?}
+         */
+        () => ((/** @type {?} */ (this)).loaded = true)));
         (/** @type {?} */ (this)).lazySrv.load(libs);
         return (/** @type {?} */ (this));
     }
