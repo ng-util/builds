@@ -71,16 +71,13 @@ class NuMarkdownService {
         (/** @type {?} */ (this)).loading = true;
         /** @type {?} */
         const libs = (/** @type {?} */ ((/** @type {?} */ (this)).libs));
-        (/** @type {?} */ (this)).lazySrv
-            .monitor(libs)
-            .subscribe((/**
+        (/** @type {?} */ (this)).lazySrv.monitor(libs).subscribe((/**
          * @return {?}
          */
-        () => (/** @type {?} */ (this)).notify$.next()))
-            .add((/**
-         * @return {?}
-         */
-        () => ((/** @type {?} */ (this)).loaded = true)));
+        () => {
+            (/** @type {?} */ (this)).loaded = true;
+            (/** @type {?} */ (this)).notify$.next();
+        }));
         (/** @type {?} */ (this)).lazySrv.load(libs);
         return (/** @type {?} */ (this));
     }

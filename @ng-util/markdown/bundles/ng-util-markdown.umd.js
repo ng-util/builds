@@ -1,5 +1,5 @@
 /**
- * @license ng-util(cipchk@qq.com) v10.2.0
+ * @license ng-util(cipchk@qq.com) v10.2.1
  * (c) 2020 cipchk https://github.com/ng-util
  * License: MIT
  */
@@ -380,14 +380,12 @@
             ( /** @type {?} */(this)).loading = true;
             /** @type {?} */
             var libs = ( /** @type {?} */(( /** @type {?} */(this)).libs));
-            ( /** @type {?} */(this)).lazySrv
-                .monitor(libs)
-                .subscribe(( /**
-         * @return {?}
-         */function () { return ( /** @type {?} */(_this)).notify$.next(); }))
-                .add(( /**
-         * @return {?}
-         */function () { return (( /** @type {?} */(_this)).loaded = true); }));
+            ( /** @type {?} */(this)).lazySrv.monitor(libs).subscribe(( /**
+             * @return {?}
+             */function () {
+                ( /** @type {?} */(_this)).loaded = true;
+                ( /** @type {?} */(_this)).notify$.next();
+            }));
             ( /** @type {?} */(this)).lazySrv.load(libs);
             return ( /** @type {?} */(this));
         };
