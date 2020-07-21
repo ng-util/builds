@@ -92,9 +92,6 @@ if (false) {
 let loadedMonaco = false;
 /** @type {?} */
 let loadPromise;
-/**
- * @abstract
- */
 // tslint:disable-next-line: component-class-suffix
 class NuMonacoEditorBase {
     /**
@@ -135,6 +132,13 @@ class NuMonacoEditorBase {
     get options() {
         return this._options;
     }
+    /**
+     * @protected
+     * @param {?} _options
+     * @param {?} _initEvent
+     * @return {?}
+     */
+    initMonaco(_options, _initEvent) { }
     /**
      * @protected
      * @param {?} type
@@ -380,14 +384,6 @@ if (false) {
      * @protected
      */
     NuMonacoEditorBase.prototype.ngZone;
-    /**
-     * @abstract
-     * @protected
-     * @param {?} options
-     * @param {?} initEvent
-     * @return {?}
-     */
-    NuMonacoEditorBase.prototype.initMonaco = function (options, initEvent) { };
 }
 
 /**
@@ -630,7 +626,7 @@ class NuMonacoEditorModule {
 NuMonacoEditorModule.decorators = [
     { type: NgModule, args: [{
                 imports: [CommonModule],
-                declarations: COMPONENTS,
+                declarations: [NuMonacoEditorBase, ...COMPONENTS],
                 exports: COMPONENTS,
             },] }
 ];

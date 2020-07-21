@@ -1,5 +1,5 @@
 /**
- * @license ng-util(cipchk@qq.com) v10.2.1
+ * @license ng-util(cipchk@qq.com) v10.2.2
  * (c) 2020 cipchk https://github.com/ng-util
  * License: MIT
  */
@@ -350,9 +350,6 @@
     var loadedMonaco = false;
     /** @type {?} */
     var loadPromise;
-    /**
-     * @abstract
-     */
     // tslint:disable-next-line: component-class-suffix
     var NuMonacoEditorBase = /** @class */ (function () {
         /**
@@ -401,6 +398,13 @@
             enumerable: false,
             configurable: true
         });
+        /**
+         * @protected
+         * @param {?} _options
+         * @param {?} _initEvent
+         * @return {?}
+         */
+        NuMonacoEditorBase.prototype.initMonaco = function (_options, _initEvent) { };
         /**
          * @protected
          * @param {?} type
@@ -643,14 +647,6 @@
          * @protected
          */
         NuMonacoEditorBase.prototype.ngZone;
-        /**
-         * @abstract
-         * @protected
-         * @param {?} options
-         * @param {?} initEvent
-         * @return {?}
-         */
-        NuMonacoEditorBase.prototype.initMonaco = function (options, initEvent) { };
     }
 
     var NuMonacoEditorComponent = /** @class */ (function (_super) {
@@ -871,11 +867,6 @@
         NuMonacoEditorDiffComponent.prototype.new;
     }
 
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: monaco-editor.module.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
     /** @type {?} */
     var COMPONENTS = [NuMonacoEditorComponent, NuMonacoEditorDiffComponent];
     var NuMonacoEditorModule = /** @class */ (function () {
@@ -896,7 +887,7 @@
     NuMonacoEditorModule.decorators = [
         { type: core.NgModule, args: [{
                     imports: [common.CommonModule],
-                    declarations: COMPONENTS,
+                    declarations: __spread([NuMonacoEditorBase], COMPONENTS),
                     exports: COMPONENTS,
                 },] }
     ];
