@@ -2,5 +2,7 @@
  * Generated bundle index. Do not edit.
  */
 export * from './public-api';
-export { NU_MARKDOWN_CONFIG as ɵa, NuMarkdownConfig as ɵb } from './markdown.config';
-export { NuMarkdownService as ɵc } from './markdown.service';
+export { NuMarkdownBaseComponent as ɵa } from './markdown-base.component';
+export { NuMarkdownPreviewComponent as ɵe } from './markdown-preview.component';
+export { NU_MARKDOWN_CONFIG as ɵb, NuMarkdownConfig as ɵc } from './markdown.config';
+export { NuMarkdownService as ɵd } from './markdown.service';

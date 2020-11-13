@@ -1,6 +1,6 @@
-import { __decorate, __metadata } from 'tslib';
-import { InjectionToken, Injectable, Inject, ɵɵdefineInjectable, ɵɵinject, EventEmitter, Component, forwardRef, ChangeDetectionStrategy, ElementRef, NgZone, Input, Output, NgModule } from '@angular/core';
+import { InjectionToken, Injectable, Inject, ɵɵdefineInjectable, ɵɵinject, Directive, ElementRef, NgZone, Input, EventEmitter, Component, forwardRef, ChangeDetectionStrategy, Output, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { __decorate, __metadata, __awaiter } from 'tslib';
 import { InputNumber } from '@ng-util/util/convert';
 import { NuLazyService } from '@ng-util/lazy';
 import { Subject } from 'rxjs';
@@ -121,10 +121,13 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: markdown.component.ts
+ * Generated from: markdown-base.component.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class NuMarkdownComponent {
+/**
+ * @abstract
+ */
+class NuMarkdownBaseComponent {
     /**
      * @param {?} el
      * @param {?} config
@@ -136,12 +139,6 @@ class NuMarkdownComponent {
         this.config = config;
         this.srv = srv;
         this.ngZone = ngZone;
-        this.ready = new EventEmitter();
-        this.onChange = (/**
-         * @param {?} _
-         * @return {?}
-         */
-        (_) => { });
         this.notify$ = this.srv.notify.subscribe((/**
          * @return {?}
          */
@@ -164,7 +161,104 @@ class NuMarkdownComponent {
         () => this.init()), this.delay);
     }
     /**
+     * @protected
+     * @return {?}
+     */
+    get loaded() {
+        return !!((/** @type {?} */ (window))).Vditor;
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewInit() {
+        if (this.loaded) {
+            this.initDelay();
+            return;
+        }
+        this.srv.load();
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this.notify$.unsubscribe();
+    }
+}
+NuMarkdownBaseComponent.decorators = [
+    { type: Directive }
+];
+/** @nocollapse */
+NuMarkdownBaseComponent.ctorParameters = () => [
+    { type: ElementRef },
+    { type: undefined, decorators: [{ type: Inject, args: [NU_MARKDOWN_CONFIG,] }] },
+    { type: NuMarkdownService },
+    { type: NgZone }
+];
+NuMarkdownBaseComponent.propDecorators = {
+    delay: [{ type: Input }]
+};
+__decorate([
+    InputNumber(),
+    __metadata("design:type", Number)
+], NuMarkdownBaseComponent.prototype, "delay", void 0);
+if (false) {
+    /**
+     * @type {?}
      * @private
+     */
+    NuMarkdownBaseComponent.prototype.notify$;
+    /**
+     * @type {?}
+     * @protected
+     */
+    NuMarkdownBaseComponent.prototype._instance;
+    /** @type {?} */
+    NuMarkdownBaseComponent.prototype.delay;
+    /**
+     * @type {?}
+     * @protected
+     */
+    NuMarkdownBaseComponent.prototype.el;
+    /**
+     * @type {?}
+     * @protected
+     */
+    NuMarkdownBaseComponent.prototype.config;
+    /**
+     * @type {?}
+     * @protected
+     */
+    NuMarkdownBaseComponent.prototype.srv;
+    /**
+     * @type {?}
+     * @protected
+     */
+    NuMarkdownBaseComponent.prototype.ngZone;
+    /**
+     * @abstract
+     * @protected
+     * @return {?}
+     */
+    NuMarkdownBaseComponent.prototype.init = function () { };
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: markdown.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class NuMarkdownComponent extends NuMarkdownBaseComponent {
+    constructor() {
+        super(...arguments);
+        this.ready = new EventEmitter();
+        this.onChange = (/**
+         * @param {?} _
+         * @return {?}
+         */
+        (_) => { });
+    }
+    /**
+     * @protected
      * @return {?}
      */
     init() {
@@ -190,7 +284,10 @@ class NuMarkdownComponent {
                     }));
                 }) }, (_a = this.config) === null || _a === void 0 ? void 0 : _a.defaultOptions), this.options);
             this._instance = new Vditor(this.el.nativeElement, options);
-            this.ready.emit(this._instance);
+            this.ngZone.run((/**
+             * @return {?}
+             */
+            () => this.ready.emit(this._instance)));
         }));
     }
     /**
@@ -238,22 +335,6 @@ class NuMarkdownComponent {
         this.disabled = _isDisabled;
         this.setDisabled();
     }
-    /**
-     * @return {?}
-     */
-    ngAfterViewInit() {
-        if (((/** @type {?} */ (window))).QRious) {
-            this.initDelay();
-            return;
-        }
-        this.srv.load();
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this.notify$.unsubscribe();
-    }
 }
 NuMarkdownComponent.decorators = [
     { type: Component, args: [{
@@ -273,34 +354,12 @@ NuMarkdownComponent.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush
             }] }
 ];
-/** @nocollapse */
-NuMarkdownComponent.ctorParameters = () => [
-    { type: ElementRef },
-    { type: undefined, decorators: [{ type: Inject, args: [NU_MARKDOWN_CONFIG,] }] },
-    { type: NuMarkdownService },
-    { type: NgZone }
-];
 NuMarkdownComponent.propDecorators = {
     options: [{ type: Input }],
     disabled: [{ type: Input }],
-    delay: [{ type: Input }],
     ready: [{ type: Output }]
 };
-__decorate([
-    InputNumber(),
-    __metadata("design:type", Number)
-], NuMarkdownComponent.prototype, "delay", void 0);
 if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    NuMarkdownComponent.prototype.notify$;
-    /**
-     * @type {?}
-     * @private
-     */
-    NuMarkdownComponent.prototype._instance;
     /**
      * @type {?}
      * @private
@@ -311,34 +370,78 @@ if (false) {
     /** @type {?} */
     NuMarkdownComponent.prototype.disabled;
     /** @type {?} */
-    NuMarkdownComponent.prototype.delay;
-    /** @type {?} */
     NuMarkdownComponent.prototype.ready;
     /**
      * @type {?}
      * @private
      */
     NuMarkdownComponent.prototype.onChange;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: markdown-preview.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class NuMarkdownPreviewComponent extends NuMarkdownBaseComponent {
+    constructor() {
+        super(...arguments);
+        this.ready = new EventEmitter();
+    }
     /**
-     * @type {?}
-     * @protected
+     * @param {?} v
+     * @return {?}
      */
-    NuMarkdownComponent.prototype.el;
+    set value(v) {
+        this._value = v;
+        if (this.loaded) {
+            this.init();
+        }
+    }
+    /**
+     * @protected
+     * @return {?}
+     */
+    init() {
+        this.ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        () => __awaiter(this, void 0, void 0, function* () {
+            yield Vditor.preview(this.el.nativeElement, this._value);
+            console.log(this.el.nativeElement.innerHTML);
+            this.ngZone.run((/**
+             * @return {?}
+             */
+            () => this.ready.emit(this.el.nativeElement.innerHTML)));
+        })));
+    }
+}
+NuMarkdownPreviewComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'nu-markdown-preview',
+                template: `{{ value }}`,
+                exportAs: 'nuMarkdownPreview',
+                changeDetection: ChangeDetectionStrategy.OnPush
+            }] }
+];
+NuMarkdownPreviewComponent.propDecorators = {
+    value: [{ type: Input }],
+    options: [{ type: Input }],
+    disabled: [{ type: Input }],
+    ready: [{ type: Output }]
+};
+if (false) {
     /**
      * @type {?}
      * @private
      */
-    NuMarkdownComponent.prototype.config;
-    /**
-     * @type {?}
-     * @private
-     */
-    NuMarkdownComponent.prototype.srv;
-    /**
-     * @type {?}
-     * @protected
-     */
-    NuMarkdownComponent.prototype.ngZone;
+    NuMarkdownPreviewComponent.prototype._value;
+    /** @type {?} */
+    NuMarkdownPreviewComponent.prototype.options;
+    /** @type {?} */
+    NuMarkdownPreviewComponent.prototype.disabled;
+    /** @type {?} */
+    NuMarkdownPreviewComponent.prototype.ready;
 }
 
 /**
@@ -347,7 +450,7 @@ if (false) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const COMPONENTS = [NuMarkdownComponent];
+const COMPONENTS = [NuMarkdownComponent, NuMarkdownPreviewComponent];
 class NuMarkdownModule {
     /**
      * @param {?=} config
@@ -380,5 +483,5 @@ NuMarkdownModule.decorators = [
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { NuMarkdownComponent, NuMarkdownModule, NU_MARKDOWN_CONFIG as ɵa, NuMarkdownService as ɵc };
+export { NuMarkdownComponent, NuMarkdownModule, NuMarkdownBaseComponent as ɵa, NU_MARKDOWN_CONFIG as ɵb, NuMarkdownService as ɵd, NuMarkdownPreviewComponent as ɵe };
 //# sourceMappingURL=ng-util-markdown.js.map
