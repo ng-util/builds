@@ -7,7 +7,7 @@ import { debounceTime } from 'rxjs/operators';
 /**
  * @fileoverview added by tsickle
  * Generated from: monaco-editor.types.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /// <reference path="./monaco.d.ts" />
 // tslint:disable-next-line: no-reference
@@ -55,7 +55,7 @@ if (false) {
 /**
  * @fileoverview added by tsickle
  * Generated from: monaco-editor.config.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const NU_MONACO_EDITOR_CONFIG = new InjectionToken('NU_MONACO_EDITOR_CONFIG');
@@ -86,7 +86,7 @@ if (false) {
 /**
  * @fileoverview added by tsickle
  * Generated from: monaco-editor-base.component.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 let loadedMonaco = false;
@@ -389,7 +389,7 @@ if (false) {
 /**
  * @fileoverview added by tsickle
  * Generated from: monaco-editor.component.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class NuMonacoEditorComponent extends NuMonacoEditorBase {
     constructor() {
@@ -544,7 +544,7 @@ if (false) {
 /**
  * @fileoverview added by tsickle
  * Generated from: monaco-editor-diff.component.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
     /**
@@ -607,7 +607,7 @@ if (false) {
 /**
  * @fileoverview added by tsickle
  * Generated from: monaco-editor.module.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const COMPONENTS = [NuMonacoEditorComponent, NuMonacoEditorDiffComponent];
@@ -634,13 +634,13 @@ NuMonacoEditorModule.decorators = [
 /**
  * @fileoverview added by tsickle
  * Generated from: public-api.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
  * Generated from: ng-util-monaco-editor.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { NU_MONACO_EDITOR_CONFIG, NuMonacoEditorComponent, NuMonacoEditorDiffComponent, NuMonacoEditorModule, NuMonacoEditorBase as ɵa };

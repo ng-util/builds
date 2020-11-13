@@ -6,7 +6,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('@angular/common'), require('rxjs'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@ng-util/monaco-editor', ['exports', '@angular/core', '@angular/forms', '@angular/common', 'rxjs', 'rxjs/operators'], factory) :
-    (global = global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util']['monaco-editor'] = {}), global.ng.core, global.ng.forms, global.ng.common, global.rxjs, global.rxjs.operators));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util']['monaco-editor'] = {}), global.ng.core, global.ng.forms, global.ng.common, global.rxjs, global.rxjs.operators));
 }(this, (function (exports, core, forms, common, rxjs, operators) { 'use strict';
 
     /*! *****************************************************************************
@@ -28,7 +28,7 @@
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b)
-                if (b.hasOwnProperty(p))
+                if (Object.prototype.hasOwnProperty.call(b, p))
                     d[p] = b[p]; };
         return extendStatics(d, b);
     };
@@ -175,10 +175,10 @@
             k2 = k;
         o[k2] = m[k];
     });
-    function __exportStar(m, exports) {
+    function __exportStar(m, o) {
         for (var p in m)
-            if (p !== "default" && !exports.hasOwnProperty(p))
-                __createBinding(exports, m, p);
+            if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
+                __createBinding(o, m, p);
     }
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -288,7 +288,7 @@
         var result = {};
         if (mod != null)
             for (var k in mod)
-                if (Object.hasOwnProperty.call(mod, k))
+                if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
                     __createBinding(result, mod, k);
         __setModuleDefault(result, mod);
         return result;
@@ -313,7 +313,7 @@
     /**
      * @fileoverview added by tsickle
      * Generated from: monaco-editor.config.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
     var NU_MONACO_EDITOR_CONFIG = new core.InjectionToken('NU_MONACO_EDITOR_CONFIG');
@@ -344,7 +344,7 @@
     /**
      * @fileoverview added by tsickle
      * Generated from: monaco-editor-base.component.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
     var loadedMonaco = false;
@@ -895,7 +895,7 @@
     /**
      * @fileoverview added by tsickle
      * Generated from: ng-util-monaco-editor.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
 
     exports.NU_MONACO_EDITOR_CONFIG = NU_MONACO_EDITOR_CONFIG;

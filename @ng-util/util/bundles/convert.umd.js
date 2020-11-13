@@ -6,13 +6,13 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define('@ng-util/util/convert', ['exports'], factory) :
-    (global = global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].util = global['ng-util'].util || {}, global['ng-util'].util.convert = {})));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].util = global['ng-util'].util || {}, global['ng-util'].util.convert = {})));
 }(this, (function (exports) { 'use strict';
 
     /**
      * @fileoverview added by tsickle
      * Generated from: prop.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /**
      * @template T, D
@@ -107,13 +107,13 @@
     /**
      * @fileoverview added by tsickle
      * Generated from: public-api.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
 
     /**
      * @fileoverview added by tsickle
      * Generated from: convert.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
 
     exports.InputBoolean = InputBoolean;

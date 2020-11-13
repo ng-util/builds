@@ -6,7 +6,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('@ng-util/util/convert'), require('@ng-util/lazy'), require('rxjs'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@ng-util/markdown', ['exports', '@angular/core', '@angular/forms', '@ng-util/util/convert', '@ng-util/lazy', 'rxjs', '@angular/common'], factory) :
-    (global = global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].markdown = {}), global.ng.core, global.ng.forms, global['@ng-util/util/convert'], global['@ng-util/lazy'], global.rxjs, global.ng.common));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].markdown = {}), global.ng.core, global.ng.forms, global['@ng-util/util/convert'], global['@ng-util/lazy'], global.rxjs, global.ng.common));
 }(this, (function (exports, i0, forms, convert, i2, rxjs, common) { 'use strict';
 
     /*! *****************************************************************************
@@ -28,7 +28,7 @@
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b)
-                if (b.hasOwnProperty(p))
+                if (Object.prototype.hasOwnProperty.call(b, p))
                     d[p] = b[p]; };
         return extendStatics(d, b);
     };
@@ -175,10 +175,10 @@
             k2 = k;
         o[k2] = m[k];
     });
-    function __exportStar(m, exports) {
+    function __exportStar(m, o) {
         for (var p in m)
-            if (p !== "default" && !exports.hasOwnProperty(p))
-                __createBinding(exports, m, p);
+            if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
+                __createBinding(o, m, p);
     }
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -288,7 +288,7 @@
         var result = {};
         if (mod != null)
             for (var k in mod)
-                if (Object.hasOwnProperty.call(mod, k))
+                if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
                     __createBinding(result, mod, k);
         __setModuleDefault(result, mod);
         return result;
@@ -313,7 +313,7 @@
     /**
      * @fileoverview added by tsickle
      * Generated from: markdown.config.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
     var NU_MARKDOWN_CONFIG = new i0.InjectionToken('NU_MARKDOWN_CONFIG');
@@ -337,7 +337,7 @@
     /**
      * @fileoverview added by tsickle
      * Generated from: markdown.service.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var NuMarkdownService = /** @class */ (function () {
         /**
@@ -431,7 +431,7 @@
     /**
      * @fileoverview added by tsickle
      * Generated from: markdown.component.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var NuMarkdownComponent = /** @class */ (function () {
         /**
@@ -654,7 +654,7 @@
     /**
      * @fileoverview added by tsickle
      * Generated from: markdown.module.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
     var COMPONENTS = [NuMarkdownComponent];
@@ -684,13 +684,13 @@
     /**
      * @fileoverview added by tsickle
      * Generated from: public-api.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
 
     /**
      * @fileoverview added by tsickle
      * Generated from: ng-util-markdown.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
 
     exports.NuMarkdownComponent = NuMarkdownComponent;

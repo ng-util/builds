@@ -6,7 +6,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('rxjs'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@ng-util/lazy', ['exports', '@angular/common', '@angular/core', 'rxjs', 'rxjs/operators'], factory) :
-    (global = global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].lazy = {}), global.ng.common, global.ng.core, global.rxjs, global.rxjs.operators));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].lazy = {}), global.ng.common, global.ng.core, global.rxjs, global.rxjs.operators));
 }(this, (function (exports, i1, i0, rxjs, operators) { 'use strict';
 
     /*! *****************************************************************************
@@ -28,7 +28,7 @@
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b)
-                if (b.hasOwnProperty(p))
+                if (Object.prototype.hasOwnProperty.call(b, p))
                     d[p] = b[p]; };
         return extendStatics(d, b);
     };
@@ -175,10 +175,10 @@
             k2 = k;
         o[k2] = m[k];
     });
-    function __exportStar(m, exports) {
+    function __exportStar(m, o) {
         for (var p in m)
-            if (p !== "default" && !exports.hasOwnProperty(p))
-                __createBinding(exports, m, p);
+            if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
+                __createBinding(o, m, p);
     }
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -288,7 +288,7 @@
         var result = {};
         if (mod != null)
             for (var k in mod)
-                if (Object.hasOwnProperty.call(mod, k))
+                if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
                     __createBinding(result, mod, k);
         __setModuleDefault(result, mod);
         return result;
@@ -572,13 +572,13 @@
     /**
      * @fileoverview added by tsickle
      * Generated from: public-api.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
 
     /**
      * @fileoverview added by tsickle
      * Generated from: ng-util-lazy.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
 
     exports.NuLazyService = NuLazyService;

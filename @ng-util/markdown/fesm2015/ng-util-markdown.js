@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 /**
  * @fileoverview added by tsickle
  * Generated from: markdown.config.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const NU_MARKDOWN_CONFIG = new InjectionToken('NU_MARKDOWN_CONFIG');
@@ -33,7 +33,7 @@ if (false) {
 /**
  * @fileoverview added by tsickle
  * Generated from: markdown.service.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class NuMarkdownService {
     /**
@@ -122,7 +122,7 @@ if (false) {
 /**
  * @fileoverview added by tsickle
  * Generated from: markdown.component.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class NuMarkdownComponent {
     /**
@@ -344,7 +344,7 @@ if (false) {
 /**
  * @fileoverview added by tsickle
  * Generated from: markdown.module.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const COMPONENTS = [NuMarkdownComponent];
@@ -371,13 +371,13 @@ NuMarkdownModule.decorators = [
 /**
  * @fileoverview added by tsickle
  * Generated from: public-api.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
  * Generated from: ng-util-markdown.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { NuMarkdownComponent, NuMarkdownModule, NU_MARKDOWN_CONFIG as ɵa, NuMarkdownService as ɵc };

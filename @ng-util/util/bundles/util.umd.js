@@ -6,19 +6,19 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@ng-util/util/convert')) :
 	typeof define === 'function' && define.amd ? define('@ng-util/util', ['exports', '@ng-util/util/convert'], factory) :
-	(global = global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].util = {}), global['ng-util'].util.convert));
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].util = {}), global['ng-util'].util.convert));
 }(this, (function (exports, convert) { 'use strict';
 
 	/**
 	 * @fileoverview added by tsickle
 	 * Generated from: public-api.ts
-	 * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+	 * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
 	 */
 
 	/**
 	 * @fileoverview added by tsickle
 	 * Generated from: util.ts
-	 * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+	 * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
 	 */
 
 	Object.defineProperty(exports, 'InputBoolean', {
