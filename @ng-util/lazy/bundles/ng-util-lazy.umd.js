@@ -332,23 +332,6 @@
             this.cached = {};
             this._notify = new rxjs.BehaviorSubject([]);
         }
-        Object.defineProperty(NuLazyService.prototype, "change", {
-            /**
-             * @deprecated Use `monitor()` method instead, removed it in `11.0.0`
-             * @return {?}
-             */
-            get: function () {
-                return this._notify.asObservable().pipe(operators.share(), operators.filter(( /**
-                 * @param {?} ls
-                 * @return {?}
-                 */function (/**
-                 * @param {?} ls
-                 * @return {?}
-                 */ ls) { return ls.length !== 0; })));
-            },
-            enumerable: false,
-            configurable: true
-        });
         /**
          * @private
          * @param {?=} paths

@@ -32,17 +32,6 @@ class NuLazyService {
         this._notify = new BehaviorSubject([]);
     }
     /**
-     * @deprecated Use `monitor()` method instead, removed it in `11.0.0`
-     * @return {?}
-     */
-    get change() {
-        return this._notify.asObservable().pipe(share(), filter((/**
-         * @param {?} ls
-         * @return {?}
-         */
-        ls => ls.length !== 0)));
-    }
-    /**
      * @private
      * @param {?=} paths
      * @return {?}

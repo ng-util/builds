@@ -10,10 +10,6 @@ export declare class NuLazyService {
     private cached;
     private _notify;
     constructor(doc: any);
-    /**
-     * @deprecated Use `monitor()` method instead, removed it in `11.0.0`
-     */
-    get change(): Observable<NuLazyResult[]>;
     private fixPaths;
     /**
      * Monitor for the finished of `paths`
