@@ -1,5 +1,5 @@
 /**
- * @license ng-util(cipchk@qq.com) v11.1.1
+ * @license ng-util(cipchk@qq.com) v11.1.0
  * (c) 2020 cipchk https://github.com/ng-util
  * License: MIT
  */
@@ -33,6 +33,8 @@
         return extendStatics(d, b);
     };
     function __extends(d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -218,11 +220,13 @@
         }
         return ar;
     }
+    /** @deprecated */
     function __spread() {
         for (var ar = [], i = 0; i < arguments.length; i++)
             ar = ar.concat(__read(arguments[i]));
         return ar;
     }
+    /** @deprecated */
     function __spreadArrays() {
         for (var s = 0, i = 0, il = arguments.length; i < il; i++)
             s += arguments[i].length;
@@ -231,7 +235,11 @@
                 r[k] = a[j];
         return r;
     }
-    ;
+    function __spreadArray(to, from) {
+        for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+            to[j] = from[i];
+        return to;
+    }
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
     }
@@ -310,71 +318,39 @@
         return value;
     }
 
-    /**
-     * @record
-     */
-    function NuLazyResult() { }
-    if (false) {
-        /** @type {?} */
-        NuLazyResult.prototype.path;
-        /** @type {?} */
-        NuLazyResult.prototype.status;
-        /** @type {?|undefined} */
-        NuLazyResult.prototype.error;
-    }
     var NuLazyService = /** @class */ (function () {
-        /**
-         * @param {?} doc
-         */
         function NuLazyService(doc) {
             this.doc = doc;
             this.list = {};
             this.cached = {};
             this._notify = new rxjs.BehaviorSubject([]);
         }
-        /**
-         * @private
-         * @param {?=} paths
-         * @return {?}
-         */
         NuLazyService.prototype.fixPaths = function (paths) {
-            if (typeof paths === 'string') {
+            paths = paths || [];
+            if (!Array.isArray(paths)) {
                 paths = [paths];
             }
-            return ( /** @type {?} */(paths)) || [];
+            return paths.map(function (p) {
+                var res = (typeof p === 'string' ? { path: p } : p);
+                if (!res.type) {
+                    res.type = res.path.endsWith('.js') || res.callback ? 'script' : 'style';
+                }
+                return res;
+            });
         };
         /**
          * Monitor for the finished of `paths`
          *
          * - It's recommended to pass the value in accordance with the `load()` method
-         * @param {?=} paths
-         * @return {?}
          */
         NuLazyService.prototype.monitor = function (paths) {
-            /** @type {?} */
             var libs = this.fixPaths(paths);
-            /** @type {?} */
-            var pipes = [operators.share(), operators.filter(( /**
-                     * @param {?} ls
-                     * @return {?}
-                     */function (ls) { return ls.length !== 0; }))];
+            var pipes = [operators.share(), operators.filter(function (ls) { return ls.length !== 0; })];
             if (libs.length > 0) {
-                pipes.push(operators.filter(( /**
-                 * @param {?} ls
-                 * @return {?}
-                 */function (ls) { return ls.length === libs.length && ls.some(( /**
-                 * @param {?} v
-                 * @return {?}
-                 */function (/**
-                 * @param {?} v
-                 * @return {?}
-                 */ v) { return v.status === 'ok' && libs.includes(v.path); })); })));
+                pipes.push(operators.filter(function (ls) { return ls.length === libs.length && ls.every(function (v) { return v.status === 'ok' && libs.find(function (lw) { return lw.path === v.path; }); }); }));
             }
             return this._notify.asObservable().pipe(rxjs.pipe.apply(this, pipes));
         };
-        /**
-         * @return {?}
-         */
         NuLazyService.prototype.clear = function () {
             this.list = {};
             this.cached = {};
@@ -384,64 +360,45 @@
          *
          * - The returned Promise does not mean that it was successfully loaded
          * - You can monitor load is success via `monitor()`
-         * @param {?} paths
-         * @return {?}
          */
         NuLazyService.prototype.load = function (paths) {
             return __awaiter(this, void 0, void 0, function () {
                 var _this = this;
                 return __generator(this, function (_a) {
                     paths = this.fixPaths(paths);
-                    return [2 /*return*/, Promise.all(paths.map(( /**
-                         * @param {?} path
-                         * @return {?}
-                         */function (/**
-                         * @param {?} path
-                         * @return {?}
-                         */ path) { return (path.endsWith('.js') ? _this.loadScript(path) : _this.loadStyle(path)); }))).then(( /**
-                         * @param {?} res
-                         * @return {?}
-                         */function (/**
-                         * @param {?} res
-                         * @return {?}
-                         */ res) {
+                    return [2 /*return*/, Promise.all(paths.map(function (p) { return p.type === 'script' ? _this.loadScript(p.path, { callback: p.callback }) : _this.loadStyle(p.path); })).then(function (res) {
                             _this._notify.next(res);
                             return Promise.resolve(res);
-                        }))];
+                        })];
                 });
             });
         };
-        /**
-         * @param {?} path
-         * @param {?=} options
-         * @return {?}
-         */
         NuLazyService.prototype.loadScript = function (path, options) {
             var _this = this;
             var innerContent = Object.assign({}, options).innerContent;
-            return new Promise(( /**
-             * @param {?} resolve
-             * @return {?}
-             */function (/**
-             * @param {?} resolve
-             * @return {?}
-             */ resolve) {
+            return new Promise(function (resolve) {
                 if (_this.list[path] === true) {
                     resolve(Object.assign(Object.assign({}, _this.cached[path]), { status: 'loading' }));
                     return;
                 }
                 _this.list[path] = true;
-                /** @type {?} */
-                var onSuccess = ( /**
-                 * @param {?} item
-                 * @return {?}
-                 */function (item) {
+                var onSuccess = function (item) {
+                    if (item.status === 'ok' && (options === null || options === void 0 ? void 0 : options.callback)) {
+                        window[options === null || options === void 0 ? void 0 : options.callback] = function () {
+                            onSuccessTruth(item);
+                        };
+                    }
+                    else {
+                        onSuccessTruth(item);
+                    }
+                };
+                var onSuccessTruth = function (item) {
+                    item.type = 'script';
                     _this.cached[path] = item;
                     resolve(item);
                     _this._notify.next([item]);
-                });
-                /** @type {?} */
-                var node = ( /** @type {?} */(_this.doc.createElement('script')));
+                };
+                var node = _this.doc.createElement('script');
                 node.type = 'text/javascript';
                 node.src = path;
                 node.charset = 'utf-8';
@@ -450,9 +407,7 @@
                 }
                 if (node.readyState) {
                     // IE
-                    node.onreadystatechange = ( /**
-                     * @return {?}
-                     */function () {
+                    node.onreadystatechange = function () {
                         if (node.readyState === 'loaded' || node.readyState === 'complete') {
                             node.onreadystatechange = null;
                             onSuccess({
@@ -460,49 +415,32 @@
                                 status: 'ok',
                             });
                         }
-                    });
+                    };
                 }
                 else {
-                    node.onload = ( /**
-                     * @return {?}
-                     */function () { return onSuccess({
+                    node.onload = function () { return onSuccess({
                         path: path,
                         status: 'ok',
-                    }); });
+                    }); };
                 }
-                node.onerror = ( /**
-                 * @param {?} error
-                 * @return {?}
-                 */function (error) { return onSuccess({
+                node.onerror = function (error) { return onSuccess({
                     path: path,
                     status: 'error',
                     error: error,
-                }); });
+                }); };
                 _this.doc.getElementsByTagName('head')[0].appendChild(node);
-            }));
+            });
         };
-        /**
-         * @param {?} path
-         * @param {?=} options
-         * @return {?}
-         */
         NuLazyService.prototype.loadStyle = function (path, options) {
             var _this = this;
             var _a = Object.assign({ rel: 'stylesheet' }, options), rel = _a.rel, innerContent = _a.innerContent;
-            return new Promise(( /**
-             * @param {?} resolve
-             * @return {?}
-             */function (/**
-             * @param {?} resolve
-             * @return {?}
-             */ resolve) {
+            return new Promise(function (resolve) {
                 if (_this.list[path] === true) {
                     resolve(_this.cached[path]);
                     return;
                 }
                 _this.list[path] = true;
-                /** @type {?} */
-                var node = ( /** @type {?} */(_this.doc.createElement('link')));
+                var node = _this.doc.createElement('link');
                 node.rel = rel;
                 node.type = 'text/css';
                 node.href = path;
@@ -510,17 +448,18 @@
                     node.innerHTML = innerContent;
                 }
                 _this.doc.getElementsByTagName('head')[0].appendChild(node);
-                /** @type {?} */
                 var item = {
                     path: path,
                     status: 'ok',
+                    type: 'style',
                 };
                 _this.cached[path] = item;
                 resolve(item);
-            }));
+            });
         };
         return NuLazyService;
     }());
+    /** @nocollapse */ NuLazyService.ɵprov = i0.ɵɵdefineInjectable({ factory: function NuLazyService_Factory() { return new NuLazyService(i0.ɵɵinject(i1.DOCUMENT)); }, token: NuLazyService, providedIn: "root" });
     NuLazyService.decorators = [
         { type: i0.Injectable, args: [{ providedIn: 'root' },] }
     ];
@@ -528,40 +467,9 @@
     NuLazyService.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: i0.Inject, args: [i1.DOCUMENT,] }] }
     ]; };
-    /** @nocollapse */ NuLazyService.ɵprov = i0.ɵɵdefineInjectable({ factory: function NuLazyService_Factory() { return new NuLazyService(i0.ɵɵinject(i1.DOCUMENT)); }, token: NuLazyService, providedIn: "root" });
-    if (false) {
-        /**
-         * @type {?}
-         * @private
-         */
-        NuLazyService.prototype.list;
-        /**
-         * @type {?}
-         * @private
-         */
-        NuLazyService.prototype.cached;
-        /**
-         * @type {?}
-         * @private
-         */
-        NuLazyService.prototype._notify;
-        /**
-         * @type {?}
-         * @private
-         */
-        NuLazyService.prototype.doc;
-    }
 
     /**
-     * @fileoverview added by tsickle
-     * Generated from: public-api.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: ng-util-lazy.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * Generated bundle index. Do not edit.
      */
 
     exports.NuLazyService = NuLazyService;

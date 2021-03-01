@@ -1,5 +1,5 @@
 /**
- * @license ng-util(cipchk@qq.com) v11.1.1
+ * @license ng-util(cipchk@qq.com) v11.1.0
  * (c) 2020 cipchk https://github.com/ng-util
  * License: MIT
  */
@@ -33,6 +33,8 @@
         return extendStatics(d, b);
     };
     function __extends(d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -218,11 +220,13 @@
         }
         return ar;
     }
+    /** @deprecated */
     function __spread() {
         for (var ar = [], i = 0; i < arguments.length; i++)
             ar = ar.concat(__read(arguments[i]));
         return ar;
     }
+    /** @deprecated */
     function __spreadArrays() {
         for (var s = 0, i = 0, il = arguments.length; i < il; i++)
             s += arguments[i].length;
@@ -231,7 +235,11 @@
                 r[k] = a[j];
         return r;
     }
-    ;
+    function __spreadArray(to, from) {
+        for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+            to[j] = from[i];
+        return to;
+    }
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
     }
@@ -310,40 +318,9 @@
         return value;
     }
 
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: markdown.config.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /** @type {?} */
     var NU_MARKDOWN_CONFIG = new i0.InjectionToken('NU_MARKDOWN_CONFIG');
-    /**
-     * @record
-     */
-    function NuMarkdownConfig() { }
-    if (false) {
-        /**
-         * The base URL to [Vditor](https://github.com/Vanessa219/vditor) library, Default: `['https://cdn.jsdelivr.net/npm/vditor/dist/index.min.js', 'https://cdn.jsdelivr.net/npm/vditor/dist/index.css']`
-         * @type {?|undefined}
-         */
-        NuMarkdownConfig.prototype.libs;
-        /**
-         * Equar [IOptions](https://github.com/Vanessa219/vditor/blob/master/types/index.d.ts#L432)
-         * @type {?|undefined}
-         */
-        NuMarkdownConfig.prototype.defaultOptions;
-    }
 
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: markdown.service.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
     var NuMarkdownService = /** @class */ (function () {
-        /**
-         * @param {?} config
-         * @param {?} lazySrv
-         */
         function NuMarkdownService(config, lazySrv) {
             this.lazySrv = lazySrv;
             this.loading = false;
@@ -355,42 +332,32 @@
             ];
         }
         Object.defineProperty(NuMarkdownService.prototype, "notify", {
-            /**
-             * @return {?}
-             */
             get: function () {
                 return this.notify$.asObservable();
             },
             enumerable: false,
             configurable: true
         });
-        /**
-         * @template THIS
-         * @this {THIS}
-         * @return {THIS}
-         */
         NuMarkdownService.prototype.load = function () {
             var _this = this;
-            if (( /** @type {?} */(this)).loading) {
-                if (( /** @type {?} */(this)).loaded) {
-                    ( /** @type {?} */(this)).notify$.next();
+            if (this.loading) {
+                if (this.loaded) {
+                    this.notify$.next();
                 }
-                return ( /** @type {?} */(this));
+                return this;
             }
-            ( /** @type {?} */(this)).loading = true;
-            /** @type {?} */
-            var libs = ( /** @type {?} */(( /** @type {?} */(this)).libs));
-            ( /** @type {?} */(this)).lazySrv.monitor(libs).subscribe(( /**
-             * @return {?}
-             */function () {
-                ( /** @type {?} */(_this)).loaded = true;
-                ( /** @type {?} */(_this)).notify$.next();
-            }));
-            ( /** @type {?} */(this)).lazySrv.load(libs);
-            return ( /** @type {?} */(this));
+            this.loading = true;
+            var libs = this.libs;
+            this.lazySrv.monitor(libs).subscribe(function () {
+                _this.loaded = true;
+                _this.notify$.next();
+            });
+            this.lazySrv.load(libs);
+            return this;
         };
         return NuMarkdownService;
     }());
+    /** @nocollapse */ NuMarkdownService.ɵprov = i0.ɵɵdefineInjectable({ factory: function NuMarkdownService_Factory() { return new NuMarkdownService(i0.ɵɵinject(NU_MARKDOWN_CONFIG), i0.ɵɵinject(i2.NuLazyService)); }, token: NuMarkdownService, providedIn: "root" });
     NuMarkdownService.decorators = [
         { type: i0.Injectable, args: [{ providedIn: 'root' },] }
     ];
@@ -399,94 +366,34 @@
         { type: undefined, decorators: [{ type: i0.Inject, args: [NU_MARKDOWN_CONFIG,] }] },
         { type: i2.NuLazyService }
     ]; };
-    /** @nocollapse */ NuMarkdownService.ɵprov = i0.ɵɵdefineInjectable({ factory: function NuMarkdownService_Factory() { return new NuMarkdownService(i0.ɵɵinject(NU_MARKDOWN_CONFIG), i0.ɵɵinject(i2.NuLazyService)); }, token: NuMarkdownService, providedIn: "root" });
-    if (false) {
-        /**
-         * @type {?}
-         * @private
-         */
-        NuMarkdownService.prototype.libs;
-        /**
-         * @type {?}
-         * @private
-         */
-        NuMarkdownService.prototype.loading;
-        /**
-         * @type {?}
-         * @private
-         */
-        NuMarkdownService.prototype.loaded;
-        /**
-         * @type {?}
-         * @private
-         */
-        NuMarkdownService.prototype.notify$;
-        /**
-         * @type {?}
-         * @private
-         */
-        NuMarkdownService.prototype.lazySrv;
-    }
 
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: markdown-base.component.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /**
-     * @abstract
-     */
     var NuMarkdownBaseComponent = /** @class */ (function () {
-        /**
-         * @param {?} el
-         * @param {?} config
-         * @param {?} srv
-         * @param {?} ngZone
-         */
         function NuMarkdownBaseComponent(el, config, srv, ngZone) {
             var _this = this;
             this.el = el;
             this.config = config;
             this.srv = srv;
             this.ngZone = ngZone;
-            this.notify$ = this.srv.notify.subscribe(( /**
-             * @return {?}
-             */function () { return _this.initDelay(); }));
+            this.notify$ = this.srv.notify.subscribe(function () { return _this.initDelay(); });
         }
         Object.defineProperty(NuMarkdownBaseComponent.prototype, "instance", {
-            /**
-             * @return {?}
-             */
             get: function () {
                 return this._instance;
             },
             enumerable: false,
             configurable: true
         });
-        /**
-         * @private
-         * @return {?}
-         */
         NuMarkdownBaseComponent.prototype.initDelay = function () {
             var _this = this;
-            setTimeout(( /**
-             * @return {?}
-             */function () { return _this.init(); }), this.delay);
+            setTimeout(function () { return _this.init(); }, this.delay);
         };
         Object.defineProperty(NuMarkdownBaseComponent.prototype, "loaded", {
-            /**
-             * @protected
-             * @return {?}
-             */
             get: function () {
-                return !!(( /** @type {?} */(window))).Vditor;
+                return !!window.Vditor;
             },
             enumerable: false,
             configurable: true
         });
-        /**
-         * @return {?}
-         */
         NuMarkdownBaseComponent.prototype.ngAfterViewInit = function () {
             if (this.loaded) {
                 this.initDelay();
@@ -494,9 +401,6 @@
             }
             this.srv.load();
         };
-        /**
-         * @return {?}
-         */
         NuMarkdownBaseComponent.prototype.ngOnDestroy = function () {
             this.notify$.unsubscribe();
         };
@@ -519,92 +423,31 @@
         convert.InputNumber(),
         __metadata("design:type", Number)
     ], NuMarkdownBaseComponent.prototype, "delay", void 0);
-    if (false) {
-        /**
-         * @type {?}
-         * @private
-         */
-        NuMarkdownBaseComponent.prototype.notify$;
-        /**
-         * @type {?}
-         * @protected
-         */
-        NuMarkdownBaseComponent.prototype._instance;
-        /** @type {?} */
-        NuMarkdownBaseComponent.prototype.delay;
-        /**
-         * @type {?}
-         * @protected
-         */
-        NuMarkdownBaseComponent.prototype.el;
-        /**
-         * @type {?}
-         * @protected
-         */
-        NuMarkdownBaseComponent.prototype.config;
-        /**
-         * @type {?}
-         * @protected
-         */
-        NuMarkdownBaseComponent.prototype.srv;
-        /**
-         * @type {?}
-         * @protected
-         */
-        NuMarkdownBaseComponent.prototype.ngZone;
-        /**
-         * @abstract
-         * @protected
-         * @return {?}
-         */
-        NuMarkdownBaseComponent.prototype.init = function () { };
-    }
 
     var NuMarkdownComponent = /** @class */ (function (_super) {
         __extends(NuMarkdownComponent, _super);
         function NuMarkdownComponent() {
             var _this = _super.apply(this, __spread(arguments)) || this;
             _this.ready = new i0.EventEmitter();
-            _this.onChange = ( /**
-             * @param {?} _
-             * @return {?}
-             */function (_) { });
+            _this.onChange = function (_) { };
             return _this;
         }
-        /**
-         * @protected
-         * @return {?}
-         */
         NuMarkdownComponent.prototype.init = function () {
             var _this = this;
-            this.ngZone.runOutsideAngular(( /**
-             * @return {?}
-             */function () {
+            this.ngZone.runOutsideAngular(function () {
                 var _a;
-                /** @type {?} */
                 var options = Object.assign(Object.assign({ value: _this._value, cache: {
                         enable: false,
-                    }, mode: 'sv', minHeight: 350, input: ( /**
-                     * @param {?} value
-                     * @return {?}
-                     */function (value) {
-                        _this.ngZone.run(( /**
-                         * @return {?}
-                         */function () {
+                    }, mode: 'sv', minHeight: 350, input: function (value) {
+                        _this.ngZone.run(function () {
                             _this._value = value;
                             _this.onChange(value);
-                        }));
-                    }) }, (_a = _this.config) === null || _a === void 0 ? void 0 : _a.defaultOptions), _this.options);
+                        });
+                    } }, (_a = _this.config) === null || _a === void 0 ? void 0 : _a.defaultOptions), _this.options);
                 _this._instance = new Vditor(_this.el.nativeElement, options);
-                _this.ngZone.run(( /**
-                 * @return {?}
-                 */function () { return _this.ready.emit(_this._instance); }));
-            }));
+                _this.ngZone.run(function () { return _this.ready.emit(_this._instance); });
+            });
         };
-        /**
-         * @private
-         * @return {?}
-         */
         NuMarkdownComponent.prototype.setDisabled = function () {
             if (!this.instance) {
                 return;
@@ -616,32 +459,16 @@
                 this.instance.enable();
             }
         };
-        /**
-         * @param {?} value
-         * @return {?}
-         */
         NuMarkdownComponent.prototype.writeValue = function (value) {
             this._value = value || '';
             if (this.instance) {
                 this.instance.setValue(this._value);
             }
         };
-        /**
-         * @param {?} fn
-         * @return {?}
-         */
         NuMarkdownComponent.prototype.registerOnChange = function (fn) {
             this.onChange = fn;
         };
-        /**
-         * @param {?} _
-         * @return {?}
-         */
         NuMarkdownComponent.prototype.registerOnTouched = function (_) { };
-        /**
-         * @param {?} _isDisabled
-         * @return {?}
-         */
         NuMarkdownComponent.prototype.setDisabledState = function (_isDisabled) {
             this.disabled = _isDisabled;
             this.setDisabled();
@@ -656,38 +483,18 @@
                     providers: [
                         {
                             provide: forms.NG_VALUE_ACCESSOR,
-                            useExisting: i0.forwardRef(( /**
-                             * @return {?}
-                             */function () { return NuMarkdownComponent; })),
+                            useExisting: i0.forwardRef(function () { return NuMarkdownComponent; }),
                             multi: true,
                         },
                     ],
                     changeDetection: i0.ChangeDetectionStrategy.OnPush
-                }] }
+                },] }
     ];
     NuMarkdownComponent.propDecorators = {
         options: [{ type: i0.Input }],
         disabled: [{ type: i0.Input }],
         ready: [{ type: i0.Output }]
     };
-    if (false) {
-        /**
-         * @type {?}
-         * @private
-         */
-        NuMarkdownComponent.prototype._value;
-        /** @type {?} */
-        NuMarkdownComponent.prototype.options;
-        /** @type {?} */
-        NuMarkdownComponent.prototype.disabled;
-        /** @type {?} */
-        NuMarkdownComponent.prototype.ready;
-        /**
-         * @type {?}
-         * @private
-         */
-        NuMarkdownComponent.prototype.onChange;
-    }
 
     var NuMarkdownPreviewComponent = /** @class */ (function (_super) {
         __extends(NuMarkdownPreviewComponent, _super);
@@ -697,10 +504,6 @@
             return _this;
         }
         Object.defineProperty(NuMarkdownPreviewComponent.prototype, "value", {
-            /**
-             * @param {?} v
-             * @return {?}
-             */
             set: function (v) {
                 this._value = v;
                 if (this.loaded) {
@@ -710,15 +513,9 @@
             enumerable: false,
             configurable: true
         });
-        /**
-         * @protected
-         * @return {?}
-         */
         NuMarkdownPreviewComponent.prototype.init = function () {
             var _this = this;
-            this.ngZone.runOutsideAngular(( /**
-             * @return {?}
-             */function () { return __awaiter(_this, void 0, void 0, function () {
+            this.ngZone.runOutsideAngular(function () { return __awaiter(_this, void 0, void 0, function () {
                 var _this = this;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
@@ -726,13 +523,11 @@
                         case 1:
                             _a.sent();
                             console.log(this.el.nativeElement.innerHTML);
-                            this.ngZone.run(( /**
-                             * @return {?}
-                             */function () { return _this.ready.emit(_this.el.nativeElement.innerHTML); }));
+                            this.ngZone.run(function () { return _this.ready.emit(_this.el.nativeElement.innerHTML); });
                             return [2 /*return*/];
                     }
                 });
-            }); }));
+            }); });
         };
         return NuMarkdownPreviewComponent;
     }(NuMarkdownBaseComponent));
@@ -742,7 +537,7 @@
                     template: "{{ value }}",
                     exportAs: 'nuMarkdownPreview',
                     changeDetection: i0.ChangeDetectionStrategy.OnPush
-                }] }
+                },] }
     ];
     NuMarkdownPreviewComponent.propDecorators = {
         value: [{ type: i0.Input }],
@@ -750,34 +545,11 @@
         disabled: [{ type: i0.Input }],
         ready: [{ type: i0.Output }]
     };
-    if (false) {
-        /**
-         * @type {?}
-         * @private
-         */
-        NuMarkdownPreviewComponent.prototype._value;
-        /** @type {?} */
-        NuMarkdownPreviewComponent.prototype.options;
-        /** @type {?} */
-        NuMarkdownPreviewComponent.prototype.disabled;
-        /** @type {?} */
-        NuMarkdownPreviewComponent.prototype.ready;
-    }
 
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: markdown.module.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /** @type {?} */
     var COMPONENTS = [NuMarkdownComponent, NuMarkdownPreviewComponent];
     var NuMarkdownModule = /** @class */ (function () {
         function NuMarkdownModule() {
         }
-        /**
-         * @param {?=} config
-         * @return {?}
-         */
         NuMarkdownModule.forRoot = function (config) {
             return {
                 ngModule: NuMarkdownModule,
@@ -795,15 +567,7 @@
     ];
 
     /**
-     * @fileoverview added by tsickle
-     * Generated from: public-api.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: ng-util-markdown.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * Generated bundle index. Do not edit.
      */
 
     exports.NuMarkdownComponent = NuMarkdownComponent;

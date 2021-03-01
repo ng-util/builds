@@ -1,5 +1,5 @@
 /**
- * @license ng-util(cipchk@qq.com) v11.1.1
+ * @license ng-util(cipchk@qq.com) v11.1.0
  * (c) 2020 cipchk https://github.com/ng-util
  * License: MIT
  */
@@ -10,40 +10,16 @@
 }(this, (function (exports, convert) { 'use strict';
 
 	/**
-	 * @fileoverview added by tsickle
-	 * Generated from: public-api.ts
-	 * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+	 * Generated bundle index. Do not edit.
 	 */
 
-	/**
-	 * @fileoverview added by tsickle
-	 * Generated from: util.ts
-	 * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-	 */
-
-	Object.defineProperty(exports, 'InputBoolean', {
-		enumerable: true,
-		get: function () {
-			return convert.InputBoolean;
-		}
-	});
-	Object.defineProperty(exports, 'InputNumber', {
-		enumerable: true,
-		get: function () {
-			return convert.InputNumber;
-		}
-	});
-	Object.defineProperty(exports, 'toBoolean', {
-		enumerable: true,
-		get: function () {
-			return convert.toBoolean;
-		}
-	});
-	Object.defineProperty(exports, 'toNumber', {
-		enumerable: true,
-		get: function () {
-			return convert.toNumber;
-		}
+	Object.keys(convert).forEach(function (k) {
+		if (k !== 'default' && !exports.hasOwnProperty(k)) Object.defineProperty(exports, k, {
+			enumerable: true,
+			get: function () {
+				return convert[k];
+			}
+		});
 	});
 
 	Object.defineProperty(exports, '__esModule', { value: true });
