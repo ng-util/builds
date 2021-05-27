@@ -22,7 +22,7 @@
   "dependencies": {
     "@ng-util/util": "^10.0.0",
     "@ng-util/lazy": "^10.0.0",
-    "tslib": "^2.0.0"
+    "tslib": "^2.1.0"
   },
   "main": "bundles/ng-util-markdown.umd.js",
   "module": "fesm2015/ng-util-markdown.js",
@@ -30,6 +30,5 @@
   "esm2015": "esm2015/ng-util-markdown.js",
   "fesm2015": "fesm2015/ng-util-markdown.js",
   "typings": "ng-util-markdown.d.ts",
-  "metadata": "ng-util-markdown.metadata.json",
   "sideEffects": false
 }

@@ -25,8 +25,7 @@
   "esm2015": "esm2015/ng-util-lazy.js",
   "fesm2015": "fesm2015/ng-util-lazy.js",
   "typings": "ng-util-lazy.d.ts",
-  "metadata": "ng-util-lazy.metadata.json",
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.1.0"
   }
 }

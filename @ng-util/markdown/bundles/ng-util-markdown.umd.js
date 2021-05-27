@@ -4,10 +4,33 @@
  * License: MIT
  */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('@ng-util/util/convert'), require('@ng-util/lazy'), require('rxjs'), require('@angular/common')) :
-    typeof define === 'function' && define.amd ? define('@ng-util/markdown', ['exports', '@angular/core', '@angular/forms', '@ng-util/util/convert', '@ng-util/lazy', 'rxjs', '@angular/common'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].markdown = {}), global.ng.core, global.ng.forms, global['@ng-util/util/convert'], global['@ng-util/lazy'], global.rxjs, global.ng.common));
-}(this, (function (exports, i0, forms, convert, i2, rxjs, common) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@ng-util/util/convert'), require('rxjs'), require('@ng-util/lazy'), require('@angular/forms'), require('@angular/common')) :
+    typeof define === 'function' && define.amd ? define('@ng-util/markdown', ['exports', '@angular/core', '@ng-util/util/convert', 'rxjs', '@ng-util/lazy', '@angular/forms', '@angular/common'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].markdown = {}), global.ng.core, global['@ng-util/util/convert'], global.rxjs, global['@ng-util/lazy'], global.ng.forms, global.ng.common));
+}(this, (function (exports, i0, convert, rxjs, i1, forms, common) { 'use strict';
+
+    function _interopNamespace(e) {
+        if (e && e.__esModule) return e;
+        var n = Object.create(null);
+        if (e) {
+            Object.keys(e).forEach(function (k) {
+                if (k !== 'default') {
+                    var d = Object.getOwnPropertyDescriptor(e, k);
+                    Object.defineProperty(n, k, d.get ? d : {
+                        enumerable: true,
+                        get: function () {
+                            return e[k];
+                        }
+                    });
+                }
+            });
+        }
+        n['default'] = e;
+        return Object.freeze(n);
+    }
+
+    var i0__namespace = /*#__PURE__*/_interopNamespace(i0);
+    var i1__namespace = /*#__PURE__*/_interopNamespace(i1);
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -304,18 +327,21 @@
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
     }
-    function __classPrivateFieldGet(receiver, privateMap) {
-        if (!privateMap.has(receiver)) {
-            throw new TypeError("attempted to get private field on non-instance");
-        }
-        return privateMap.get(receiver);
+    function __classPrivateFieldGet(receiver, state, kind, f) {
+        if (kind === "a" && !f)
+            throw new TypeError("Private accessor was defined without a getter");
+        if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+            throw new TypeError("Cannot read private member from an object whose class did not declare it");
+        return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
     }
-    function __classPrivateFieldSet(receiver, privateMap, value) {
-        if (!privateMap.has(receiver)) {
-            throw new TypeError("attempted to set private field on non-instance");
-        }
-        privateMap.set(receiver, value);
-        return value;
+    function __classPrivateFieldSet(receiver, state, value, kind, f) {
+        if (kind === "m")
+            throw new TypeError("Private method is not writable");
+        if (kind === "a" && !f)
+            throw new TypeError("Private accessor was defined without a setter");
+        if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+            throw new TypeError("Cannot write private member to an object whose class did not declare it");
+        return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
     }
 
     var NU_MARKDOWN_CONFIG = new i0.InjectionToken('NU_MARKDOWN_CONFIG');
@@ -357,15 +383,17 @@
         };
         return NuMarkdownService;
     }());
-    /** @nocollapse */ NuMarkdownService.ɵprov = i0.ɵɵdefineInjectable({ factory: function NuMarkdownService_Factory() { return new NuMarkdownService(i0.ɵɵinject(NU_MARKDOWN_CONFIG), i0.ɵɵinject(i2.NuLazyService)); }, token: NuMarkdownService, providedIn: "root" });
-    NuMarkdownService.decorators = [
-        { type: i0.Injectable, args: [{ providedIn: 'root' },] }
-    ];
-    /** @nocollapse */
-    NuMarkdownService.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: i0.Inject, args: [NU_MARKDOWN_CONFIG,] }] },
-        { type: i2.NuLazyService }
-    ]; };
+    /** @nocollapse */ NuMarkdownService.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownService, deps: [{ token: NU_MARKDOWN_CONFIG }, { token: i1__namespace.NuLazyService }], target: i0__namespace.ɵɵFactoryTarget.Injectable });
+    /** @nocollapse */ NuMarkdownService.ɵprov = i0__namespace.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownService, providedIn: 'root' });
+    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownService, decorators: [{
+                type: i0.Injectable,
+                args: [{ providedIn: 'root' }]
+            }], ctorParameters: function () {
+            return [{ type: undefined, decorators: [{
+                            type: i0.Inject,
+                            args: [NU_MARKDOWN_CONFIG]
+                        }] }, { type: i1__namespace.NuLazyService }];
+        } });
 
     var NuMarkdownBaseComponent = /** @class */ (function () {
         function NuMarkdownBaseComponent(el, config, srv, ngZone) {
@@ -374,8 +402,21 @@
             this.config = config;
             this.srv = srv;
             this.ngZone = ngZone;
+            this.delay = 0;
+            this.disabled = false;
+            this.ready = new i0.EventEmitter();
             this.notify$ = this.srv.notify.subscribe(function () { return _this.initDelay(); });
         }
+        Object.defineProperty(NuMarkdownBaseComponent.prototype, "value", {
+            set: function (v) {
+                this._value = v;
+                if (this.loaded) {
+                    this.init();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(NuMarkdownBaseComponent.prototype, "instance", {
             get: function () {
                 return this._instance;
@@ -406,29 +447,70 @@
         };
         return NuMarkdownBaseComponent;
     }());
-    NuMarkdownBaseComponent.decorators = [
-        { type: i0.Directive }
-    ];
-    /** @nocollapse */
-    NuMarkdownBaseComponent.ctorParameters = function () { return [
-        { type: i0.ElementRef },
-        { type: undefined, decorators: [{ type: i0.Inject, args: [NU_MARKDOWN_CONFIG,] }] },
-        { type: NuMarkdownService },
-        { type: i0.NgZone }
-    ]; };
-    NuMarkdownBaseComponent.propDecorators = {
-        delay: [{ type: i0.Input }]
-    };
+    /** @nocollapse */ NuMarkdownBaseComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownBaseComponent, deps: [{ token: i0__namespace.ElementRef }, { token: NU_MARKDOWN_CONFIG }, { token: NuMarkdownService }, { token: i0__namespace.NgZone }], target: i0__namespace.ɵɵFactoryTarget.Directive });
+    /** @nocollapse */ NuMarkdownBaseComponent.ɵdir = i0__namespace.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "12.0.2", type: NuMarkdownBaseComponent, inputs: { delay: "delay", disabled: "disabled", options: "options", value: "value" }, outputs: { ready: "ready" }, ngImport: i0__namespace });
     __decorate([
         convert.InputNumber(),
-        __metadata("design:type", Number)
+        __metadata("design:type", Object)
     ], NuMarkdownBaseComponent.prototype, "delay", void 0);
+    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownBaseComponent, decorators: [{
+                type: i0.Directive
+            }], ctorParameters: function () {
+            return [{ type: i0__namespace.ElementRef }, { type: undefined, decorators: [{
+                            type: i0.Inject,
+                            args: [NU_MARKDOWN_CONFIG]
+                        }] }, { type: NuMarkdownService }, { type: i0__namespace.NgZone }];
+        }, propDecorators: { delay: [{
+                    type: i0.Input
+                }], disabled: [{
+                    type: i0.Input
+                }], options: [{
+                    type: i0.Input
+                }], ready: [{
+                    type: i0.Output
+                }], value: [{
+                    type: i0.Input
+                }] } });
+
+    var NuMarkdownPreviewComponent = /** @class */ (function (_super) {
+        __extends(NuMarkdownPreviewComponent, _super);
+        function NuMarkdownPreviewComponent() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        NuMarkdownPreviewComponent.prototype.init = function () {
+            var _this = this;
+            this.ngZone.runOutsideAngular(function () { return __awaiter(_this, void 0, void 0, function () {
+                var _this = this;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, Vditor.preview(this.el.nativeElement, this._value)];
+                        case 1:
+                            _a.sent();
+                            console.log(this.el.nativeElement.innerHTML);
+                            this.ngZone.run(function () { return _this.ready.emit(_this.el.nativeElement.innerHTML); });
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
+        };
+        return NuMarkdownPreviewComponent;
+    }(NuMarkdownBaseComponent));
+    /** @nocollapse */ NuMarkdownPreviewComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownPreviewComponent, deps: null, target: i0__namespace.ɵɵFactoryTarget.Component });
+    /** @nocollapse */ NuMarkdownPreviewComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.0.2", type: NuMarkdownPreviewComponent, selector: "nu-markdown-preview", exportAs: ["nuMarkdownPreview"], usesInheritance: true, ngImport: i0__namespace, template: "", isInline: true, changeDetection: i0__namespace.ChangeDetectionStrategy.OnPush });
+    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownPreviewComponent, decorators: [{
+                type: i0.Component,
+                args: [{
+                        selector: 'nu-markdown-preview',
+                        template: "",
+                        exportAs: 'nuMarkdownPreview',
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                    }]
+            }] });
 
     var NuMarkdownComponent = /** @class */ (function (_super) {
         __extends(NuMarkdownComponent, _super);
         function NuMarkdownComponent() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
-            _this.ready = new i0.EventEmitter();
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this.onChange = function (_) { };
             return _this;
         }
@@ -475,76 +557,30 @@
         };
         return NuMarkdownComponent;
     }(NuMarkdownBaseComponent));
-    NuMarkdownComponent.decorators = [
-        { type: i0.Component, args: [{
-                    selector: 'nu-markdown',
-                    template: "",
-                    exportAs: 'nuMarkdown',
-                    providers: [
-                        {
-                            provide: forms.NG_VALUE_ACCESSOR,
-                            useExisting: i0.forwardRef(function () { return NuMarkdownComponent; }),
-                            multi: true,
-                        },
-                    ],
-                    changeDetection: i0.ChangeDetectionStrategy.OnPush
-                },] }
-    ];
-    NuMarkdownComponent.propDecorators = {
-        options: [{ type: i0.Input }],
-        disabled: [{ type: i0.Input }],
-        ready: [{ type: i0.Output }]
-    };
-
-    var NuMarkdownPreviewComponent = /** @class */ (function (_super) {
-        __extends(NuMarkdownPreviewComponent, _super);
-        function NuMarkdownPreviewComponent() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
-            _this.ready = new i0.EventEmitter();
-            return _this;
-        }
-        Object.defineProperty(NuMarkdownPreviewComponent.prototype, "value", {
-            set: function (v) {
-                this._value = v;
-                if (this.loaded) {
-                    this.init();
-                }
+    /** @nocollapse */ NuMarkdownComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownComponent, deps: null, target: i0__namespace.ɵɵFactoryTarget.Component });
+    /** @nocollapse */ NuMarkdownComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.0.2", type: NuMarkdownComponent, selector: "nu-markdown", providers: [
+            {
+                provide: forms.NG_VALUE_ACCESSOR,
+                useExisting: i0.forwardRef((function () { return NuMarkdownComponent; })),
+                multi: true,
             },
-            enumerable: false,
-            configurable: true
-        });
-        NuMarkdownPreviewComponent.prototype.init = function () {
-            var _this = this;
-            this.ngZone.runOutsideAngular(function () { return __awaiter(_this, void 0, void 0, function () {
-                var _this = this;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, Vditor.preview(this.el.nativeElement, this._value)];
-                        case 1:
-                            _a.sent();
-                            console.log(this.el.nativeElement.innerHTML);
-                            this.ngZone.run(function () { return _this.ready.emit(_this.el.nativeElement.innerHTML); });
-                            return [2 /*return*/];
-                    }
-                });
-            }); });
-        };
-        return NuMarkdownPreviewComponent;
-    }(NuMarkdownBaseComponent));
-    NuMarkdownPreviewComponent.decorators = [
-        { type: i0.Component, args: [{
-                    selector: 'nu-markdown-preview',
-                    template: "{{ value }}",
-                    exportAs: 'nuMarkdownPreview',
-                    changeDetection: i0.ChangeDetectionStrategy.OnPush
-                },] }
-    ];
-    NuMarkdownPreviewComponent.propDecorators = {
-        value: [{ type: i0.Input }],
-        options: [{ type: i0.Input }],
-        disabled: [{ type: i0.Input }],
-        ready: [{ type: i0.Output }]
-    };
+        ], exportAs: ["nuMarkdown"], usesInheritance: true, ngImport: i0__namespace, template: "", isInline: true, changeDetection: i0__namespace.ChangeDetectionStrategy.OnPush });
+    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownComponent, decorators: [{
+                type: i0.Component,
+                args: [{
+                        selector: 'nu-markdown',
+                        template: "",
+                        exportAs: 'nuMarkdown',
+                        providers: [
+                            {
+                                provide: forms.NG_VALUE_ACCESSOR,
+                                useExisting: i0.forwardRef((function () { return NuMarkdownComponent; })),
+                                multi: true,
+                            },
+                        ],
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                    }]
+            }] });
 
     var COMPONENTS = [NuMarkdownComponent, NuMarkdownPreviewComponent];
     var NuMarkdownModule = /** @class */ (function () {
@@ -558,24 +594,26 @@
         };
         return NuMarkdownModule;
     }());
-    NuMarkdownModule.decorators = [
-        { type: i0.NgModule, args: [{
-                    imports: [common.CommonModule],
-                    declarations: COMPONENTS,
-                    exports: COMPONENTS,
-                },] }
-    ];
+    /** @nocollapse */ NuMarkdownModule.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownModule, deps: [], target: i0__namespace.ɵɵFactoryTarget.NgModule });
+    /** @nocollapse */ NuMarkdownModule.ɵmod = i0__namespace.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownModule, declarations: [NuMarkdownComponent, NuMarkdownPreviewComponent], imports: [common.CommonModule], exports: [NuMarkdownComponent, NuMarkdownPreviewComponent] });
+    /** @nocollapse */ NuMarkdownModule.ɵinj = i0__namespace.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownModule, imports: [[common.CommonModule]] });
+    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownModule, decorators: [{
+                type: i0.NgModule,
+                args: [{
+                        imports: [common.CommonModule],
+                        declarations: COMPONENTS,
+                        exports: COMPONENTS,
+                    }]
+            }] });
 
     /**
      * Generated bundle index. Do not edit.
      */
 
+    exports.NuMarkdownBaseComponent = NuMarkdownBaseComponent;
     exports.NuMarkdownComponent = NuMarkdownComponent;
     exports.NuMarkdownModule = NuMarkdownModule;
-    exports.ɵa = NuMarkdownBaseComponent;
-    exports.ɵb = NU_MARKDOWN_CONFIG;
-    exports.ɵd = NuMarkdownService;
-    exports.ɵe = NuMarkdownPreviewComponent;
+    exports.NuMarkdownPreviewComponent = NuMarkdownPreviewComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

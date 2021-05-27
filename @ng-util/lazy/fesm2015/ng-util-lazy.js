@@ -1,6 +1,7 @@
 import { __awaiter } from 'tslib';
 import { DOCUMENT } from '@angular/common';
-import { ɵɵdefineInjectable, ɵɵinject, Injectable, Inject } from '@angular/core';
+import * as i0 from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { BehaviorSubject, pipe } from 'rxjs';
 import { share, filter } from 'rxjs/operators';
 
@@ -139,14 +140,15 @@ class NuLazyService {
         });
     }
 }
-/** @nocollapse */ NuLazyService.ɵprov = ɵɵdefineInjectable({ factory: function NuLazyService_Factory() { return new NuLazyService(ɵɵinject(DOCUMENT)); }, token: NuLazyService, providedIn: "root" });
-NuLazyService.decorators = [
-    { type: Injectable, args: [{ providedIn: 'root' },] }
-];
-/** @nocollapse */
-NuLazyService.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
-];
+/** @nocollapse */ NuLazyService.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0, type: NuLazyService, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+/** @nocollapse */ NuLazyService.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0, type: NuLazyService, providedIn: 'root' });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0, type: NuLazyService, decorators: [{
+            type: Injectable,
+            args: [{ providedIn: 'root' }]
+        }], ctorParameters: function () { return [{ type: undefined, decorators: [{
+                    type: Inject,
+                    args: [DOCUMENT]
+                }] }]; } });
 
 /**
  * Generated bundle index. Do not edit.

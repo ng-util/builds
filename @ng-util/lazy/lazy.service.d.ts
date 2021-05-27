@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+import * as i0 from "@angular/core";
 export declare type NuLazyResourcesType = 'script' | 'style';
 export interface NuLazyResources {
     path: string;
@@ -43,4 +44,6 @@ export declare class NuLazyService {
         rel?: string;
         innerContent?: string;
     }): Promise<NuLazyResult>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<NuLazyService, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<NuLazyService>;
 }

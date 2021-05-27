@@ -26,8 +26,7 @@
   "esm2015": "esm2015/ng-util-monaco-editor.js",
   "fesm2015": "fesm2015/ng-util-monaco-editor.js",
   "typings": "ng-util-monaco-editor.d.ts",
-  "metadata": "ng-util-monaco-editor.metadata.json",
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.1.0"
   }
 }
