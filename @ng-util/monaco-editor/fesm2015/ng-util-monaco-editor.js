@@ -177,6 +177,7 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
                 options.model = monaco.editor.createModel(value || this._value, language, uri);
             }
         }
+        options.readOnly = this._disabled;
         const editor = (this._editor = monaco.editor.create(this.el.nativeElement, options));
         if (!hasModel) {
             editor.setValue(this._value);
@@ -252,6 +253,7 @@ class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
             throw new Error('old or new not found for nu-monaco-diff-editor');
         }
         const theme = options.theme;
+        options.readOnly = this._disabled;
         const editor = (this._editor = monaco.editor.createDiffEditor(this.el.nativeElement, options));
         options.theme = theme;
         editor.setModel({

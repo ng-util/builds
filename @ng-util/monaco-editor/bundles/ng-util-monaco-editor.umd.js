@@ -536,6 +536,7 @@
                     options.model = monaco.editor.createModel(value || this._value, language, uri);
                 }
             }
+            options.readOnly = this._disabled;
             var editor = (this._editor = monaco.editor.create(this.el.nativeElement, options));
             if (!hasModel) {
                 editor.setValue(this._value);
@@ -621,6 +622,7 @@
                 throw new Error('old or new not found for nu-monaco-diff-editor');
             }
             var theme = options.theme;
+            options.readOnly = this._disabled;
             var editor = (this._editor = monaco.editor.createDiffEditor(this.el.nativeElement, options));
             options.theme = theme;
             editor.setModel({
