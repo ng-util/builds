@@ -5,6 +5,7 @@
   "esm2015": "../esm2015/convert/convert.js",
   "fesm2015": "../fesm2015/convert.js",
   "typings": "convert.d.ts",
+  "metadata": "convert.metadata.json",
   "sideEffects": false,
   "name": "@ng-util/util/convert"
 }

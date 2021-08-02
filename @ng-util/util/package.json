@@ -23,6 +23,7 @@
   "esm2015": "esm2015/util.js",
   "fesm2015": "fesm2015/util.js",
   "typings": "util.d.ts",
+  "metadata": "util.metadata.json",
   "dependencies": {
     "tslib": "^2.1.0"
   }

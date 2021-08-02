@@ -7,7 +7,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('rxjs'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@ng-util/lazy', ['exports', '@angular/common', '@angular/core', 'rxjs', 'rxjs/operators'], factory) :
     (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].lazy = {}), global.ng.common, global.ng.core, global.rxjs, global.rxjs.operators));
-}(this, (function (exports, common, i0, rxjs, operators) { 'use strict';
+}(this, (function (exports, i1, i0, rxjs, operators) { 'use strict';
 
     function _interopNamespace(e) {
         if (e && e.__esModule) return e;
@@ -29,6 +29,7 @@
         return Object.freeze(n);
     }
 
+    var i1__namespace = /*#__PURE__*/_interopNamespace(i1);
     var i0__namespace = /*#__PURE__*/_interopNamespace(i0);
 
     /*! *****************************************************************************
@@ -490,17 +491,14 @@
         };
         return NuLazyService;
     }());
-    /** @nocollapse */ NuLazyService.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuLazyService, deps: [{ token: common.DOCUMENT }], target: i0__namespace.ɵɵFactoryTarget.Injectable });
-    /** @nocollapse */ NuLazyService.ɵprov = i0__namespace.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuLazyService, providedIn: 'root' });
-    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuLazyService, decorators: [{
-                type: i0.Injectable,
-                args: [{ providedIn: 'root' }]
-            }], ctorParameters: function () {
-            return [{ type: undefined, decorators: [{
-                            type: i0.Inject,
-                            args: [common.DOCUMENT]
-                        }] }];
-        } });
+    /** @nocollapse */ NuLazyService.ɵprov = i0__namespace.ɵɵdefineInjectable({ factory: function NuLazyService_Factory() { return new NuLazyService(i0__namespace.ɵɵinject(i1__namespace.DOCUMENT)); }, token: NuLazyService, providedIn: "root" });
+    NuLazyService.decorators = [
+        { type: i0.Injectable, args: [{ providedIn: 'root' },] }
+    ];
+    /** @nocollapse */
+    NuLazyService.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: i0.Inject, args: [i1.DOCUMENT,] }] }
+    ]; };
 
     /**
      * Generated bundle index. Do not edit.

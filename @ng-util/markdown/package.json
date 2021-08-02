@@ -30,5 +30,6 @@
   "esm2015": "esm2015/ng-util-markdown.js",
   "fesm2015": "fesm2015/ng-util-markdown.js",
   "typings": "ng-util-markdown.d.ts",
+  "metadata": "ng-util-markdown.metadata.json",
   "sideEffects": false
 }
