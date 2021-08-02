@@ -1,5 +1,5 @@
 /**
- * @license ng-util(cipchk@qq.com) v12.0.0
+ * @license ng-util(cipchk@qq.com) v12.1.0
  * (c) 2020 cipchk https://github.com/ng-util
  * License: MIT
  */
@@ -258,10 +258,16 @@
                 r[k] = a[j];
         return r;
     }
-    function __spreadArray(to, from) {
-        for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-            to[j] = from[i];
-        return to;
+    function __spreadArray(to, from, pack) {
+        if (pack || arguments.length === 2)
+            for (var i = 0, l = from.length, ar; i < l; i++) {
+                if (ar || !(i in from)) {
+                    if (!ar)
+                        ar = Array.prototype.slice.call(from, 0, i);
+                    ar[i] = from[i];
+                }
+            }
+        return to.concat(ar || from);
     }
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
@@ -383,9 +389,9 @@
         };
         return NuMarkdownService;
     }());
-    /** @nocollapse */ NuMarkdownService.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownService, deps: [{ token: NU_MARKDOWN_CONFIG }, { token: i1__namespace.NuLazyService }], target: i0__namespace.ɵɵFactoryTarget.Injectable });
-    /** @nocollapse */ NuMarkdownService.ɵprov = i0__namespace.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownService, providedIn: 'root' });
-    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownService, decorators: [{
+    /** @nocollapse */ NuMarkdownService.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuMarkdownService, deps: [{ token: NU_MARKDOWN_CONFIG }, { token: i1__namespace.NuLazyService }], target: i0__namespace.ɵɵFactoryTarget.Injectable });
+    /** @nocollapse */ NuMarkdownService.ɵprov = i0__namespace.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuMarkdownService, providedIn: 'root' });
+    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuMarkdownService, decorators: [{
                 type: i0.Injectable,
                 args: [{ providedIn: 'root' }]
             }], ctorParameters: function () {
@@ -447,13 +453,13 @@
         };
         return NuMarkdownBaseComponent;
     }());
-    /** @nocollapse */ NuMarkdownBaseComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownBaseComponent, deps: [{ token: i0__namespace.ElementRef }, { token: NU_MARKDOWN_CONFIG }, { token: NuMarkdownService }, { token: i0__namespace.NgZone }], target: i0__namespace.ɵɵFactoryTarget.Directive });
-    /** @nocollapse */ NuMarkdownBaseComponent.ɵdir = i0__namespace.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "12.0.2", type: NuMarkdownBaseComponent, inputs: { delay: "delay", disabled: "disabled", options: "options", value: "value" }, outputs: { ready: "ready" }, ngImport: i0__namespace });
+    /** @nocollapse */ NuMarkdownBaseComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuMarkdownBaseComponent, deps: [{ token: i0__namespace.ElementRef }, { token: NU_MARKDOWN_CONFIG }, { token: NuMarkdownService }, { token: i0__namespace.NgZone }], target: i0__namespace.ɵɵFactoryTarget.Directive });
+    /** @nocollapse */ NuMarkdownBaseComponent.ɵdir = i0__namespace.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "12.0.5", type: NuMarkdownBaseComponent, inputs: { delay: "delay", disabled: "disabled", options: "options", value: "value" }, outputs: { ready: "ready" }, ngImport: i0__namespace });
     __decorate([
         convert.InputNumber(),
         __metadata("design:type", Object)
     ], NuMarkdownBaseComponent.prototype, "delay", void 0);
-    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownBaseComponent, decorators: [{
+    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuMarkdownBaseComponent, decorators: [{
                 type: i0.Directive
             }], ctorParameters: function () {
             return [{ type: i0__namespace.ElementRef }, { type: undefined, decorators: [{
@@ -495,9 +501,9 @@
         };
         return NuMarkdownPreviewComponent;
     }(NuMarkdownBaseComponent));
-    /** @nocollapse */ NuMarkdownPreviewComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownPreviewComponent, deps: null, target: i0__namespace.ɵɵFactoryTarget.Component });
-    /** @nocollapse */ NuMarkdownPreviewComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.0.2", type: NuMarkdownPreviewComponent, selector: "nu-markdown-preview", exportAs: ["nuMarkdownPreview"], usesInheritance: true, ngImport: i0__namespace, template: "", isInline: true, changeDetection: i0__namespace.ChangeDetectionStrategy.OnPush });
-    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownPreviewComponent, decorators: [{
+    /** @nocollapse */ NuMarkdownPreviewComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuMarkdownPreviewComponent, deps: null, target: i0__namespace.ɵɵFactoryTarget.Component });
+    /** @nocollapse */ NuMarkdownPreviewComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.0.5", type: NuMarkdownPreviewComponent, selector: "nu-markdown-preview", exportAs: ["nuMarkdownPreview"], usesInheritance: true, ngImport: i0__namespace, template: "", isInline: true, changeDetection: i0__namespace.ChangeDetectionStrategy.OnPush });
+    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuMarkdownPreviewComponent, decorators: [{
                 type: i0.Component,
                 args: [{
                         selector: 'nu-markdown-preview',
@@ -557,15 +563,15 @@
         };
         return NuMarkdownComponent;
     }(NuMarkdownBaseComponent));
-    /** @nocollapse */ NuMarkdownComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownComponent, deps: null, target: i0__namespace.ɵɵFactoryTarget.Component });
-    /** @nocollapse */ NuMarkdownComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.0.2", type: NuMarkdownComponent, selector: "nu-markdown", providers: [
+    /** @nocollapse */ NuMarkdownComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuMarkdownComponent, deps: null, target: i0__namespace.ɵɵFactoryTarget.Component });
+    /** @nocollapse */ NuMarkdownComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.0.5", type: NuMarkdownComponent, selector: "nu-markdown", providers: [
             {
                 provide: forms.NG_VALUE_ACCESSOR,
                 useExisting: i0.forwardRef((function () { return NuMarkdownComponent; })),
                 multi: true,
             },
         ], exportAs: ["nuMarkdown"], usesInheritance: true, ngImport: i0__namespace, template: "", isInline: true, changeDetection: i0__namespace.ChangeDetectionStrategy.OnPush });
-    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownComponent, decorators: [{
+    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuMarkdownComponent, decorators: [{
                 type: i0.Component,
                 args: [{
                         selector: 'nu-markdown',
@@ -594,10 +600,10 @@
         };
         return NuMarkdownModule;
     }());
-    /** @nocollapse */ NuMarkdownModule.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownModule, deps: [], target: i0__namespace.ɵɵFactoryTarget.NgModule });
-    /** @nocollapse */ NuMarkdownModule.ɵmod = i0__namespace.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownModule, declarations: [NuMarkdownComponent, NuMarkdownPreviewComponent], imports: [common.CommonModule], exports: [NuMarkdownComponent, NuMarkdownPreviewComponent] });
-    /** @nocollapse */ NuMarkdownModule.ɵinj = i0__namespace.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownModule, imports: [[common.CommonModule]] });
-    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuMarkdownModule, decorators: [{
+    /** @nocollapse */ NuMarkdownModule.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuMarkdownModule, deps: [], target: i0__namespace.ɵɵFactoryTarget.NgModule });
+    /** @nocollapse */ NuMarkdownModule.ɵmod = i0__namespace.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuMarkdownModule, declarations: [NuMarkdownComponent, NuMarkdownPreviewComponent], imports: [common.CommonModule], exports: [NuMarkdownComponent, NuMarkdownPreviewComponent] });
+    /** @nocollapse */ NuMarkdownModule.ɵinj = i0__namespace.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuMarkdownModule, imports: [[common.CommonModule]] });
+    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuMarkdownModule, decorators: [{
                 type: i0.NgModule,
                 args: [{
                         imports: [common.CommonModule],

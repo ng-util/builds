@@ -61,15 +61,15 @@ export class NuMonacoEditorComponent extends NuMonacoEditorBase {
         this.setDisabled();
     }
 }
-/** @nocollapse */ NuMonacoEditorComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0, type: NuMonacoEditorComponent, deps: null, target: i0.ɵɵFactoryTarget.Component });
-/** @nocollapse */ NuMonacoEditorComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.0.2", type: NuMonacoEditorComponent, selector: "nu-monaco-editor", inputs: { model: "model" }, host: { properties: { "style.display": "'block'", "style.height": "height" } }, providers: [
+/** @nocollapse */ NuMonacoEditorComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0, type: NuMonacoEditorComponent, deps: null, target: i0.ɵɵFactoryTarget.Component });
+/** @nocollapse */ NuMonacoEditorComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.0.5", type: NuMonacoEditorComponent, selector: "nu-monaco-editor", inputs: { model: "model" }, host: { properties: { "style.display": "'block'", "style.height": "height" } }, providers: [
         {
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef((() => NuMonacoEditorComponent)),
             multi: true,
         },
     ], exportAs: ["nuMonacoEditor"], usesInheritance: true, ngImport: i0, template: ``, isInline: true, changeDetection: i0.ChangeDetectionStrategy.OnPush });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0, type: NuMonacoEditorComponent, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0, type: NuMonacoEditorComponent, decorators: [{
             type: Component,
             args: [{
                     selector: 'nu-monaco-editor',

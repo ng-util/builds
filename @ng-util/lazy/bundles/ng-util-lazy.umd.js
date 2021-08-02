@@ -1,5 +1,5 @@
 /**
- * @license ng-util(cipchk@qq.com) v12.0.0
+ * @license ng-util(cipchk@qq.com) v12.1.0
  * (c) 2020 cipchk https://github.com/ng-util
  * License: MIT
  */
@@ -257,10 +257,16 @@
                 r[k] = a[j];
         return r;
     }
-    function __spreadArray(to, from) {
-        for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-            to[j] = from[i];
-        return to;
+    function __spreadArray(to, from, pack) {
+        if (pack || arguments.length === 2)
+            for (var i = 0, l = from.length, ar; i < l; i++) {
+                if (ar || !(i in from)) {
+                    if (!ar)
+                        ar = Array.prototype.slice.call(from, 0, i);
+                    ar[i] = from[i];
+                }
+            }
+        return to.concat(ar || from);
     }
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
@@ -484,9 +490,9 @@
         };
         return NuLazyService;
     }());
-    /** @nocollapse */ NuLazyService.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuLazyService, deps: [{ token: common.DOCUMENT }], target: i0__namespace.ɵɵFactoryTarget.Injectable });
-    /** @nocollapse */ NuLazyService.ɵprov = i0__namespace.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuLazyService, providedIn: 'root' });
-    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.2", ngImport: i0__namespace, type: NuLazyService, decorators: [{
+    /** @nocollapse */ NuLazyService.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuLazyService, deps: [{ token: common.DOCUMENT }], target: i0__namespace.ɵɵFactoryTarget.Injectable });
+    /** @nocollapse */ NuLazyService.ɵprov = i0__namespace.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuLazyService, providedIn: 'root' });
+    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.0.5", ngImport: i0__namespace, type: NuLazyService, decorators: [{
                 type: i0.Injectable,
                 args: [{ providedIn: 'root' }]
             }], ctorParameters: function () {

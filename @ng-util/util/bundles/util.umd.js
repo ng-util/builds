@@ -1,5 +1,5 @@
 /**
- * @license ng-util(cipchk@qq.com) v12.0.0
+ * @license ng-util(cipchk@qq.com) v12.1.0
  * (c) 2020 cipchk https://github.com/ng-util
  * License: MIT
  */
