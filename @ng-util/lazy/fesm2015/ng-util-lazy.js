@@ -142,10 +142,17 @@ class NuLazyService {
     }
 }
 /** @nocollapse */ NuLazyService.ɵprov = i0.ɵɵdefineInjectable({ factory: function NuLazyService_Factory() { return new NuLazyService(i0.ɵɵinject(i1.DOCUMENT)); }, token: NuLazyService, providedIn: "root" });
+/** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
 NuLazyService.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] }
 ];
-/** @nocollapse */
+/**
+ * @type {function(): !Array<(null|{
+ *   type: ?,
+ *   decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>),
+ * })>}
+ * @nocollapse
+ */
 NuLazyService.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];

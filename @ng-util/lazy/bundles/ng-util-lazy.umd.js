@@ -6,8 +6,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('rxjs'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@ng-util/lazy', ['exports', '@angular/common', '@angular/core', 'rxjs', 'rxjs/operators'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].lazy = {}), global.ng.common, global.ng.core, global.rxjs, global.rxjs.operators));
-}(this, (function (exports, i1, i0, rxjs, operators) { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global["ng-util"] = global["ng-util"] || {}, global["ng-util"].lazy = {}), global.ng.common, global.ng.core, global.rxjs, global.rxjs.operators));
+})(this, (function (exports, i1, i0, rxjs, operators) { 'use strict';
 
     function _interopNamespace(e) {
         if (e && e.__esModule) return e;
@@ -18,14 +18,12 @@
                     var d = Object.getOwnPropertyDescriptor(e, k);
                     Object.defineProperty(n, k, d.get ? d : {
                         enumerable: true,
-                        get: function () {
-                            return e[k];
-                        }
+                        get: function () { return e[k]; }
                     });
                 }
             });
         }
-        n['default'] = e;
+        n["default"] = e;
         return Object.freeze(n);
     }
 
@@ -267,7 +265,7 @@
                     ar[i] = from[i];
                 }
             }
-        return to.concat(ar || from);
+        return to.concat(ar || Array.prototype.slice.call(from));
     }
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
@@ -492,10 +490,17 @@
         return NuLazyService;
     }());
     /** @nocollapse */ NuLazyService.ɵprov = i0__namespace.ɵɵdefineInjectable({ factory: function NuLazyService_Factory() { return new NuLazyService(i0__namespace.ɵɵinject(i1__namespace.DOCUMENT)); }, token: NuLazyService, providedIn: "root" });
+    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     NuLazyService.decorators = [
         { type: i0.Injectable, args: [{ providedIn: 'root' },] }
     ];
-    /** @nocollapse */
+    /**
+     * @type {function(): !Array<(null|{
+     *   type: ?,
+     *   decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>),
+     * })>}
+     * @nocollapse
+     */
     NuLazyService.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: i0.Inject, args: [i1.DOCUMENT,] }] }
     ]; };
@@ -508,5 +513,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));
 //# sourceMappingURL=ng-util-lazy.umd.js.map

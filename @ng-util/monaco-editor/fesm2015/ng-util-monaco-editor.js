@@ -17,11 +17,10 @@ class NuMonacoEditorBase {
         this.doc = doc;
         this.ngZone = ngZone;
         this._resize$ = null;
-        this._disabled = false;
         this.height = `200px`;
         this.delay = 0;
         this.event = new EventEmitter();
-        this._config = Object.assign({ baseUrl: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min' }, config);
+        this._config = Object.assign({ baseUrl: 'https://cdn.jsdelivr.net/npm/monaco-editor/min' }, config);
         this.options = this._config.defaultOptions;
     }
     set disabled(val) {
@@ -130,19 +129,27 @@ class NuMonacoEditorBase {
         }
     }
 }
+/** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
 NuMonacoEditorBase.decorators = [
     { type: Component, args: [{
                 selector: 'nu-monaco-base',
                 template: ``
             },] }
 ];
-/** @nocollapse */
+/**
+ * @type {function(): !Array<(null|{
+ *   type: ?,
+ *   decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>),
+ * })>}
+ * @nocollapse
+ */
 NuMonacoEditorBase.ctorParameters = () => [
     { type: ElementRef },
     { type: undefined, decorators: [{ type: Inject, args: [NU_MONACO_EDITOR_CONFIG,] }] },
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
     { type: NgZone }
 ];
+/** @type {!Object<string, !Array<{type: !Function, args: (undefined|!Array<?>)}>>} */
 NuMonacoEditorBase.propDecorators = {
     height: [{ type: Input }],
     delay: [{ type: Input }],
@@ -174,7 +181,8 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
                 options.model = monaco.editor.createModel(value || this._value, language, uri);
             }
         }
-        options.readOnly = this._disabled;
+        if (this._disabled != null)
+            options.readOnly = this._disabled;
         const editor = (this._editor = monaco.editor.create(this.el.nativeElement, options));
         if (!hasModel) {
             editor.setValue(this._value);
@@ -210,6 +218,7 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
         this.setDisabled();
     }
 }
+/** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
 NuMonacoEditorComponent.decorators = [
     { type: Component, args: [{
                 selector: 'nu-monaco-editor',
@@ -229,6 +238,7 @@ NuMonacoEditorComponent.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush
             },] }
 ];
+/** @type {!Object<string, !Array<{type: !Function, args: (undefined|!Array<?>)}>>} */
 NuMonacoEditorComponent.propDecorators = {
     model: [{ type: Input }]
 };
@@ -242,7 +252,8 @@ class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
             throw new Error('old or new not found for nu-monaco-diff-editor');
         }
         const theme = options.theme;
-        options.readOnly = this._disabled;
+        if (this._disabled != null)
+            options.readOnly = this._disabled;
         const editor = (this._editor = monaco.editor.createDiffEditor(this.el.nativeElement, options));
         options.theme = theme;
         editor.setModel({
@@ -256,6 +267,7 @@ class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
             this.notifyEvent('init');
     }
 }
+/** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
 NuMonacoEditorDiffComponent.decorators = [
     { type: Component, args: [{
                 selector: 'nu-monaco-diff-editor',
@@ -268,6 +280,7 @@ NuMonacoEditorDiffComponent.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush
             },] }
 ];
+/** @type {!Object<string, !Array<{type: !Function, args: (undefined|!Array<?>)}>>} */
 NuMonacoEditorDiffComponent.propDecorators = {
     old: [{ type: Input }],
     new: [{ type: Input }]
@@ -282,6 +295,7 @@ class NuMonacoEditorModule {
         };
     }
 }
+/** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
 NuMonacoEditorModule.decorators = [
     { type: NgModule, args: [{
                 imports: [CommonModule],

@@ -6,8 +6,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('@angular/common'), require('rxjs'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@ng-util/monaco-editor', ['exports', '@angular/core', '@angular/forms', '@angular/common', 'rxjs', 'rxjs/operators'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util']['monaco-editor'] = {}), global.ng.core, global.ng.forms, global.ng.common, global.rxjs, global.rxjs.operators));
-}(this, (function (exports, core, forms, common, rxjs, operators) { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global["ng-util"] = global["ng-util"] || {}, global["ng-util"]["monaco-editor"] = {}), global.ng.core, global.ng.forms, global.ng.common, global.rxjs, global.rxjs.operators));
+})(this, (function (exports, core, forms, common, rxjs, operators) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -244,7 +244,7 @@
                     ar[i] = from[i];
                 }
             }
-        return to.concat(ar || from);
+        return to.concat(ar || Array.prototype.slice.call(from));
     }
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
@@ -338,11 +338,10 @@
             this.doc = doc;
             this.ngZone = ngZone;
             this._resize$ = null;
-            this._disabled = false;
             this.height = "200px";
             this.delay = 0;
             this.event = new core.EventEmitter();
-            this._config = Object.assign({ baseUrl: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min' }, config);
+            this._config = Object.assign({ baseUrl: 'https://cdn.jsdelivr.net/npm/monaco-editor/min' }, config);
             this.options = this._config.defaultOptions;
         }
         Object.defineProperty(NuMonacoEditorBase.prototype, "disabled", {
@@ -465,19 +464,27 @@
         };
         return NuMonacoEditorBase;
     }());
+    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     NuMonacoEditorBase.decorators = [
         { type: core.Component, args: [{
                     selector: 'nu-monaco-base',
                     template: ""
                 },] }
     ];
-    /** @nocollapse */
+    /**
+     * @type {function(): !Array<(null|{
+     *   type: ?,
+     *   decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>),
+     * })>}
+     * @nocollapse
+     */
     NuMonacoEditorBase.ctorParameters = function () { return [
         { type: core.ElementRef },
         { type: undefined, decorators: [{ type: core.Inject, args: [NU_MONACO_EDITOR_CONFIG,] }] },
         { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
         { type: core.NgZone }
     ]; };
+    /** @type {!Object<string, !Array<{type: !Function, args: (undefined|!Array<?>)}>>} */
     NuMonacoEditorBase.propDecorators = {
         height: [{ type: core.Input }],
         delay: [{ type: core.Input }],
@@ -516,7 +523,8 @@
                     options.model = monaco.editor.createModel(value || this._value, language, uri);
                 }
             }
-            options.readOnly = this._disabled;
+            if (this._disabled != null)
+                options.readOnly = this._disabled;
             var editor = (this._editor = monaco.editor.create(this.el.nativeElement, options));
             if (!hasModel) {
                 editor.setValue(this._value);
@@ -553,6 +561,7 @@
         };
         return NuMonacoEditorComponent;
     }(NuMonacoEditorBase));
+    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     NuMonacoEditorComponent.decorators = [
         { type: core.Component, args: [{
                     selector: 'nu-monaco-editor',
@@ -572,6 +581,7 @@
                     changeDetection: core.ChangeDetectionStrategy.OnPush
                 },] }
     ];
+    /** @type {!Object<string, !Array<{type: !Function, args: (undefined|!Array<?>)}>>} */
     NuMonacoEditorComponent.propDecorators = {
         model: [{ type: core.Input }]
     };
@@ -594,7 +604,8 @@
                 throw new Error('old or new not found for nu-monaco-diff-editor');
             }
             var theme = options.theme;
-            options.readOnly = this._disabled;
+            if (this._disabled != null)
+                options.readOnly = this._disabled;
             var editor = (this._editor = monaco.editor.createDiffEditor(this.el.nativeElement, options));
             options.theme = theme;
             editor.setModel({
@@ -609,6 +620,7 @@
         };
         return NuMonacoEditorDiffComponent;
     }(NuMonacoEditorBase));
+    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     NuMonacoEditorDiffComponent.decorators = [
         { type: core.Component, args: [{
                     selector: 'nu-monaco-diff-editor',
@@ -621,6 +633,7 @@
                     changeDetection: core.ChangeDetectionStrategy.OnPush
                 },] }
     ];
+    /** @type {!Object<string, !Array<{type: !Function, args: (undefined|!Array<?>)}>>} */
     NuMonacoEditorDiffComponent.propDecorators = {
         old: [{ type: core.Input }],
         new: [{ type: core.Input }]
@@ -638,6 +651,7 @@
         };
         return NuMonacoEditorModule;
     }());
+    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     NuMonacoEditorModule.decorators = [
         { type: core.NgModule, args: [{
                     imports: [common.CommonModule],
@@ -654,9 +668,9 @@
     exports.NuMonacoEditorComponent = NuMonacoEditorComponent;
     exports.NuMonacoEditorDiffComponent = NuMonacoEditorDiffComponent;
     exports.NuMonacoEditorModule = NuMonacoEditorModule;
-    exports.ɵa = NuMonacoEditorBase;
+    exports["ɵa"] = NuMonacoEditorBase;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));
 //# sourceMappingURL=ng-util-monaco-editor.umd.js.map

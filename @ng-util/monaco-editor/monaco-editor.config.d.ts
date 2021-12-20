@@ -2,7 +2,7 @@ import { InjectionToken } from '@angular/core';
 export declare const NU_MONACO_EDITOR_CONFIG: InjectionToken<unknown>;
 export interface NuMonacoEditorConfig {
     /**
-     * The base URL to monaco editor library assets via AMD (RequireJS), Default: `https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min`
+     * The base URL to monaco editor library assets via AMD (RequireJS), Default: `https://cdn.jsdelivr.net/npm/monaco-editor/min`
      * You can using local path, e.g.: `assets/monaco-editor/min`.
      */
     baseUrl?: string;

@@ -10,7 +10,7 @@ export declare class NuMonacoEditorBase implements AfterViewInit, OnChanges, OnD
     protected _options: monaco.editor.IStandaloneEditorConstructionOptions;
     protected _resize$: Subscription | null;
     protected _config: NuMonacoEditorConfig;
-    protected _disabled: boolean;
+    protected _disabled?: boolean;
     height: string;
     delay: number;
     set disabled(val: boolean | string);

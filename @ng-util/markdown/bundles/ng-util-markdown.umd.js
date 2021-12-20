@@ -6,8 +6,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@ng-util/util/convert'), require('@ng-util/lazy'), require('rxjs'), require('@angular/forms'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@ng-util/markdown', ['exports', '@angular/core', '@ng-util/util/convert', '@ng-util/lazy', 'rxjs', '@angular/forms', '@angular/common'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].markdown = {}), global.ng.core, global['@ng-util/util/convert'], global['@ng-util/lazy'], global.rxjs, global.ng.forms, global.ng.common));
-}(this, (function (exports, i0, convert, i2, rxjs, forms, common) { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global["ng-util"] = global["ng-util"] || {}, global["ng-util"].markdown = {}), global.ng.core, global["@ng-util/util/convert"], global["@ng-util/lazy"], global.rxjs, global.ng.forms, global.ng.common));
+})(this, (function (exports, i0, convert, i2, rxjs, forms, common) { 'use strict';
 
     function _interopNamespace(e) {
         if (e && e.__esModule) return e;
@@ -18,14 +18,12 @@
                     var d = Object.getOwnPropertyDescriptor(e, k);
                     Object.defineProperty(n, k, d.get ? d : {
                         enumerable: true,
-                        get: function () {
-                            return e[k];
-                        }
+                        get: function () { return e[k]; }
                     });
                 }
             });
         }
-        n['default'] = e;
+        n["default"] = e;
         return Object.freeze(n);
     }
 
@@ -267,7 +265,7 @@
                     ar[i] = from[i];
                 }
             }
-        return to.concat(ar || from);
+        return to.concat(ar || Array.prototype.slice.call(from));
     }
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
@@ -390,10 +388,17 @@
         return NuMarkdownService;
     }());
     /** @nocollapse */ NuMarkdownService.ɵprov = i0__namespace.ɵɵdefineInjectable({ factory: function NuMarkdownService_Factory() { return new NuMarkdownService(i0__namespace.ɵɵinject(NU_MARKDOWN_CONFIG), i0__namespace.ɵɵinject(i2__namespace.NuLazyService)); }, token: NuMarkdownService, providedIn: "root" });
+    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     NuMarkdownService.decorators = [
         { type: i0.Injectable, args: [{ providedIn: 'root' },] }
     ];
-    /** @nocollapse */
+    /**
+     * @type {function(): !Array<(null|{
+     *   type: ?,
+     *   decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>),
+     * })>}
+     * @nocollapse
+     */
     NuMarkdownService.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: i0.Inject, args: [NU_MARKDOWN_CONFIG,] }] },
         { type: i2.NuLazyService }
@@ -451,16 +456,24 @@
         };
         return NuMarkdownBaseComponent;
     }());
+    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     NuMarkdownBaseComponent.decorators = [
         { type: i0.Directive }
     ];
-    /** @nocollapse */
+    /**
+     * @type {function(): !Array<(null|{
+     *   type: ?,
+     *   decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>),
+     * })>}
+     * @nocollapse
+     */
     NuMarkdownBaseComponent.ctorParameters = function () { return [
         { type: i0.ElementRef },
         { type: undefined, decorators: [{ type: i0.Inject, args: [NU_MARKDOWN_CONFIG,] }] },
         { type: NuMarkdownService },
         { type: i0.NgZone }
     ]; };
+    /** @type {!Object<string, !Array<{type: !Function, args: (undefined|!Array<?>)}>>} */
     NuMarkdownBaseComponent.propDecorators = {
         delay: [{ type: i0.Input }],
         disabled: [{ type: i0.Input }],
@@ -496,6 +509,7 @@
         };
         return NuMarkdownPreviewComponent;
     }(NuMarkdownBaseComponent));
+    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     NuMarkdownPreviewComponent.decorators = [
         { type: i0.Component, args: [{
                     selector: 'nu-markdown-preview',
@@ -555,6 +569,7 @@
         };
         return NuMarkdownComponent;
     }(NuMarkdownBaseComponent));
+    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     NuMarkdownComponent.decorators = [
         { type: i0.Component, args: [{
                     selector: 'nu-markdown',
@@ -583,6 +598,7 @@
         };
         return NuMarkdownModule;
     }());
+    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     NuMarkdownModule.decorators = [
         { type: i0.NgModule, args: [{
                     imports: [common.CommonModule],
@@ -599,10 +615,10 @@
     exports.NuMarkdownComponent = NuMarkdownComponent;
     exports.NuMarkdownModule = NuMarkdownModule;
     exports.NuMarkdownPreviewComponent = NuMarkdownPreviewComponent;
-    exports.ɵa = NU_MARKDOWN_CONFIG;
-    exports.ɵc = NuMarkdownService;
+    exports["ɵa"] = NU_MARKDOWN_CONFIG;
+    exports["ɵc"] = NuMarkdownService;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));
 //# sourceMappingURL=ng-util-markdown.umd.js.map

@@ -25,6 +25,6 @@
   "typings": "util.d.ts",
   "metadata": "util.metadata.json",
   "dependencies": {
-    "tslib": "^2.1.0"
+    "tslib": "^2.2.0"
   }
 }

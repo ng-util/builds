@@ -42,10 +42,17 @@ class NuMarkdownService {
     }
 }
 /** @nocollapse */ NuMarkdownService.ɵprov = i0.ɵɵdefineInjectable({ factory: function NuMarkdownService_Factory() { return new NuMarkdownService(i0.ɵɵinject(NU_MARKDOWN_CONFIG), i0.ɵɵinject(i2.NuLazyService)); }, token: NuMarkdownService, providedIn: "root" });
+/** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
 NuMarkdownService.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] }
 ];
-/** @nocollapse */
+/**
+ * @type {function(): !Array<(null|{
+ *   type: ?,
+ *   decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>),
+ * })>}
+ * @nocollapse
+ */
 NuMarkdownService.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [NU_MARKDOWN_CONFIG,] }] },
     { type: NuLazyService }
@@ -88,16 +95,24 @@ class NuMarkdownBaseComponent {
         this.notify$.unsubscribe();
     }
 }
+/** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
 NuMarkdownBaseComponent.decorators = [
     { type: Directive }
 ];
-/** @nocollapse */
+/**
+ * @type {function(): !Array<(null|{
+ *   type: ?,
+ *   decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>),
+ * })>}
+ * @nocollapse
+ */
 NuMarkdownBaseComponent.ctorParameters = () => [
     { type: ElementRef },
     { type: undefined, decorators: [{ type: Inject, args: [NU_MARKDOWN_CONFIG,] }] },
     { type: NuMarkdownService },
     { type: NgZone }
 ];
+/** @type {!Object<string, !Array<{type: !Function, args: (undefined|!Array<?>)}>>} */
 NuMarkdownBaseComponent.propDecorators = {
     delay: [{ type: Input }],
     disabled: [{ type: Input }],
@@ -119,6 +134,7 @@ class NuMarkdownPreviewComponent extends NuMarkdownBaseComponent {
         }));
     }
 }
+/** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
 NuMarkdownPreviewComponent.decorators = [
     { type: Component, args: [{
                 selector: 'nu-markdown-preview',
@@ -174,6 +190,7 @@ class NuMarkdownComponent extends NuMarkdownBaseComponent {
         this.setDisabled();
     }
 }
+/** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
 NuMarkdownComponent.decorators = [
     { type: Component, args: [{
                 selector: 'nu-markdown',
@@ -199,6 +216,7 @@ class NuMarkdownModule {
         };
     }
 }
+/** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
 NuMarkdownModule.decorators = [
     { type: NgModule, args: [{
                 imports: [CommonModule],

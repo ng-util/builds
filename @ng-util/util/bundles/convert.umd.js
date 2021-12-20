@@ -6,8 +6,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define('@ng-util/util/convert', ['exports'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global['ng-util'] = global['ng-util'] || {}, global['ng-util'].util = global['ng-util'].util || {}, global['ng-util'].util.convert = {})));
-}(this, (function (exports) { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global["ng-util"] = global["ng-util"] || {}, global["ng-util"].util = global["ng-util"].util || {}, global["ng-util"].util.convert = {})));
+})(this, (function (exports) { 'use strict';
 
     function propDecoratorFactory(name, fallback, defaultValue) {
         function propDecorator(target, propName, originalDescriptor) {
@@ -77,5 +77,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));
 //# sourceMappingURL=convert.umd.js.map
