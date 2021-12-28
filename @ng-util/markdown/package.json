@@ -22,14 +22,26 @@
   "dependencies": {
     "@ng-util/util": "^10.0.0",
     "@ng-util/lazy": "^10.0.0",
-    "tslib": "^2.2.0"
+    "tslib": "^2.3.0"
   },
-  "main": "bundles/ng-util-markdown.umd.js",
-  "module": "fesm2015/ng-util-markdown.js",
-  "es2015": "fesm2015/ng-util-markdown.js",
-  "esm2015": "esm2015/ng-util-markdown.js",
-  "fesm2015": "fesm2015/ng-util-markdown.js",
+  "module": "fesm2015/ng-util-markdown.mjs",
+  "es2020": "fesm2020/ng-util-markdown.mjs",
+  "esm2020": "esm2020/ng-util-markdown.mjs",
+  "fesm2020": "fesm2020/ng-util-markdown.mjs",
+  "fesm2015": "fesm2015/ng-util-markdown.mjs",
   "typings": "ng-util-markdown.d.ts",
-  "metadata": "ng-util-markdown.metadata.json",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./ng-util-markdown.d.ts",
+      "esm2020": "./esm2020/ng-util-markdown.mjs",
+      "es2020": "./fesm2020/ng-util-markdown.mjs",
+      "es2015": "./fesm2015/ng-util-markdown.mjs",
+      "node": "./fesm2015/ng-util-markdown.mjs",
+      "default": "./fesm2020/ng-util-markdown.mjs"
+    }
+  },
   "sideEffects": false
 }

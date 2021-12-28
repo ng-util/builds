@@ -2,7 +2,8 @@ import { AfterViewInit, ElementRef, EventEmitter, NgZone, OnChanges, OnDestroy, 
 import { Subscription } from 'rxjs';
 import { NuMonacoEditorConfig } from './monaco-editor.config';
 import { NuMonacoEditorEvent, NuMonacoEditorEventType } from './monaco-editor.types';
-export declare class NuMonacoEditorBase implements AfterViewInit, OnChanges, OnDestroy {
+import * as i0 from "@angular/core";
+export declare abstract class NuMonacoEditorBase implements AfterViewInit, OnChanges, OnDestroy {
     protected el: ElementRef<HTMLElement>;
     protected doc: any;
     protected ngZone: NgZone;
@@ -18,7 +19,7 @@ export declare class NuMonacoEditorBase implements AfterViewInit, OnChanges, OnD
     get options(): monaco.editor.IStandaloneEditorConstructionOptions;
     event: EventEmitter<NuMonacoEditorEvent>;
     constructor(el: ElementRef<HTMLElement>, config: NuMonacoEditorConfig, doc: any, ngZone: NgZone);
-    protected initMonaco(_options: monaco.editor.IStandaloneEditorConstructionOptions, _initEvent: boolean): void;
+    protected abstract initMonaco(_options: monaco.editor.IStandaloneEditorConstructionOptions, _initEvent: boolean): void;
     protected notifyEvent(type: NuMonacoEditorEventType, other?: NuMonacoEditorEvent): void;
     protected setDisabled(): this;
     private init;
@@ -30,4 +31,6 @@ export declare class NuMonacoEditorBase implements AfterViewInit, OnChanges, OnD
         [P in keyof this]?: SimpleChange;
     } & SimpleChanges): void;
     ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<NuMonacoEditorBase, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<NuMonacoEditorBase, "nu-monaco-base", never, { "height": "height"; "delay": "delay"; "disabled": "disabled"; "options": "options"; }, { "event": "event"; }, never, never>;
 }

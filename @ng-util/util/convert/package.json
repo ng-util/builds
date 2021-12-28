@@ -1,11 +1,10 @@
 {
-  "main": "../bundles/convert.umd.js",
-  "module": "../fesm2015/convert.js",
-  "es2015": "../fesm2015/convert.js",
-  "esm2015": "../esm2015/convert/convert.js",
-  "fesm2015": "../fesm2015/convert.js",
-  "typings": "convert.d.ts",
-  "metadata": "convert.metadata.json",
+  "module": "../fesm2015/utilConvert.mjs",
+  "es2020": "../fesm2020/utilConvert.mjs",
+  "esm2020": "../esm2020/convert/utilConvert.mjs",
+  "fesm2020": "../fesm2020/utilConvert.mjs",
+  "fesm2015": "../fesm2015/utilConvert.mjs",
+  "typings": "utilConvert.d.ts",
   "sideEffects": false,
   "name": "@ng-util/util/convert"
 }

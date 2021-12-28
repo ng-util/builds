@@ -20,14 +20,26 @@
     "monaco"
   ],
   "sideEffects": false,
-  "main": "bundles/ng-util-monaco-editor.umd.js",
-  "module": "fesm2015/ng-util-monaco-editor.js",
-  "es2015": "fesm2015/ng-util-monaco-editor.js",
-  "esm2015": "esm2015/ng-util-monaco-editor.js",
-  "fesm2015": "fesm2015/ng-util-monaco-editor.js",
+  "module": "fesm2015/ng-util-monaco-editor.mjs",
+  "es2020": "fesm2020/ng-util-monaco-editor.mjs",
+  "esm2020": "esm2020/ng-util-monaco-editor.mjs",
+  "fesm2020": "fesm2020/ng-util-monaco-editor.mjs",
+  "fesm2015": "fesm2015/ng-util-monaco-editor.mjs",
   "typings": "ng-util-monaco-editor.d.ts",
-  "metadata": "ng-util-monaco-editor.metadata.json",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./ng-util-monaco-editor.d.ts",
+      "esm2020": "./esm2020/ng-util-monaco-editor.mjs",
+      "es2020": "./fesm2020/ng-util-monaco-editor.mjs",
+      "es2015": "./fesm2015/ng-util-monaco-editor.mjs",
+      "node": "./fesm2015/ng-util-monaco-editor.mjs",
+      "default": "./fesm2020/ng-util-monaco-editor.mjs"
+    }
+  },
   "dependencies": {
-    "tslib": "^2.2.0"
+    "tslib": "^2.3.0"
   }
 }

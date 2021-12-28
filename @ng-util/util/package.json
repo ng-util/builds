@@ -17,14 +17,34 @@
     "Angular utilities"
   ],
   "sideEffects": false,
-  "main": "bundles/util.umd.js",
-  "module": "fesm2015/util.js",
-  "es2015": "fesm2015/util.js",
-  "esm2015": "esm2015/util.js",
-  "fesm2015": "fesm2015/util.js",
+  "module": "fesm2015/util.mjs",
+  "es2020": "fesm2020/util.mjs",
+  "esm2020": "esm2020/util.mjs",
+  "fesm2020": "fesm2020/util.mjs",
+  "fesm2015": "fesm2015/util.mjs",
   "typings": "util.d.ts",
-  "metadata": "util.metadata.json",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./util.d.ts",
+      "esm2020": "./esm2020/util.mjs",
+      "es2020": "./fesm2020/util.mjs",
+      "es2015": "./fesm2015/util.mjs",
+      "node": "./fesm2015/util.mjs",
+      "default": "./fesm2020/util.mjs"
+    },
+    "./convert": {
+      "types": "./convert/utilConvert.d.ts",
+      "esm2020": "./esm2020/convert/utilConvert.mjs",
+      "es2020": "./fesm2020/utilConvert.mjs",
+      "es2015": "./fesm2015/utilConvert.mjs",
+      "node": "./fesm2015/utilConvert.mjs",
+      "default": "./fesm2020/utilConvert.mjs"
+    }
+  },
   "dependencies": {
-    "tslib": "^2.2.0"
+    "tslib": "^2.3.0"
   }
 }
