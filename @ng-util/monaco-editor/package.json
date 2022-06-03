@@ -1,6 +1,6 @@
 {
   "name": "@ng-util/monaco-editor",
-  "version": "13.0.0",
+  "version": "13.1.0",
   "author": "cipchk<cipchk@qq.com>",
   "description": "Monaco Code Editor for Angular",
   "license": "MIT",
