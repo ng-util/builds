@@ -13,10 +13,10 @@ export class NuMonacoEditorModule {
         };
     }
 }
-/** @nocollapse */ /** @nocollapse */ NuMonacoEditorModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.1", ngImport: i0, type: NuMonacoEditorModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-/** @nocollapse */ /** @nocollapse */ NuMonacoEditorModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.1.1", ngImport: i0, type: NuMonacoEditorModule, declarations: [NuMonacoEditorComponent, NuMonacoEditorDiffComponent], imports: [CommonModule], exports: [NuMonacoEditorComponent, NuMonacoEditorDiffComponent] });
-/** @nocollapse */ /** @nocollapse */ NuMonacoEditorModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.1.1", ngImport: i0, type: NuMonacoEditorModule, imports: [[CommonModule]] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.1", ngImport: i0, type: NuMonacoEditorModule, decorators: [{
+/** @nocollapse */ /** @nocollapse */ NuMonacoEditorModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.3", ngImport: i0, type: NuMonacoEditorModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+/** @nocollapse */ /** @nocollapse */ NuMonacoEditorModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.1.3", ngImport: i0, type: NuMonacoEditorModule, declarations: [NuMonacoEditorComponent, NuMonacoEditorDiffComponent], imports: [CommonModule], exports: [NuMonacoEditorComponent, NuMonacoEditorDiffComponent] });
+/** @nocollapse */ /** @nocollapse */ NuMonacoEditorModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.1.3", ngImport: i0, type: NuMonacoEditorModule, imports: [[CommonModule]] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.3", ngImport: i0, type: NuMonacoEditorModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [CommonModule],

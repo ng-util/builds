@@ -13,10 +13,10 @@ export class NuMarkdownModule {
         };
     }
 }
-/** @nocollapse */ /** @nocollapse */ NuMarkdownModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.1", ngImport: i0, type: NuMarkdownModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-/** @nocollapse */ /** @nocollapse */ NuMarkdownModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.1.1", ngImport: i0, type: NuMarkdownModule, declarations: [NuMarkdownComponent, NuMarkdownPreviewComponent], imports: [CommonModule], exports: [NuMarkdownComponent, NuMarkdownPreviewComponent] });
-/** @nocollapse */ /** @nocollapse */ NuMarkdownModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.1.1", ngImport: i0, type: NuMarkdownModule, imports: [[CommonModule]] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.1", ngImport: i0, type: NuMarkdownModule, decorators: [{
+/** @nocollapse */ /** @nocollapse */ NuMarkdownModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.3", ngImport: i0, type: NuMarkdownModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+/** @nocollapse */ /** @nocollapse */ NuMarkdownModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.1.3", ngImport: i0, type: NuMarkdownModule, declarations: [NuMarkdownComponent, NuMarkdownPreviewComponent], imports: [CommonModule], exports: [NuMarkdownComponent, NuMarkdownPreviewComponent] });
+/** @nocollapse */ /** @nocollapse */ NuMarkdownModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.1.3", ngImport: i0, type: NuMarkdownModule, imports: [[CommonModule]] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.3", ngImport: i0, type: NuMarkdownModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [CommonModule],
