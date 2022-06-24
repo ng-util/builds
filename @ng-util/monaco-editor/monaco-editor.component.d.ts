@@ -15,5 +15,5 @@ export declare class NuMonacoEditorComponent extends NuMonacoEditorBase implemen
     registerOnTouched(fn: any): void;
     setDisabledState(_isDisabled: boolean): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<NuMonacoEditorComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<NuMonacoEditorComponent, "nu-monaco-editor", ["nuMonacoEditor"], { "model": "model"; "autoFormat": "autoFormat"; }, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<NuMonacoEditorComponent, "nu-monaco-editor", ["nuMonacoEditor"], { "model": "model"; "autoFormat": "autoFormat"; }, {}, never, never, true>;
 }

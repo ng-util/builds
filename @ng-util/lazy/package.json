@@ -16,7 +16,8 @@
     "util",
     "Angular utilities",
     "lazy",
-    "load"
+    "load",
+    "angular standalone library"
   ],
   "sideEffects": false,
   "module": "fesm2015/ng-util-lazy.mjs",
@@ -24,13 +25,13 @@
   "esm2020": "esm2020/ng-util-lazy.mjs",
   "fesm2020": "fesm2020/ng-util-lazy.mjs",
   "fesm2015": "fesm2015/ng-util-lazy.mjs",
-  "typings": "ng-util-lazy.d.ts",
+  "typings": "index.d.ts",
   "exports": {
     "./package.json": {
       "default": "./package.json"
     },
     ".": {
-      "types": "./ng-util-lazy.d.ts",
+      "types": "./index.d.ts",
       "esm2020": "./esm2020/ng-util-lazy.mjs",
       "es2020": "./fesm2020/ng-util-lazy.mjs",
       "es2015": "./fesm2015/ng-util-lazy.mjs",

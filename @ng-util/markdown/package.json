@@ -17,11 +17,12 @@
     "util",
     "Angular utilities",
     "markdown",
-    "Vditor"
+    "Vditor",
+    "angular standalone library"
   ],
   "dependencies": {
-    "@ng-util/util": "^10.0.0",
-    "@ng-util/lazy": "^10.0.0",
+    "@ng-util/util": "^14.0.0",
+    "@ng-util/lazy": "^14.0.0",
     "tslib": "^2.3.0"
   },
   "module": "fesm2015/ng-util-markdown.mjs",
@@ -29,13 +30,13 @@
   "esm2020": "esm2020/ng-util-markdown.mjs",
   "fesm2020": "fesm2020/ng-util-markdown.mjs",
   "fesm2015": "fesm2015/ng-util-markdown.mjs",
-  "typings": "ng-util-markdown.d.ts",
+  "typings": "index.d.ts",
   "exports": {
     "./package.json": {
       "default": "./package.json"
     },
     ".": {
-      "types": "./ng-util-markdown.d.ts",
+      "types": "./index.d.ts",
       "esm2020": "./esm2020/ng-util-markdown.mjs",
       "es2020": "./fesm2020/ng-util-markdown.mjs",
       "es2015": "./fesm2015/ng-util-markdown.mjs",
