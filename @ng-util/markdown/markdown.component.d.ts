@@ -10,5 +10,5 @@ export declare class NuMarkdownComponent extends NuMarkdownBaseComponent impleme
     registerOnTouched(_: () => void): void;
     setDisabledState(_isDisabled: boolean): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<NuMarkdownComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<NuMarkdownComponent, "nu-markdown", ["nuMarkdown"], {}, {}, never, never, true>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<NuMarkdownComponent, "nu-markdown", ["nuMarkdown"], {}, {}, never, never, true, never>;
 }
