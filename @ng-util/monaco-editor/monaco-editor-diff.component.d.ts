@@ -7,5 +7,5 @@ export declare class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
     get editor(): monaco.editor.IStandaloneDiffEditor;
     initMonaco(options: monaco.editor.IStandaloneEditorConstructionOptions, initEvent: boolean): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<NuMonacoEditorDiffComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<NuMonacoEditorDiffComponent, "nu-monaco-diff-editor", ["nuMonacoDiffEditor"], { "old": "old"; "new": "new"; }, {}, never, never, true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<NuMonacoEditorDiffComponent, "nu-monaco-diff-editor", ["nuMonacoDiffEditor"], { "old": { "alias": "old"; "required": false; }; "new": { "alias": "new"; "required": false; }; }, {}, never, never, true, never>;
 }

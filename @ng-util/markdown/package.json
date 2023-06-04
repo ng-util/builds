@@ -25,11 +25,7 @@
     "@ng-util/lazy": "^14.0.0",
     "tslib": "^2.3.0"
   },
-  "module": "fesm2015/ng-util-markdown.mjs",
-  "es2020": "fesm2020/ng-util-markdown.mjs",
-  "esm2020": "esm2020/ng-util-markdown.mjs",
-  "fesm2020": "fesm2020/ng-util-markdown.mjs",
-  "fesm2015": "fesm2015/ng-util-markdown.mjs",
+  "module": "fesm2022/ng-util-markdown.mjs",
   "typings": "index.d.ts",
   "exports": {
     "./package.json": {
@@ -37,11 +33,9 @@
     },
     ".": {
       "types": "./index.d.ts",
-      "esm2020": "./esm2020/ng-util-markdown.mjs",
-      "es2020": "./fesm2020/ng-util-markdown.mjs",
-      "es2015": "./fesm2015/ng-util-markdown.mjs",
-      "node": "./fesm2015/ng-util-markdown.mjs",
-      "default": "./fesm2020/ng-util-markdown.mjs"
+      "esm2022": "./esm2022/ng-util-markdown.mjs",
+      "esm": "./esm2022/ng-util-markdown.mjs",
+      "default": "./fesm2022/ng-util-markdown.mjs"
     }
   },
   "sideEffects": false

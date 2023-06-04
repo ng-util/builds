@@ -18,11 +18,7 @@
     "angular standalone library"
   ],
   "sideEffects": false,
-  "module": "fesm2015/util.mjs",
-  "es2020": "fesm2020/util.mjs",
-  "esm2020": "esm2020/util.mjs",
-  "fesm2020": "fesm2020/util.mjs",
-  "fesm2015": "fesm2015/util.mjs",
+  "module": "fesm2022/util.mjs",
   "typings": "index.d.ts",
   "exports": {
     "./package.json": {
@@ -30,19 +26,15 @@
     },
     ".": {
       "types": "./index.d.ts",
-      "esm2020": "./esm2020/util.mjs",
-      "es2020": "./fesm2020/util.mjs",
-      "es2015": "./fesm2015/util.mjs",
-      "node": "./fesm2015/util.mjs",
-      "default": "./fesm2020/util.mjs"
+      "esm2022": "./esm2022/util.mjs",
+      "esm": "./esm2022/util.mjs",
+      "default": "./fesm2022/util.mjs"
     },
     "./convert": {
       "types": "./convert/index.d.ts",
-      "esm2020": "./esm2020/convert/utilConvert.mjs",
-      "es2020": "./fesm2020/utilConvert.mjs",
-      "es2015": "./fesm2015/utilConvert.mjs",
-      "node": "./fesm2015/utilConvert.mjs",
-      "default": "./fesm2020/utilConvert.mjs"
+      "esm2022": "./esm2022/convert/utilConvert.mjs",
+      "esm": "./esm2022/convert/utilConvert.mjs",
+      "default": "./fesm2022/utilConvert.mjs"
     }
   },
   "dependencies": {

@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import * as i0 from "@angular/core";
-export declare type NuLazyResourcesType = 'script' | 'style';
+export type NuLazyResourcesType = 'script' | 'style';
 export interface NuLazyResources {
     path: string;
     type: NuLazyResourcesType;

@@ -23,5 +23,5 @@ export declare abstract class NuMarkdownBaseComponent implements AfterViewInit, 
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<NuMarkdownBaseComponent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<NuMarkdownBaseComponent, never, never, { "delay": "delay"; "disabled": "disabled"; "options": "options"; "value": "value"; }, { "ready": "ready"; }, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<NuMarkdownBaseComponent, never, never, { "delay": { "alias": "delay"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "options": { "alias": "options"; "required": false; }; "value": { "alias": "value"; "required": false; }; }, { "ready": "ready"; }, never, never, false, never>;
 }

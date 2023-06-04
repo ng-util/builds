@@ -21,11 +21,7 @@
     "angular standalone library"
   ],
   "sideEffects": false,
-  "module": "fesm2015/ng-util-monaco-editor.mjs",
-  "es2020": "fesm2020/ng-util-monaco-editor.mjs",
-  "esm2020": "esm2020/ng-util-monaco-editor.mjs",
-  "fesm2020": "fesm2020/ng-util-monaco-editor.mjs",
-  "fesm2015": "fesm2015/ng-util-monaco-editor.mjs",
+  "module": "fesm2022/ng-util-monaco-editor.mjs",
   "typings": "index.d.ts",
   "exports": {
     "./package.json": {
@@ -33,11 +29,9 @@
     },
     ".": {
       "types": "./index.d.ts",
-      "esm2020": "./esm2020/ng-util-monaco-editor.mjs",
-      "es2020": "./fesm2020/ng-util-monaco-editor.mjs",
-      "es2015": "./fesm2015/ng-util-monaco-editor.mjs",
-      "node": "./fesm2015/ng-util-monaco-editor.mjs",
-      "default": "./fesm2020/ng-util-monaco-editor.mjs"
+      "esm2022": "./esm2022/ng-util-monaco-editor.mjs",
+      "esm": "./esm2022/ng-util-monaco-editor.mjs",
+      "default": "./fesm2022/ng-util-monaco-editor.mjs"
     }
   },
   "dependencies": {
