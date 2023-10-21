@@ -34,7 +34,7 @@ class NuMonacoEditorBase {
         this.height = `200px`;
         this.delay = 0;
         this.event = new EventEmitter();
-        this._config = { baseUrl: 'https://cdn.jsdelivr.net/npm/monaco-editor/min', ...config };
+        this._config = { baseUrl: 'https://cdn.jsdelivr.net/npm/monaco-editor/min', autoFormatTime: 100, ...config };
         this.options = this._config.defaultOptions;
     }
     notifyEvent(type, other) {
@@ -198,7 +198,7 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
         this.registerResize();
         const eventName = initEvent ? 'init' : 're-init';
         if (this.autoFormat) {
-            timer(100)
+            timer(this._config.autoFormatTime)
                 .pipe(takeUntilDestroyed(this.destroy$), take(1))
                 .subscribe(() => {
                 const action = editor.getAction('editor.action.formatDocument');
