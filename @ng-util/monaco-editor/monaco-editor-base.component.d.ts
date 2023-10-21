@@ -1,4 +1,4 @@
-import { AfterViewInit, ElementRef, EventEmitter, NgZone, OnChanges, OnDestroy, SimpleChange, SimpleChanges } from '@angular/core';
+import { AfterViewInit, DestroyRef, ElementRef, EventEmitter, NgZone, OnChanges, OnDestroy, SimpleChange, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NuMonacoEditorConfig } from './monaco-editor.config';
 import { NuMonacoEditorEvent, NuMonacoEditorEventType } from './monaco-editor.types';
@@ -7,6 +7,7 @@ export declare abstract class NuMonacoEditorBase implements AfterViewInit, OnCha
     protected el: ElementRef<HTMLElement>;
     protected doc: any;
     protected ngZone: NgZone;
+    protected destroy$: DestroyRef;
     protected _editor?: monaco.editor.IStandaloneCodeEditor | monaco.editor.IStandaloneDiffEditor;
     protected _options: monaco.editor.IStandaloneEditorConstructionOptions;
     protected _resize$: Subscription | null;
@@ -18,7 +19,7 @@ export declare abstract class NuMonacoEditorBase implements AfterViewInit, OnCha
     set options(val: monaco.editor.IStandaloneEditorConstructionOptions);
     get options(): monaco.editor.IStandaloneEditorConstructionOptions;
     event: EventEmitter<NuMonacoEditorEvent>;
-    constructor(el: ElementRef<HTMLElement>, config: NuMonacoEditorConfig, doc: any, ngZone: NgZone);
+    constructor(el: ElementRef<HTMLElement>, config: NuMonacoEditorConfig, doc: any, ngZone: NgZone, destroy$: DestroyRef);
     protected abstract initMonaco(_options: monaco.editor.IStandaloneEditorConstructionOptions, _initEvent: boolean): void;
     protected notifyEvent(type: NuMonacoEditorEventType, other?: NuMonacoEditorEvent): void;
     protected setDisabled(): this;
