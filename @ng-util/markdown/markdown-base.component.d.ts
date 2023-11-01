@@ -7,7 +7,7 @@ export declare abstract class NuMarkdownBaseComponent implements AfterViewInit, 
     protected config: NuMarkdownConfig;
     protected srv: NuMarkdownService;
     protected ngZone: NgZone;
-    private notify$;
+    private notify$?;
     protected _instance: any;
     delay: number;
     disabled: boolean;
@@ -22,6 +22,6 @@ export declare abstract class NuMarkdownBaseComponent implements AfterViewInit, 
     protected get loaded(): boolean;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<NuMarkdownBaseComponent, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<NuMarkdownBaseComponent, [null, { optional: true; }, null, null]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<NuMarkdownBaseComponent, never, never, { "delay": { "alias": "delay"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "options": { "alias": "options"; "required": false; }; "value": { "alias": "value"; "required": false; }; }, { "ready": "ready"; }, never, never, false, never>;
 }

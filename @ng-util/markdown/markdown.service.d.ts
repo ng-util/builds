@@ -11,6 +11,6 @@ export declare class NuMarkdownService {
     get notify(): Observable<void>;
     constructor(config: NuMarkdownConfig, lazySrv: NuLazyService);
     load(): this;
-    static ɵfac: i0.ɵɵFactoryDeclaration<NuMarkdownService, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<NuMarkdownService, [{ optional: true; }, null]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<NuMarkdownService>;
 }

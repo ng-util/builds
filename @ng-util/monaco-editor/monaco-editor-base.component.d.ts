@@ -32,6 +32,6 @@ export declare abstract class NuMonacoEditorBase implements AfterViewInit, OnCha
         [P in keyof this]?: SimpleChange;
     } & SimpleChanges): void;
     ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<NuMonacoEditorBase, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<NuMonacoEditorBase, [null, { optional: true; }, null, null, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<NuMonacoEditorBase, "nu-monaco-base", never, { "height": { "alias": "height"; "required": false; }; "delay": { "alias": "delay"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "options": { "alias": "options"; "required": false; }; }, { "event": "event"; }, never, never, true, never>;
 }
