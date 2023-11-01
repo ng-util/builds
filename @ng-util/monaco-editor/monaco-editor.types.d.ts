@@ -8,7 +8,7 @@ export interface NuMonacoEditorDiffModel {
     code: string;
     language?: string;
 }
-export type NuMonacoEditorEventType = 'load-error' | 'init' | 're-init' | 'resize' | 'update-diff';
+export type NuMonacoEditorEventType = 'load-error' | 'init' | 're-init' | 'resize' | 'update-diff' | 'error';
 export interface NuMonacoEditorEvent {
     type?: NuMonacoEditorEventType;
     editor?: monaco.editor.IStandaloneCodeEditor | monaco.editor.IStandaloneDiffEditor;

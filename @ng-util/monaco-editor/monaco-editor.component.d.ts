@@ -6,7 +6,7 @@ export declare class NuMonacoEditorComponent extends NuMonacoEditorBase implemen
     private _value;
     model?: NuMonacoEditorModel | null;
     autoFormat: boolean;
-    get editor(): monaco.editor.IStandaloneCodeEditor;
+    get editor(): monaco.editor.IStandaloneCodeEditor | null | undefined;
     private onChange;
     private onTouched;
     initMonaco(options: monaco.editor.IStandaloneEditorConstructionOptions, initEvent: boolean): void;

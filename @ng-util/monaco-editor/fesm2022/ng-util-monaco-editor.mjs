@@ -259,7 +259,8 @@ class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
     }
     initMonaco(options, initEvent) {
         if (!this.old || !this.new) {
-            throw new Error('old or new not found for nu-monaco-diff-editor');
+            this.notifyEvent('error', { error: 'old or new not found for nu-monaco-diff-editor' });
+            return;
         }
         const theme = options.theme;
         if (this._disabled != null)
