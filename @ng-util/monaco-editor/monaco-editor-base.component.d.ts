@@ -1,9 +1,9 @@
-import { AfterViewInit, DestroyRef, ElementRef, EventEmitter, NgZone, OnChanges, OnDestroy, SimpleChange, SimpleChanges } from '@angular/core';
+import { AfterViewInit, DestroyRef, ElementRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NuMonacoEditorConfig } from './monaco-editor.config';
 import { NuMonacoEditorEvent, NuMonacoEditorEventType } from './monaco-editor.types';
 import * as i0 from "@angular/core";
-export declare abstract class NuMonacoEditorBase implements AfterViewInit, OnChanges, OnDestroy {
+export declare abstract class NuMonacoEditorBase implements AfterViewInit, OnDestroy {
     protected el: ElementRef<HTMLElement>;
     protected doc: any;
     protected ngZone: NgZone;
@@ -28,9 +28,6 @@ export declare abstract class NuMonacoEditorBase implements AfterViewInit, OnCha
     protected registerResize(): this;
     protected updateOptions(): void;
     ngAfterViewInit(): void;
-    ngOnChanges(changes: {
-        [P in keyof this]?: SimpleChange;
-    } & SimpleChanges): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<NuMonacoEditorBase, [null, { optional: true; }, null, null, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<NuMonacoEditorBase, "nu-monaco-base", never, { "height": { "alias": "height"; "required": false; }; "delay": { "alias": "delay"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "options": { "alias": "options"; "required": false; }; }, { "event": "event"; }, never, never, true, never>;
