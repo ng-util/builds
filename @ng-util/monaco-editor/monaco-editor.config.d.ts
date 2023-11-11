@@ -1,5 +1,6 @@
-import { InjectionToken } from '@angular/core';
+import { EnvironmentProviders, InjectionToken } from '@angular/core';
 export declare const NU_MONACO_EDITOR_CONFIG: InjectionToken<unknown>;
+export declare function provideNuMonacoEditorConfig(config?: NuMonacoEditorConfig): EnvironmentProviders;
 export interface NuMonacoEditorConfig {
     /**
      * The base URL to monaco editor library assets via AMD (RequireJS), Default: `https://cdn.jsdelivr.net/npm/monaco-editor/min`
