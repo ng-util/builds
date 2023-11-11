@@ -6,7 +6,7 @@ import * as i2 from "./markdown.component";
 import * as i3 from "./markdown-preview.component";
 export declare class NuMarkdownModule {
     /**
-     * @deprecated Use `provideNuMarkdownConfig` instead.
+     * Or use `provideNuMarkdownConfig` instead.
      */
     static forRoot(config?: NuMarkdownConfig): ModuleWithProviders<NuMarkdownModule>;
     static ɵfac: i0.ɵɵFactoryDeclaration<NuMarkdownModule, never>;

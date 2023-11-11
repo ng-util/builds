@@ -305,7 +305,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.2", ngImpor
 const COMPONENTS = [NuMonacoEditorComponent, NuMonacoEditorDiffComponent];
 class NuMonacoEditorModule {
     /**
-     * @deprecated Use `provideNuMonacoEditorConfig` instead.
+     * Or use `provideNuMonacoEditorConfig` instead.
      */
     static forRoot(config) {
         return {

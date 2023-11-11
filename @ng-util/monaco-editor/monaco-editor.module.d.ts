@@ -6,7 +6,7 @@ import * as i2 from "./monaco-editor.component";
 import * as i3 from "./monaco-editor-diff.component";
 export declare class NuMonacoEditorModule {
     /**
-     * @deprecated Use `provideNuMonacoEditorConfig` instead.
+     * Or use `provideNuMonacoEditorConfig` instead.
      */
     static forRoot(config?: NuMonacoEditorConfig): ModuleWithProviders<NuMonacoEditorModule>;
     static ɵfac: i0.ɵɵFactoryDeclaration<NuMonacoEditorModule, never>;
