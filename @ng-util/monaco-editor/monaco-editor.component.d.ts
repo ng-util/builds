@@ -4,9 +4,13 @@ import { NuMonacoEditorModel } from './monaco-editor.types';
 import * as i0 from "@angular/core";
 export declare class NuMonacoEditorComponent extends NuMonacoEditorBase implements ControlValueAccessor {
     private _value;
+    private _placeholderWidget?;
+    private _placeholder?;
+    set placeholder(v: string | null | undefined);
     model?: NuMonacoEditorModel | null;
     autoFormat: boolean;
     get editor(): monaco.editor.IStandaloneCodeEditor | null | undefined;
+    private togglePlaceholder;
     private onChange;
     private onTouched;
     initMonaco(options: monaco.editor.IStandaloneEditorConstructionOptions, initEvent: boolean): void;
@@ -15,5 +19,6 @@ export declare class NuMonacoEditorComponent extends NuMonacoEditorBase implemen
     registerOnTouched(fn: any): void;
     setDisabledState(_isDisabled: boolean): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<NuMonacoEditorComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<NuMonacoEditorComponent, "nu-monaco-editor", ["nuMonacoEditor"], { "model": { "alias": "model"; "required": false; }; "autoFormat": { "alias": "autoFormat"; "required": false; }; }, {}, never, never, true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<NuMonacoEditorComponent, "nu-monaco-editor", ["nuMonacoEditor"], { "placeholder": { "alias": "placeholder"; "required": false; }; "model": { "alias": "model"; "required": false; }; "autoFormat": { "alias": "autoFormat"; "required": false; }; }, {}, never, never, true, never>;
+    static ngAcceptInputType_autoFormat: unknown;
 }

@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, makeEnvironmentProviders, EventEmitter, Component, Optional, Inject, Input, Output, forwardRef, ChangeDetectionStrategy, NgModule } from '@angular/core';
+import { InjectionToken, makeEnvironmentProviders, EventEmitter, numberAttribute, Component, Optional, Inject, Input, Output, booleanAttribute, forwardRef, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { fromEvent, timer, take } from 'rxjs';
@@ -122,10 +122,10 @@ class NuMonacoEditorBase {
         this.cleanResize();
         this._editor?.dispose();
     }
-    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.3", ngImport: i0, type: NuMonacoEditorBase, deps: [{ token: i0.ElementRef }, { token: NU_MONACO_EDITOR_CONFIG, optional: true }, { token: DOCUMENT }, { token: i0.NgZone }, { token: i0.DestroyRef }], target: i0.ɵɵFactoryTarget.Component }); }
-    /** @nocollapse */ static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "18.0.3", type: NuMonacoEditorBase, isStandalone: true, selector: "nu-monaco-base", inputs: { height: "height", delay: "delay", disabled: "disabled", options: "options" }, outputs: { event: "event" }, ngImport: i0, template: ``, isInline: true }); }
+    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: NuMonacoEditorBase, deps: [{ token: i0.ElementRef }, { token: NU_MONACO_EDITOR_CONFIG, optional: true }, { token: DOCUMENT }, { token: i0.NgZone }, { token: i0.DestroyRef }], target: i0.ɵɵFactoryTarget.Component }); }
+    /** @nocollapse */ static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "16.1.0", version: "18.2.10", type: NuMonacoEditorBase, isStandalone: true, selector: "nu-monaco-base", inputs: { height: "height", delay: ["delay", "delay", numberAttribute], disabled: "disabled", options: "options" }, outputs: { event: "event" }, ngImport: i0, template: ``, isInline: true }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.3", ngImport: i0, type: NuMonacoEditorBase, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: NuMonacoEditorBase, decorators: [{
             type: Component,
             args: [{
                     selector: 'nu-monaco-base',
@@ -143,7 +143,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.3", ngImpor
                 }] }, { type: i0.NgZone }, { type: i0.DestroyRef }], propDecorators: { height: [{
                 type: Input
             }], delay: [{
-                type: Input
+                type: Input,
+                args: [{ transform: numberAttribute }]
             }], disabled: [{
                 type: Input
             }], options: [{
@@ -151,6 +152,43 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.3", ngImpor
             }], event: [{
                 type: Output
             }] } });
+
+class PlaceholderWidget {
+    constructor(editor, placeholder) {
+        this.ID = 'editor.widget.placeholderHint';
+        this.placeholder = placeholder;
+        this.editor = editor;
+    }
+    update(text) {
+        if (this.node == null)
+            return;
+        this.node.innerHTML = text ?? this.placeholder ?? '';
+    }
+    getId() {
+        return this.ID;
+    }
+    getDomNode() {
+        if (this.node == null) {
+            const node = (this.node = document.createElement('div'));
+            node.classList.add('monaco-editor-placeholder');
+            node.style.width = 'max-content';
+            node.style.color = 'gray';
+            node.innerHTML = this.placeholder;
+            node.style.fontStyle = 'italic';
+            this.editor.applyFontInfo(node);
+        }
+        return this.node;
+    }
+    getPosition() {
+        return {
+            position: { lineNumber: 1, column: 1 },
+            preference: [monaco.editor.ContentWidgetPositionPreference.EXACT],
+        };
+    }
+    dispose() {
+        this.editor.removeContentWidget(this);
+    }
+}
 
 class NuMonacoEditorComponent extends NuMonacoEditorBase {
     constructor() {
@@ -160,8 +198,26 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
         this.onChange = (_) => { };
         this.onTouched = () => { };
     }
+    set placeholder(v) {
+        this._placeholder = v;
+        this._placeholderWidget?.update(v);
+    }
     get editor() {
         return this._editor;
+    }
+    togglePlaceholder() {
+        const text = this._placeholder;
+        if (text == null || text.length <= 0 || this.editor == null)
+            return;
+        if (this._placeholderWidget == null) {
+            this._placeholderWidget = new PlaceholderWidget(this.editor, text);
+        }
+        if (this._value.length > 0) {
+            this.editor.removeContentWidget(this._placeholderWidget);
+        }
+        else {
+            this.editor.addContentWidget(this._placeholderWidget);
+        }
     }
     initMonaco(options, initEvent) {
         const hasModel = !!this.model;
@@ -188,8 +244,10 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
                 this._value = value;
                 this.onChange(value);
             });
+            this.togglePlaceholder();
         });
         editor.onDidBlurEditorWidget(() => this.onTouched());
+        this.togglePlaceholder();
         this.registerResize();
         const eventName = initEvent ? 'init' : 're-init';
         if (this.autoFormat) {
@@ -221,8 +279,8 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
         this.disabled = _isDisabled;
         this.setDisabled();
     }
-    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.3", ngImport: i0, type: NuMonacoEditorComponent, deps: null, target: i0.ɵɵFactoryTarget.Component }); }
-    /** @nocollapse */ static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "18.0.3", type: NuMonacoEditorComponent, isStandalone: true, selector: "nu-monaco-editor", inputs: { model: "model", autoFormat: "autoFormat" }, host: { properties: { "style.display": "'block'", "style.height": "height" } }, providers: [
+    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: NuMonacoEditorComponent, deps: null, target: i0.ɵɵFactoryTarget.Component }); }
+    /** @nocollapse */ static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "16.1.0", version: "18.2.10", type: NuMonacoEditorComponent, isStandalone: true, selector: "nu-monaco-editor", inputs: { placeholder: "placeholder", model: "model", autoFormat: ["autoFormat", "autoFormat", booleanAttribute] }, host: { properties: { "style.display": "'block'", "style.height": "height" } }, providers: [
             {
                 provide: NG_VALUE_ACCESSOR,
                 useExisting: forwardRef((() => NuMonacoEditorComponent)),
@@ -230,7 +288,7 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
             },
         ], exportAs: ["nuMonacoEditor"], usesInheritance: true, ngImport: i0, template: ``, isInline: true, changeDetection: i0.ChangeDetectionStrategy.OnPush }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.3", ngImport: i0, type: NuMonacoEditorComponent, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: NuMonacoEditorComponent, decorators: [{
             type: Component,
             args: [{
                     selector: 'nu-monaco-editor',
@@ -250,10 +308,13 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.3", ngImpor
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     standalone: true,
                 }]
-        }], propDecorators: { model: [{
+        }], propDecorators: { placeholder: [{
+                type: Input
+            }], model: [{
                 type: Input
             }], autoFormat: [{
-                type: Input
+                type: Input,
+                args: [{ transform: booleanAttribute }]
             }] } });
 
 class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
@@ -280,10 +341,10 @@ class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
         if (initEvent)
             this.notifyEvent('init');
     }
-    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.3", ngImport: i0, type: NuMonacoEditorDiffComponent, deps: null, target: i0.ɵɵFactoryTarget.Component }); }
-    /** @nocollapse */ static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "18.0.3", type: NuMonacoEditorDiffComponent, isStandalone: true, selector: "nu-monaco-diff-editor", inputs: { old: "old", new: "new" }, host: { properties: { "style.display": "'block'", "style.height": "height" } }, exportAs: ["nuMonacoDiffEditor"], usesInheritance: true, ngImport: i0, template: ``, isInline: true, changeDetection: i0.ChangeDetectionStrategy.OnPush }); }
+    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: NuMonacoEditorDiffComponent, deps: null, target: i0.ɵɵFactoryTarget.Component }); }
+    /** @nocollapse */ static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "18.2.10", type: NuMonacoEditorDiffComponent, isStandalone: true, selector: "nu-monaco-diff-editor", inputs: { old: "old", new: "new" }, host: { properties: { "style.display": "'block'", "style.height": "height" } }, exportAs: ["nuMonacoDiffEditor"], usesInheritance: true, ngImport: i0, template: ``, isInline: true, changeDetection: i0.ChangeDetectionStrategy.OnPush }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.3", ngImport: i0, type: NuMonacoEditorDiffComponent, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: NuMonacoEditorDiffComponent, decorators: [{
             type: Component,
             args: [{
                     selector: 'nu-monaco-diff-editor',
@@ -313,11 +374,11 @@ class NuMonacoEditorModule {
             providers: [{ provide: NU_MONACO_EDITOR_CONFIG, useValue: config }],
         };
     }
-    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.3", ngImport: i0, type: NuMonacoEditorModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    /** @nocollapse */ static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.0.3", ngImport: i0, type: NuMonacoEditorModule, imports: [CommonModule, NuMonacoEditorComponent, NuMonacoEditorDiffComponent], exports: [NuMonacoEditorComponent, NuMonacoEditorDiffComponent] }); }
-    /** @nocollapse */ static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.0.3", ngImport: i0, type: NuMonacoEditorModule, imports: [CommonModule] }); }
+    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: NuMonacoEditorModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    /** @nocollapse */ static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.2.10", ngImport: i0, type: NuMonacoEditorModule, imports: [CommonModule, NuMonacoEditorComponent, NuMonacoEditorDiffComponent], exports: [NuMonacoEditorComponent, NuMonacoEditorDiffComponent] }); }
+    /** @nocollapse */ static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: NuMonacoEditorModule, imports: [CommonModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.3", ngImport: i0, type: NuMonacoEditorModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: NuMonacoEditorModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [CommonModule, ...COMPONENTS],
