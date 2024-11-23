@@ -29,8 +29,6 @@
     },
     ".": {
       "types": "./index.d.ts",
-      "esm2022": "./esm2022/ng-util-monaco-editor.mjs",
-      "esm": "./esm2022/ng-util-monaco-editor.mjs",
       "default": "./fesm2022/ng-util-monaco-editor.mjs"
     }
   },

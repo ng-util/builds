@@ -1,10 +1,9 @@
 import { AfterViewInit, ElementRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
-import { NuMarkdownConfig } from './markdown.config';
 import { NuMarkdownService } from './markdown.service';
 import * as i0 from "@angular/core";
 export declare abstract class NuMarkdownBaseComponent implements AfterViewInit, OnDestroy {
     protected el: ElementRef<HTMLElement>;
-    protected config: NuMarkdownConfig;
+    protected config: import("@ng-util/markdown").NuMarkdownConfig | null;
     protected srv: NuMarkdownService;
     protected ngZone: NgZone;
     private notify$?;
@@ -12,16 +11,17 @@ export declare abstract class NuMarkdownBaseComponent implements AfterViewInit, 
     delay: number;
     disabled: boolean;
     options: any;
-    ready: EventEmitter<string>;
+    readonly ready: EventEmitter<string>;
     protected _value: string;
     set value(v: string);
     get instance(): any;
-    constructor(el: ElementRef<HTMLElement>, config: NuMarkdownConfig, srv: NuMarkdownService, ngZone: NgZone);
     private initDelay;
     protected abstract init(): void;
     protected get loaded(): boolean;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<NuMarkdownBaseComponent, [null, { optional: true; }, null, null]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<NuMarkdownBaseComponent, never, never, { "delay": { "alias": "delay"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "options": { "alias": "options"; "required": false; }; "value": { "alias": "value"; "required": false; }; }, { "ready": "ready"; }, never, never, false, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<NuMarkdownBaseComponent, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<NuMarkdownBaseComponent, never, never, { "delay": { "alias": "delay"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "options": { "alias": "options"; "required": false; }; "value": { "alias": "value"; "required": false; }; }, { "ready": "ready"; }, never, never, true, never>;
+    static ngAcceptInputType_delay: unknown;
+    static ngAcceptInputType_disabled: unknown;
 }

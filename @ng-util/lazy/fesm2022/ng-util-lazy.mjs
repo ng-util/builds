@@ -1,12 +1,12 @@
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Injectable, Inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, pipe } from 'rxjs';
 import { share, filter } from 'rxjs/operators';
 
 class NuLazyService {
-    constructor(doc) {
-        this.doc = doc;
+    constructor() {
+        this.doc = inject(DOCUMENT);
         this.list = {};
         this.cached = {};
         this._notify = new BehaviorSubject([]);
@@ -33,7 +33,7 @@ class NuLazyService {
         const libs = this.fixPaths(paths);
         const pipes = [share(), filter((ls) => ls.length !== 0)];
         if (libs.length > 0) {
-            pipes.push(filter((ls) => ls.length === libs.length && ls.every(v => v.status === 'ok' && libs.find(lw => lw.path === v.path))));
+            pipes.push(filter((ls) => ls.length === libs.length && ls.every((v) => v.status === 'ok' && libs.find((lw) => lw.path === v.path))));
         }
         return this._notify.asObservable().pipe(pipe.apply(this, pipes));
     }
@@ -49,14 +49,14 @@ class NuLazyService {
      */
     async load(paths) {
         paths = this.fixPaths(paths);
-        return Promise.all(paths.map(p => p.type === 'script' ? this.loadScript(p.path, { callback: p.callback }) : this.loadStyle(p.path))).then(res => {
+        return Promise.all(paths.map((p) => p.type === 'script' ? this.loadScript(p.path, { callback: p.callback }) : this.loadStyle(p.path))).then((res) => {
             this._notify.next(res);
             return Promise.resolve(res);
         });
     }
     loadScript(path, options) {
         const { innerContent } = { ...options };
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             if (this.list[path] === true) {
                 resolve({ ...this.cached[path], status: 'loading' });
                 return;
@@ -113,7 +113,7 @@ class NuLazyService {
     }
     loadStyle(path, options) {
         const { rel, innerContent } = { rel: 'stylesheet', ...options };
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             if (this.list[path] === true) {
                 resolve(this.cached[path]);
                 return;
@@ -136,16 +136,13 @@ class NuLazyService {
             resolve(item);
         });
     }
-    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: NuLazyService, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    /** @nocollapse */ static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: NuLazyService, providedIn: 'root' }); }
+    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuLazyService, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
+    /** @nocollapse */ static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuLazyService, providedIn: 'root' }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.2.10", ngImport: i0, type: NuLazyService, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuLazyService, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root' }]
-        }], ctorParameters: () => [{ type: undefined, decorators: [{
-                    type: Inject,
-                    args: [DOCUMENT]
-                }] }] });
+        }] });
 
 /**
  * Generated bundle index. Do not edit.

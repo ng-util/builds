@@ -2,8 +2,8 @@ import { NuMonacoEditorBase } from './monaco-editor-base.component';
 import { NuMonacoEditorDiffModel } from './monaco-editor.types';
 import * as i0 from "@angular/core";
 export declare class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
-    old: NuMonacoEditorDiffModel | null;
-    new: NuMonacoEditorDiffModel | null;
+    old?: NuMonacoEditorDiffModel | null;
+    new?: NuMonacoEditorDiffModel | null;
     get editor(): monaco.editor.IStandaloneDiffEditor | null | undefined;
     initMonaco(options: monaco.editor.IStandaloneEditorConstructionOptions, initEvent: boolean): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<NuMonacoEditorDiffComponent, never>;

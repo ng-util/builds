@@ -5,7 +5,8 @@ import { NuMonacoEditorEvent, NuMonacoEditorEventType } from './monaco-editor.ty
 import * as i0 from "@angular/core";
 export declare abstract class NuMonacoEditorBase implements AfterViewInit, OnDestroy {
     protected el: ElementRef<HTMLElement>;
-    protected doc: any;
+    protected config: NuMonacoEditorConfig | null;
+    protected doc: Document;
     protected ngZone: NgZone;
     protected destroy$: DestroyRef;
     protected _editor?: monaco.editor.IStandaloneCodeEditor | monaco.editor.IStandaloneDiffEditor;
@@ -19,7 +20,7 @@ export declare abstract class NuMonacoEditorBase implements AfterViewInit, OnDes
     set options(val: monaco.editor.IStandaloneEditorConstructionOptions);
     get options(): monaco.editor.IStandaloneEditorConstructionOptions;
     readonly event: EventEmitter<NuMonacoEditorEvent>;
-    constructor(el: ElementRef<HTMLElement>, config: NuMonacoEditorConfig, doc: any, ngZone: NgZone, destroy$: DestroyRef);
+    constructor();
     protected abstract initMonaco(_options: monaco.editor.IStandaloneEditorConstructionOptions, _initEvent: boolean): void;
     protected notifyEvent(type: NuMonacoEditorEventType, other?: NuMonacoEditorEvent): void;
     protected setDisabled(): this;
@@ -29,7 +30,7 @@ export declare abstract class NuMonacoEditorBase implements AfterViewInit, OnDes
     protected updateOptions(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<NuMonacoEditorBase, [null, { optional: true; }, null, null, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<NuMonacoEditorBase, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<NuMonacoEditorBase, "nu-monaco-base", never, { "height": { "alias": "height"; "required": false; }; "delay": { "alias": "delay"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "options": { "alias": "options"; "required": false; }; }, { "event": "event"; }, never, never, true, never>;
     static ngAcceptInputType_delay: unknown;
 }

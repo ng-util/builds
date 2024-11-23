@@ -16,11 +16,10 @@ export interface NuLazyResult {
     error?: {};
 }
 export declare class NuLazyService {
-    private doc;
+    private readonly doc;
     private list;
     private cached;
     private _notify;
-    constructor(doc: any);
     private fixPaths;
     /**
      * Monitor for the finished of `paths`

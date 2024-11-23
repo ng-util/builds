@@ -22,10 +22,14 @@ function propDecoratorFactory(name, fallback, defaultValue) {
     }
     return propDecorator;
 }
+/**
+ * @deprecated use `booleanAttribute` instead
+ */
 function toBoolean(value, allowUndefined = false) {
     return allowUndefined && typeof value === 'undefined' ? undefined : value != null && `${value}` !== 'false';
 }
 /**
+ * @deprecated use `booleanAttribute` instead
  * Input decorator that handle a prop to do get/set automatically with toBoolean
  *
  * ```ts
@@ -40,6 +44,7 @@ function toNumber(value, fallbackValue = 0) {
     return !isNaN(parseFloat(value)) && !isNaN(Number(value)) ? Number(value) : fallbackValue;
 }
 /**
+ * @deprecated use `numberAttribute` instead
  * Input decorator that handle a prop to do get/set automatically with toNumber
  *
  * ```ts
