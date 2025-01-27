@@ -6,8 +6,7 @@ import { fromEvent, timer, take } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-// tslint:disable-next-line: no-reference
-/// <reference path="./monaco.d.ts" />
+/// <reference path="./monaco.d.ts" preserve="true" />
 
 const NU_MONACO_EDITOR_CONFIG = new InjectionToken('NU_MONACO_EDITOR_CONFIG');
 function provideNuMonacoEditorConfig(config) {

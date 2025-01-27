@@ -1,3 +1,4 @@
+/// <reference path="./monaco.d.ts" preserve="true" />
 export interface NuMonacoEditorModel {
     value?: string;
     language?: string;
