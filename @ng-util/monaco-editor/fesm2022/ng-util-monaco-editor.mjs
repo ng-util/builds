@@ -64,9 +64,17 @@ class NuMonacoEditorBase {
                 resolve();
                 return;
             }
-            const baseUrl = this._config.baseUrl;
+            let baseUrl = `${this._config.baseUrl}/vs`;
+            // fix: https://github.com/microsoft/monaco-editor/issues/4778
+            if (!/^https?:\/\//g.test(baseUrl)) {
+                baseUrl = window.location.origin + '/' + (baseUrl.startsWith('/') ? baseUrl.substring(1) : baseUrl);
+            }
             const amdLoader = () => {
-                win.require.config({ paths: { vs: `${baseUrl}/vs` } });
+                win.require.config({
+                    paths: {
+                        vs: baseUrl,
+                    }
+                });
                 if (typeof this._config.monacoPreLoad === 'function') {
                     this._config.monacoPreLoad();
                 }
@@ -83,7 +91,7 @@ class NuMonacoEditorBase {
             if (!win.require) {
                 const loaderScript = this.doc.createElement('script');
                 loaderScript.type = 'text/javascript';
-                loaderScript.src = `${baseUrl}/vs/loader.js`;
+                loaderScript.src = `${baseUrl}/loader.js`;
                 loaderScript.onload = amdLoader;
                 loaderScript.onerror = () => reject(`Unable to load ${loaderScript.src}, please check your network environment.`);
                 this.doc.getElementsByTagName('head')[0].appendChild(loaderScript);
