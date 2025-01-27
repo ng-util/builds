@@ -33,7 +33,7 @@ class NuLazyService {
         const libs = this.fixPaths(paths);
         const pipes = [share(), filter((ls) => ls.length !== 0)];
         if (libs.length > 0) {
-            pipes.push(filter((ls) => ls.length === libs.length && ls.every((v) => v.status === 'ok' && libs.find((lw) => lw.path === v.path))));
+            pipes.push(filter((ls) => ls.length === libs.length && ls.every(v => v.status === 'ok' && libs.find(lw => lw.path === v.path))));
         }
         return this._notify.asObservable().pipe(pipe.apply(this, pipes));
     }
@@ -49,14 +49,14 @@ class NuLazyService {
      */
     async load(paths) {
         paths = this.fixPaths(paths);
-        return Promise.all(paths.map((p) => p.type === 'script' ? this.loadScript(p.path, { callback: p.callback }) : this.loadStyle(p.path))).then((res) => {
+        return Promise.all(paths.map(p => p.type === 'script' ? this.loadScript(p.path, { callback: p.callback }) : this.loadStyle(p.path))).then(res => {
             this._notify.next(res);
             return Promise.resolve(res);
         });
     }
     loadScript(path, options) {
         const { innerContent } = { ...options };
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             if (this.list[path] === true) {
                 resolve({ ...this.cached[path], status: 'loading' });
                 return;
@@ -92,7 +92,7 @@ class NuLazyService {
                         node.onreadystatechange = null;
                         onSuccess({
                             path,
-                            status: 'ok',
+                            status: 'ok'
                         });
                     }
                 };
@@ -100,20 +100,20 @@ class NuLazyService {
             else {
                 node.onload = () => onSuccess({
                     path,
-                    status: 'ok',
+                    status: 'ok'
                 });
             }
             node.onerror = (error) => onSuccess({
                 path,
                 status: 'error',
-                error,
+                error
             });
             this.doc.getElementsByTagName('head')[0].appendChild(node);
         });
     }
     loadStyle(path, options) {
         const { rel, innerContent } = { rel: 'stylesheet', ...options };
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             if (this.list[path] === true) {
                 resolve(this.cached[path]);
                 return;
@@ -130,16 +130,16 @@ class NuLazyService {
             const item = {
                 path,
                 status: 'ok',
-                type: 'style',
+                type: 'style'
             };
             this.cached[path] = item;
             resolve(item);
         });
     }
-    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuLazyService, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    /** @nocollapse */ static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuLazyService, providedIn: 'root' }); }
+    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuLazyService, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
+    /** @nocollapse */ static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuLazyService, providedIn: 'root' }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuLazyService, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuLazyService, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }] });

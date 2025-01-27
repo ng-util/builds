@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, makeEnvironmentProviders, inject, Injectable, ElementRef, NgZone, EventEmitter, numberAttribute, booleanAttribute, Directive, Input, Output, Component, ChangeDetectionStrategy, forwardRef, NgModule } from '@angular/core';
-import { NuLazyService } from '@ng-util/lazy';
 import { Subject } from 'rxjs';
+import { NuLazyService } from '@ng-util/lazy';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -22,7 +22,7 @@ class NuMarkdownService {
         this.notify$ = new Subject();
         this.libs = this.config?.libs || [
             `https://cdn.jsdelivr.net/npm/vditor/dist/index.min.js`,
-            `https://cdn.jsdelivr.net/npm/vditor/dist/index.css`,
+            `https://cdn.jsdelivr.net/npm/vditor/dist/index.css`
         ];
     }
     load() {
@@ -41,10 +41,10 @@ class NuMarkdownService {
         this.lazySrv.load(libs);
         return this;
     }
-    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuMarkdownService, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    /** @nocollapse */ static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuMarkdownService, providedIn: 'root' }); }
+    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuMarkdownService, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
+    /** @nocollapse */ static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuMarkdownService, providedIn: 'root' }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuMarkdownService, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuMarkdownService, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }], ctorParameters: () => [] });
@@ -85,10 +85,10 @@ class NuMarkdownBaseComponent {
     ngOnDestroy() {
         this.notify$?.unsubscribe();
     }
-    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuMarkdownBaseComponent, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
-    /** @nocollapse */ static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "19.0.0", type: NuMarkdownBaseComponent, isStandalone: true, inputs: { delay: ["delay", "delay", numberAttribute], disabled: ["disabled", "disabled", booleanAttribute], options: "options", value: "value" }, outputs: { ready: "ready" }, ngImport: i0 }); }
+    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuMarkdownBaseComponent, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
+    /** @nocollapse */ static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "19.1.3", type: NuMarkdownBaseComponent, isStandalone: true, inputs: { delay: ["delay", "delay", numberAttribute], disabled: ["disabled", "disabled", booleanAttribute], options: "options", value: "value" }, outputs: { ready: "ready" }, ngImport: i0 }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuMarkdownBaseComponent, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuMarkdownBaseComponent, decorators: [{
             type: Directive
         }], propDecorators: { delay: [{
                 type: Input,
@@ -111,30 +111,32 @@ class NuMarkdownPreviewComponent extends NuMarkdownBaseComponent {
             this.ngZone.run(() => this.ready.emit(this.el.nativeElement.innerHTML));
         });
     }
-    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuMarkdownPreviewComponent, deps: null, target: i0.ɵɵFactoryTarget.Component }); }
-    /** @nocollapse */ static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0", type: NuMarkdownPreviewComponent, isStandalone: true, selector: "nu-markdown-preview", exportAs: ["nuMarkdownPreview"], usesInheritance: true, ngImport: i0, template: ``, isInline: true, changeDetection: i0.ChangeDetectionStrategy.OnPush }); }
+    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuMarkdownPreviewComponent, deps: null, target: i0.ɵɵFactoryTarget.Component }); }
+    /** @nocollapse */ static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.1.3", type: NuMarkdownPreviewComponent, isStandalone: true, selector: "nu-markdown-preview", exportAs: ["nuMarkdownPreview"], usesInheritance: true, ngImport: i0, template: ``, isInline: true, changeDetection: i0.ChangeDetectionStrategy.OnPush }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuMarkdownPreviewComponent, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuMarkdownPreviewComponent, decorators: [{
             type: Component,
             args: [{
                     selector: 'nu-markdown-preview',
                     template: ``,
                     exportAs: 'nuMarkdownPreview',
-                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    changeDetection: ChangeDetectionStrategy.OnPush
                 }]
         }] });
 
 class NuMarkdownComponent extends NuMarkdownBaseComponent {
     constructor() {
         super(...arguments);
-        this.onChange = (_) => { };
+        this.onChange = (_) => {
+            //
+        };
     }
     init() {
         this.ngZone.runOutsideAngular(() => {
             const options = {
                 value: this._value,
                 cache: {
-                    enable: false,
+                    enable: false
                 },
                 mode: 'sv',
                 minHeight: 350,
@@ -145,7 +147,7 @@ class NuMarkdownComponent extends NuMarkdownBaseComponent {
                     });
                 },
                 ...this.config?.defaultOptions,
-                ...this.options,
+                ...this.options
             };
             this._instance = new Vditor(this.el.nativeElement, options);
             this.ngZone.run(() => this.ready.emit(this._instance));
@@ -171,21 +173,23 @@ class NuMarkdownComponent extends NuMarkdownBaseComponent {
     registerOnChange(fn) {
         this.onChange = fn;
     }
-    registerOnTouched(_) { }
+    registerOnTouched(_) {
+        //
+    }
     setDisabledState(_isDisabled) {
         this.disabled = _isDisabled;
         this.setDisabled();
     }
-    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuMarkdownComponent, deps: null, target: i0.ɵɵFactoryTarget.Component }); }
-    /** @nocollapse */ static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0", type: NuMarkdownComponent, isStandalone: true, selector: "nu-markdown", providers: [
+    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuMarkdownComponent, deps: null, target: i0.ɵɵFactoryTarget.Component }); }
+    /** @nocollapse */ static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.1.3", type: NuMarkdownComponent, isStandalone: true, selector: "nu-markdown", providers: [
             {
                 provide: NG_VALUE_ACCESSOR,
                 useExisting: forwardRef((() => NuMarkdownComponent)),
-                multi: true,
-            },
+                multi: true
+            }
         ], exportAs: ["nuMarkdown"], usesInheritance: true, ngImport: i0, template: ``, isInline: true, changeDetection: i0.ChangeDetectionStrategy.OnPush }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuMarkdownComponent, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuMarkdownComponent, decorators: [{
             type: Component,
             args: [{
                     selector: 'nu-markdown',
@@ -195,10 +199,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0", ngImpor
                         {
                             provide: NG_VALUE_ACCESSOR,
                             useExisting: forwardRef((() => NuMarkdownComponent)),
-                            multi: true,
-                        },
+                            multi: true
+                        }
                     ],
-                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    changeDetection: ChangeDetectionStrategy.OnPush
                 }]
         }] });
 
@@ -210,18 +214,18 @@ class NuMarkdownModule {
     static forRoot(config) {
         return {
             ngModule: NuMarkdownModule,
-            providers: [{ provide: NU_MARKDOWN_CONFIG, useValue: config }],
+            providers: [{ provide: NU_MARKDOWN_CONFIG, useValue: config }]
         };
     }
-    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuMarkdownModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    /** @nocollapse */ static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0", ngImport: i0, type: NuMarkdownModule, imports: [CommonModule, NuMarkdownComponent, NuMarkdownPreviewComponent], exports: [NuMarkdownComponent, NuMarkdownPreviewComponent] }); }
-    /** @nocollapse */ static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuMarkdownModule, imports: [CommonModule] }); }
+    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuMarkdownModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    /** @nocollapse */ static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.1.3", ngImport: i0, type: NuMarkdownModule, imports: [CommonModule, NuMarkdownComponent, NuMarkdownPreviewComponent], exports: [NuMarkdownComponent, NuMarkdownPreviewComponent] }); }
+    /** @nocollapse */ static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuMarkdownModule, imports: [CommonModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: NuMarkdownModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuMarkdownModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [CommonModule, ...COMPONENTS],
-                    exports: COMPONENTS,
+                    exports: COMPONENTS
                 }]
         }] });
 
