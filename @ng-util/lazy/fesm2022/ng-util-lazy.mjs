@@ -5,12 +5,10 @@ import { BehaviorSubject, pipe } from 'rxjs';
 import { share, filter } from 'rxjs/operators';
 
 class NuLazyService {
-    constructor() {
-        this.doc = inject(DOCUMENT);
-        this.list = {};
-        this.cached = {};
-        this._notify = new BehaviorSubject([]);
-    }
+    doc = inject(DOCUMENT);
+    list = {};
+    cached = {};
+    _notify = new BehaviorSubject([]);
     fixPaths(paths) {
         paths = paths || [];
         if (!Array.isArray(paths)) {
@@ -136,8 +134,8 @@ class NuLazyService {
             resolve(item);
         });
     }
-    /** @nocollapse */ static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuLazyService, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    /** @nocollapse */ static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuLazyService, providedIn: 'root' }); }
+    /** @nocollapse */ static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuLazyService, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+    /** @nocollapse */ static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuLazyService, providedIn: 'root' });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: NuLazyService, decorators: [{
             type: Injectable,
