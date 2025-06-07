@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, makeEnvironmentProviders, inject, ElementRef, NgZone, DestroyRef, EventEmitter, numberAttribute, Output, Input, Component, forwardRef, booleanAttribute, ChangeDetectionStrategy, NgModule } from '@angular/core';
+import { InjectionToken, makeEnvironmentProviders, inject, ElementRef, NgZone, DestroyRef, input, numberAttribute, booleanAttribute, output, effect, Component, untracked, forwardRef, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { fromEvent, timer, take } from 'rxjs';
@@ -23,38 +23,34 @@ class NuMonacoEditorBase {
     ngZone = inject(NgZone);
     destroy$ = inject(DestroyRef);
     _editor;
-    _options;
     _resize$ = null;
     _config;
     _disabled;
-    height = `200px`;
-    delay = 0;
-    set disabled(val) {
-        this._disabled = typeof val === 'string' ? true : val;
-        this.setDisabled();
-    }
-    set options(val) {
-        this._options = { ...this._config.defaultOptions, ...val };
-        this.updateOptions();
-    }
-    get options() {
-        return this._options;
-    }
-    event = new EventEmitter();
+    height = input(`200px`);
+    delay = input(0, { transform: numberAttribute });
+    disabled = input(false, { transform: booleanAttribute });
+    options = input();
+    event = output();
     constructor() {
         this._config = { baseUrl: 'https://cdn.jsdelivr.net/npm/monaco-editor/min', autoFormatTime: 100, ...this.config };
-        this.options = this._config.defaultOptions;
+        effect(() => {
+            this.setDisabled(this.disabled());
+        });
+        effect(() => {
+            const options = this.options();
+            this.updateOptions(options);
+        });
     }
     notifyEvent(type, other) {
         this.ngZone.run(() => this.event.emit({ type, editor: this._editor, ...other }));
     }
-    setDisabled() {
-        this._editor?.updateOptions({ readOnly: this._disabled });
+    setDisabled(v) {
+        this._editor?.updateOptions({ readOnly: v });
         return this;
     }
     init() {
         if (loadedMonaco) {
-            loadPromise.then(() => this.initMonaco(this.options, true));
+            loadPromise.then(() => this.initMonaco(this.options(), true));
             return;
         }
         loadedMonaco = true;
@@ -86,7 +82,7 @@ class NuMonacoEditorBase {
                     if (typeof this._config.monacoLoad === 'function') {
                         this._config.monacoLoad(win.monaco);
                     }
-                    this.initMonaco(this.options, true);
+                    this.initMonaco(this.options(), true);
                     resolve();
                 }, () => {
                     reject(`Unable to load editor/editor.main module, please check your network environment.`);
@@ -119,23 +115,23 @@ class NuMonacoEditorBase {
         });
         return this;
     }
-    updateOptions() {
+    updateOptions(v) {
         if (!this._editor)
             return;
         this.ngZone.runOutsideAngular(() => {
             this._editor.dispose();
-            this.initMonaco(this._options, false);
+            this.initMonaco(v, false);
         });
     }
     ngAfterViewInit() {
-        this.ngZone.runOutsideAngular(() => setTimeout(() => this.init(), +this.delay));
+        this.ngZone.runOutsideAngular(() => setTimeout(() => this.init(), +this.delay()));
     }
     ngOnDestroy() {
         this.cleanResize();
         this._editor?.dispose();
     }
     /** @nocollapse */ static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.2", ngImport: i0, type: NuMonacoEditorBase, deps: [], target: i0.ɵɵFactoryTarget.Component });
-    /** @nocollapse */ static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "16.1.0", version: "20.0.2", type: NuMonacoEditorBase, isStandalone: true, selector: "nu-monaco-base", inputs: { height: "height", delay: ["delay", "delay", numberAttribute], disabled: "disabled", options: "options" }, outputs: { event: "event" }, ngImport: i0, template: ``, isInline: true });
+    /** @nocollapse */ static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.1.0", version: "20.0.2", type: NuMonacoEditorBase, isStandalone: true, selector: "nu-monaco-base", inputs: { height: { classPropertyName: "height", publicName: "height", isSignal: true, isRequired: false, transformFunction: null }, delay: { classPropertyName: "delay", publicName: "delay", isSignal: true, isRequired: false, transformFunction: null }, disabled: { classPropertyName: "disabled", publicName: "disabled", isSignal: true, isRequired: false, transformFunction: null }, options: { classPropertyName: "options", publicName: "options", isSignal: true, isRequired: false, transformFunction: null } }, outputs: { event: "event" }, ngImport: i0, template: ``, isInline: true });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.2", ngImport: i0, type: NuMonacoEditorBase, decorators: [{
             type: Component,
@@ -143,18 +139,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.2", ngImpor
                     selector: 'nu-monaco-base',
                     template: ``
                 }]
-        }], ctorParameters: () => [], propDecorators: { height: [{
-                type: Input
-            }], delay: [{
-                type: Input,
-                args: [{ transform: numberAttribute }]
-            }], disabled: [{
-                type: Input
-            }], options: [{
-                type: Input
-            }], event: [{
-                type: Output
-            }] } });
+        }], ctorParameters: () => [] });
 
 class PlaceholderWidget {
     ID = 'editor.widget.placeholderHint';
@@ -199,18 +184,27 @@ class PlaceholderWidget {
 class NuMonacoEditorComponent extends NuMonacoEditorBase {
     _value = '';
     _placeholderWidget;
-    _placeholder;
-    set placeholder(v) {
-        this._placeholder = v;
-        this._placeholderWidget?.update(v);
-    }
-    model;
-    autoFormat = true;
+    placeholder = input();
+    model = input();
+    autoFormat = input(true, { transform: booleanAttribute });
     get editor() {
         return this._editor;
     }
+    constructor() {
+        super();
+        effect(() => {
+            const ph = this.placeholder();
+            this._placeholderWidget?.update(ph);
+        });
+        effect(() => {
+            const model = this.model();
+            if (model == null)
+                return;
+            this.updateOptions(untracked(() => this.options()));
+        });
+    }
     togglePlaceholder() {
-        const text = this._placeholder;
+        const text = this.placeholder();
         if (text == null || text.length <= 0 || this.editor == null)
             return;
         if (this._placeholderWidget == null) {
@@ -226,15 +220,16 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
     onChange = (_) => { };
     onTouched = () => { };
     initMonaco(options, initEvent) {
-        const hasModel = !!this.model;
+        const hasModel = !!this.model();
+        options = { ...this.config?.defaultOptions, ...options };
         if (hasModel) {
-            const model = monaco.editor.getModel(this.model.uri || '');
+            const model = monaco.editor.getModel(this.model().uri || '');
             if (model) {
                 options.model = model;
                 options.model.setValue(this._value);
             }
             else {
-                const { value, language, uri } = this.model;
+                const { value, language, uri } = this.model();
                 options.model = monaco.editor.createModel(value || this._value, language, uri);
             }
         }
@@ -256,7 +251,7 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
         this.togglePlaceholder();
         this.registerResize();
         const eventName = initEvent ? 'init' : 're-init';
-        if (this.autoFormat) {
+        if (this.autoFormat()) {
             timer(this._config.autoFormatTime)
                 .pipe(takeUntilDestroyed(this.destroy$), take(1))
                 .subscribe(() => {
@@ -281,12 +276,11 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
     registerOnTouched(fn) {
         this.onTouched = fn;
     }
-    setDisabledState(_isDisabled) {
-        this.disabled = _isDisabled;
-        this.setDisabled();
+    setDisabledState(v) {
+        this.setDisabled(v);
     }
-    /** @nocollapse */ static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.2", ngImport: i0, type: NuMonacoEditorComponent, deps: null, target: i0.ɵɵFactoryTarget.Component });
-    /** @nocollapse */ static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "16.1.0", version: "20.0.2", type: NuMonacoEditorComponent, isStandalone: true, selector: "nu-monaco-editor", inputs: { placeholder: "placeholder", model: "model", autoFormat: ["autoFormat", "autoFormat", booleanAttribute] }, host: { properties: { "style.display": "'block'", "style.height": "height" } }, providers: [
+    /** @nocollapse */ static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.2", ngImport: i0, type: NuMonacoEditorComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    /** @nocollapse */ static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.1.0", version: "20.0.2", type: NuMonacoEditorComponent, isStandalone: true, selector: "nu-monaco-editor", inputs: { placeholder: { classPropertyName: "placeholder", publicName: "placeholder", isSignal: true, isRequired: false, transformFunction: null }, model: { classPropertyName: "model", publicName: "model", isSignal: true, isRequired: false, transformFunction: null }, autoFormat: { classPropertyName: "autoFormat", publicName: "autoFormat", isSignal: true, isRequired: false, transformFunction: null } }, host: { properties: { "style.display": "'block'", "style.height": "height()" } }, providers: [
             {
                 provide: NG_VALUE_ACCESSOR,
                 useExisting: forwardRef((() => NuMonacoEditorComponent)),
@@ -302,7 +296,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.2", ngImpor
                     exportAs: 'nuMonacoEditor',
                     host: {
                         '[style.display]': `'block'`,
-                        '[style.height]': 'height'
+                        '[style.height]': 'height()'
                     },
                     providers: [
                         {
@@ -313,34 +307,30 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.2", ngImpor
                     ],
                     changeDetection: ChangeDetectionStrategy.OnPush
                 }]
-        }], propDecorators: { placeholder: [{
-                type: Input
-            }], model: [{
-                type: Input
-            }], autoFormat: [{
-                type: Input,
-                args: [{ transform: booleanAttribute }]
-            }] } });
+        }], ctorParameters: () => [] });
 
 class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
-    old;
-    new;
+    old = input();
+    new = input();
     get editor() {
         return this._editor;
     }
     initMonaco(options, initEvent) {
-        if (!this.old || !this.new) {
+        const oldModel = this.old();
+        const newModel = this.new();
+        if (!oldModel || !newModel) {
             this.notifyEvent('error', { error: 'old or new not found for nu-monaco-diff-editor' });
             return;
         }
+        options = { ...this.config?.defaultOptions, ...options };
         const theme = options.theme;
         if (this._disabled != null)
             options.readOnly = this._disabled;
         const editor = (this._editor = monaco.editor.createDiffEditor(this.el.nativeElement, options));
         options.theme = theme;
         editor.setModel({
-            original: monaco.editor.createModel(this.old.code, this.old.language || options.language),
-            modified: monaco.editor.createModel(this.new.code, this.new.language || options.language)
+            original: monaco.editor.createModel(oldModel.code, oldModel.language || options.language),
+            modified: monaco.editor.createModel(newModel.code, newModel.language || options.language)
         });
         // this.setDisabled();
         editor.onDidUpdateDiff(() => this.notifyEvent('update-diff', { diffValue: editor.getModifiedEditor().getValue() }));
@@ -349,7 +339,7 @@ class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
             this.notifyEvent('init');
     }
     /** @nocollapse */ static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.2", ngImport: i0, type: NuMonacoEditorDiffComponent, deps: null, target: i0.ɵɵFactoryTarget.Component });
-    /** @nocollapse */ static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "20.0.2", type: NuMonacoEditorDiffComponent, isStandalone: true, selector: "nu-monaco-diff-editor", inputs: { old: "old", new: "new" }, host: { properties: { "style.display": "'block'", "style.height": "height" } }, exportAs: ["nuMonacoDiffEditor"], usesInheritance: true, ngImport: i0, template: ``, isInline: true, changeDetection: i0.ChangeDetectionStrategy.OnPush });
+    /** @nocollapse */ static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.1.0", version: "20.0.2", type: NuMonacoEditorDiffComponent, isStandalone: true, selector: "nu-monaco-diff-editor", inputs: { old: { classPropertyName: "old", publicName: "old", isSignal: true, isRequired: false, transformFunction: null }, new: { classPropertyName: "new", publicName: "new", isSignal: true, isRequired: false, transformFunction: null } }, host: { properties: { "style.display": "'block'", "style.height": "height()" } }, exportAs: ["nuMonacoDiffEditor"], usesInheritance: true, ngImport: i0, template: ``, isInline: true, changeDetection: i0.ChangeDetectionStrategy.OnPush });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.2", ngImport: i0, type: NuMonacoEditorDiffComponent, decorators: [{
             type: Component,
@@ -359,15 +349,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.2", ngImpor
                     exportAs: 'nuMonacoDiffEditor',
                     host: {
                         '[style.display]': `'block'`,
-                        '[style.height]': 'height'
+                        '[style.height]': 'height()'
                     },
                     changeDetection: ChangeDetectionStrategy.OnPush
                 }]
-        }], propDecorators: { old: [{
-                type: Input
-            }], new: [{
-                type: Input
-            }] } });
+        }] });
 
 const COMPONENTS = [NuMonacoEditorComponent, NuMonacoEditorDiffComponent];
 class NuMonacoEditorModule {

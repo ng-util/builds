@@ -1,7 +1,7 @@
 /// <reference path="../../../../packages/monaco-editor/monaco.d.ts" />
+import * as _angular_core from '@angular/core';
+import { InjectionToken, EnvironmentProviders, AfterViewInit, OnDestroy, ElementRef, NgZone, DestroyRef, ModuleWithProviders } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import * as i0 from '@angular/core';
-import { InjectionToken, EnvironmentProviders, AfterViewInit, OnDestroy, ElementRef, NgZone, DestroyRef, EventEmitter, ModuleWithProviders } from '@angular/core';
 import { Subscription } from 'rxjs';
 import * as i1 from '@angular/common';
 
@@ -57,39 +57,36 @@ declare abstract class NuMonacoEditorBase implements AfterViewInit, OnDestroy {
     protected ngZone: NgZone;
     protected destroy$: DestroyRef;
     protected _editor?: monaco.editor.IStandaloneCodeEditor | monaco.editor.IStandaloneDiffEditor;
-    protected _options: monaco.editor.IStandaloneEditorConstructionOptions;
     protected _resize$: Subscription | null;
     protected _config: NuMonacoEditorConfig;
     protected _disabled?: boolean;
-    height: string;
-    delay: number;
-    set disabled(val: boolean | string);
-    set options(val: monaco.editor.IStandaloneEditorConstructionOptions);
-    get options(): monaco.editor.IStandaloneEditorConstructionOptions;
-    readonly event: EventEmitter<NuMonacoEditorEvent>;
+    height: _angular_core.InputSignal<string>;
+    delay: _angular_core.InputSignalWithTransform<number, unknown>;
+    disabled: _angular_core.InputSignalWithTransform<boolean, unknown>;
+    options: _angular_core.InputSignal<monaco.editor.IStandaloneEditorConstructionOptions | undefined>;
+    readonly event: _angular_core.OutputEmitterRef<NuMonacoEditorEvent>;
     constructor();
-    protected abstract initMonaco(_options: monaco.editor.IStandaloneEditorConstructionOptions, _initEvent: boolean): void;
+    protected abstract initMonaco(_options: monaco.editor.IStandaloneEditorConstructionOptions | undefined, _initEvent: boolean): void;
     protected notifyEvent(type: NuMonacoEditorEventType, other?: NuMonacoEditorEvent): void;
-    protected setDisabled(): this;
+    protected setDisabled(v: boolean): this;
     private init;
     protected cleanResize(): this;
     protected registerResize(): this;
-    protected updateOptions(): void;
+    updateOptions(v: monaco.editor.IStandaloneEditorConstructionOptions | undefined): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<NuMonacoEditorBase, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<NuMonacoEditorBase, "nu-monaco-base", never, { "height": { "alias": "height"; "required": false; }; "delay": { "alias": "delay"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "options": { "alias": "options"; "required": false; }; }, { "event": "event"; }, never, never, true, never>;
-    static ngAcceptInputType_delay: unknown;
+    static ɵfac: _angular_core.ɵɵFactoryDeclaration<NuMonacoEditorBase, never>;
+    static ɵcmp: _angular_core.ɵɵComponentDeclaration<NuMonacoEditorBase, "nu-monaco-base", never, { "height": { "alias": "height"; "required": false; "isSignal": true; }; "delay": { "alias": "delay"; "required": false; "isSignal": true; }; "disabled": { "alias": "disabled"; "required": false; "isSignal": true; }; "options": { "alias": "options"; "required": false; "isSignal": true; }; }, { "event": "event"; }, never, never, true, never>;
 }
 
 declare class NuMonacoEditorComponent extends NuMonacoEditorBase implements ControlValueAccessor {
     private _value;
     private _placeholderWidget?;
-    private _placeholder?;
-    set placeholder(v: string | null | undefined);
-    model?: NuMonacoEditorModel | null;
-    autoFormat: boolean;
+    placeholder: _angular_core.InputSignal<string | undefined>;
+    model: _angular_core.InputSignal<NuMonacoEditorModel | undefined>;
+    autoFormat: _angular_core.InputSignalWithTransform<boolean, unknown>;
     get editor(): monaco.editor.IStandaloneCodeEditor | null | undefined;
+    constructor();
     private togglePlaceholder;
     private onChange;
     private onTouched;
@@ -97,19 +94,18 @@ declare class NuMonacoEditorComponent extends NuMonacoEditorBase implements Cont
     writeValue(value: string): void;
     registerOnChange(fn: (_: string) => void): void;
     registerOnTouched(fn: any): void;
-    setDisabledState(_isDisabled: boolean): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<NuMonacoEditorComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<NuMonacoEditorComponent, "nu-monaco-editor", ["nuMonacoEditor"], { "placeholder": { "alias": "placeholder"; "required": false; }; "model": { "alias": "model"; "required": false; }; "autoFormat": { "alias": "autoFormat"; "required": false; }; }, {}, never, never, true, never>;
-    static ngAcceptInputType_autoFormat: unknown;
+    setDisabledState(v: boolean): void;
+    static ɵfac: _angular_core.ɵɵFactoryDeclaration<NuMonacoEditorComponent, never>;
+    static ɵcmp: _angular_core.ɵɵComponentDeclaration<NuMonacoEditorComponent, "nu-monaco-editor", ["nuMonacoEditor"], { "placeholder": { "alias": "placeholder"; "required": false; "isSignal": true; }; "model": { "alias": "model"; "required": false; "isSignal": true; }; "autoFormat": { "alias": "autoFormat"; "required": false; "isSignal": true; }; }, {}, never, never, true, never>;
 }
 
 declare class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
-    old?: NuMonacoEditorDiffModel | null;
-    new?: NuMonacoEditorDiffModel | null;
+    old: _angular_core.InputSignal<NuMonacoEditorDiffModel | undefined>;
+    new: _angular_core.InputSignal<NuMonacoEditorDiffModel | undefined>;
     get editor(): monaco.editor.IStandaloneDiffEditor | null | undefined;
     initMonaco(options: monaco.editor.IStandaloneEditorConstructionOptions, initEvent: boolean): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<NuMonacoEditorDiffComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<NuMonacoEditorDiffComponent, "nu-monaco-diff-editor", ["nuMonacoDiffEditor"], { "old": { "alias": "old"; "required": false; }; "new": { "alias": "new"; "required": false; }; }, {}, never, never, true, never>;
+    static ɵfac: _angular_core.ɵɵFactoryDeclaration<NuMonacoEditorDiffComponent, never>;
+    static ɵcmp: _angular_core.ɵɵComponentDeclaration<NuMonacoEditorDiffComponent, "nu-monaco-diff-editor", ["nuMonacoDiffEditor"], { "old": { "alias": "old"; "required": false; "isSignal": true; }; "new": { "alias": "new"; "required": false; "isSignal": true; }; }, {}, never, never, true, never>;
 }
 
 declare class NuMonacoEditorModule {
@@ -117,9 +113,9 @@ declare class NuMonacoEditorModule {
      * Or use `provideNuMonacoEditorConfig` instead.
      */
     static forRoot(config?: NuMonacoEditorConfig): ModuleWithProviders<NuMonacoEditorModule>;
-    static ɵfac: i0.ɵɵFactoryDeclaration<NuMonacoEditorModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<NuMonacoEditorModule, never, [typeof i1.CommonModule, typeof NuMonacoEditorComponent, typeof NuMonacoEditorDiffComponent], [typeof NuMonacoEditorComponent, typeof NuMonacoEditorDiffComponent]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<NuMonacoEditorModule>;
+    static ɵfac: _angular_core.ɵɵFactoryDeclaration<NuMonacoEditorModule, never>;
+    static ɵmod: _angular_core.ɵɵNgModuleDeclaration<NuMonacoEditorModule, never, [typeof i1.CommonModule, typeof NuMonacoEditorComponent, typeof NuMonacoEditorDiffComponent], [typeof NuMonacoEditorComponent, typeof NuMonacoEditorDiffComponent]>;
+    static ɵinj: _angular_core.ɵɵInjectorDeclaration<NuMonacoEditorModule>;
 }
 
 export { NU_MONACO_EDITOR_CONFIG, NuMonacoEditorComponent, NuMonacoEditorDiffComponent, NuMonacoEditorModule, provideNuMonacoEditorConfig };
