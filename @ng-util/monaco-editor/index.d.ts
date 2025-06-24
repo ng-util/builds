@@ -91,6 +91,7 @@ declare class NuMonacoEditorComponent extends NuMonacoEditorBase implements Cont
     private onChange;
     private onTouched;
     initMonaco(options: monaco.editor.IStandaloneEditorConstructionOptions, initEvent: boolean): void;
+    format(): Promise<void> | undefined;
     writeValue(value: string): void;
     registerOnChange(fn: (_: string) => void): void;
     registerOnTouched(fn: any): void;
