@@ -1,6 +1,6 @@
 /// <reference path="./monaco.d.ts" />
 import * as _angular_core from '@angular/core';
-import { InjectionToken, EnvironmentProviders, AfterViewInit, OnDestroy, ElementRef, NgZone, DestroyRef, ModuleWithProviders } from '@angular/core';
+import { InjectionToken, EnvironmentProviders, AfterViewInit, OnDestroy, ElementRef, DestroyRef, ModuleWithProviders } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import * as i1 from '@angular/common';
@@ -54,7 +54,6 @@ declare abstract class NuMonacoEditorBase implements AfterViewInit, OnDestroy {
     protected el: ElementRef<HTMLElement>;
     protected config: NuMonacoEditorConfig | null;
     protected doc: Document;
-    protected ngZone: NgZone;
     protected destroy$: DestroyRef;
     protected _editor?: monaco.editor.IStandaloneCodeEditor | monaco.editor.IStandaloneDiffEditor;
     protected _resize$: Subscription | null;

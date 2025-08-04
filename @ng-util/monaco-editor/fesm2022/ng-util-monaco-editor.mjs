@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, makeEnvironmentProviders, inject, ElementRef, NgZone, DestroyRef, input, numberAttribute, booleanAttribute, output, effect, Component, untracked, forwardRef, ChangeDetectionStrategy, NgModule } from '@angular/core';
+import { InjectionToken, makeEnvironmentProviders, inject, ElementRef, DestroyRef, input, numberAttribute, booleanAttribute, output, effect, Component, untracked, forwardRef, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { fromEvent, timer, take } from 'rxjs';
@@ -20,7 +20,6 @@ class NuMonacoEditorBase {
     el = inject(ElementRef);
     config = inject(NU_MONACO_EDITOR_CONFIG, { optional: true });
     doc = inject(DOCUMENT);
-    ngZone = inject(NgZone);
     destroy$ = inject(DestroyRef);
     _editor;
     _resize$ = null;
@@ -42,7 +41,7 @@ class NuMonacoEditorBase {
         });
     }
     notifyEvent(type, other) {
-        this.ngZone.run(() => this.event.emit({ type, editor: this._editor, ...other }));
+        this.event.emit({ type, editor: this._editor, ...other });
     }
     setDisabled(v) {
         this._editor?.updateOptions({ readOnly: v });
@@ -118,13 +117,11 @@ class NuMonacoEditorBase {
     updateOptions(v) {
         if (!this._editor)
             return;
-        this.ngZone.runOutsideAngular(() => {
-            this._editor.dispose();
-            this.initMonaco(v, false);
-        });
+        this._editor.dispose();
+        this.initMonaco(v, false);
     }
     ngAfterViewInit() {
-        this.ngZone.runOutsideAngular(() => setTimeout(() => this.init(), +this.delay()));
+        setTimeout(() => this.init(), +this.delay());
     }
     ngOnDestroy() {
         this.cleanResize();
@@ -243,9 +240,7 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
         editor.onDidChangeModelContent(() => {
             const value = editor.getValue();
             this._value = value;
-            this.ngZone.run(() => {
-                this.onChange(value);
-            });
+            this.onChange(value);
             this.togglePlaceholder();
         });
         editor.onDidBlurEditorWidget(() => this.onTouched());
