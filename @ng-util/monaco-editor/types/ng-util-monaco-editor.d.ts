@@ -1,4 +1,4 @@
-/// <reference path="../../../../packages/monaco-editor/monaco.d.ts" />
+/// <reference path="../monaco.d.ts" />
 import * as _angular_core from '@angular/core';
 import { InjectionToken, EnvironmentProviders, AfterViewInit, OnDestroy, ElementRef, DestroyRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
