@@ -1,9 +1,8 @@
-/// <reference path="./monaco.d.ts" />
+/// <reference path="../../../../packages/monaco-editor/monaco.d.ts" />
 import * as _angular_core from '@angular/core';
-import { InjectionToken, EnvironmentProviders, AfterViewInit, OnDestroy, ElementRef, DestroyRef, ModuleWithProviders } from '@angular/core';
+import { InjectionToken, EnvironmentProviders, AfterViewInit, OnDestroy, ElementRef, DestroyRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import * as i1 from '@angular/common';
 
 interface NuMonacoEditorModel {
     value?: string;
@@ -82,7 +81,7 @@ declare class NuMonacoEditorComponent extends NuMonacoEditorBase implements Cont
     private _value;
     private _placeholderWidget?;
     placeholder: _angular_core.InputSignal<string | undefined>;
-    model: _angular_core.InputSignal<NuMonacoEditorModel | undefined>;
+    model: _angular_core.InputSignal<NuMonacoEditorModel | null | undefined>;
     autoFormat: _angular_core.InputSignalWithTransform<boolean, unknown>;
     get editor(): monaco.editor.IStandaloneCodeEditor | null | undefined;
     constructor();
@@ -108,15 +107,5 @@ declare class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
     static ɵcmp: _angular_core.ɵɵComponentDeclaration<NuMonacoEditorDiffComponent, "nu-monaco-diff-editor", ["nuMonacoDiffEditor"], { "old": { "alias": "old"; "required": false; "isSignal": true; }; "new": { "alias": "new"; "required": false; "isSignal": true; }; }, {}, never, never, true, never>;
 }
 
-declare class NuMonacoEditorModule {
-    /**
-     * Or use `provideNuMonacoEditorConfig` instead.
-     */
-    static forRoot(config?: NuMonacoEditorConfig): ModuleWithProviders<NuMonacoEditorModule>;
-    static ɵfac: _angular_core.ɵɵFactoryDeclaration<NuMonacoEditorModule, never>;
-    static ɵmod: _angular_core.ɵɵNgModuleDeclaration<NuMonacoEditorModule, never, [typeof i1.CommonModule, typeof NuMonacoEditorComponent, typeof NuMonacoEditorDiffComponent], [typeof NuMonacoEditorComponent, typeof NuMonacoEditorDiffComponent]>;
-    static ɵinj: _angular_core.ɵɵInjectorDeclaration<NuMonacoEditorModule>;
-}
-
-export { NU_MONACO_EDITOR_CONFIG, NuMonacoEditorComponent, NuMonacoEditorDiffComponent, NuMonacoEditorModule, provideNuMonacoEditorConfig };
+export { NU_MONACO_EDITOR_CONFIG, NuMonacoEditorComponent, NuMonacoEditorDiffComponent, provideNuMonacoEditorConfig };
 export type { NuMonacoEditorConfig, NuMonacoEditorDiffModel, NuMonacoEditorEvent, NuMonacoEditorEventType, NuMonacoEditorModel };

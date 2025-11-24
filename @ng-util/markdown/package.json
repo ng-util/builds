@@ -21,18 +21,17 @@
     "angular standalone library"
   ],
   "dependencies": {
-    "@ng-util/util": "^14.0.0",
-    "@ng-util/lazy": "^14.0.0",
+    "@ng-util/lazy": "^20.0.0",
     "tslib": "^2.3.0"
   },
   "module": "fesm2022/ng-util-markdown.mjs",
-  "typings": "index.d.ts",
+  "typings": "types/ng-util-markdown.d.ts",
   "exports": {
     "./package.json": {
       "default": "./package.json"
     },
     ".": {
-      "types": "./index.d.ts",
+      "types": "./types/ng-util-markdown.d.ts",
       "default": "./fesm2022/ng-util-markdown.mjs"
     }
   },

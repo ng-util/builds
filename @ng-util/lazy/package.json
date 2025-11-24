@@ -21,13 +21,13 @@
   ],
   "sideEffects": false,
   "module": "fesm2022/ng-util-lazy.mjs",
-  "typings": "index.d.ts",
+  "typings": "types/ng-util-lazy.d.ts",
   "exports": {
     "./package.json": {
       "default": "./package.json"
     },
     ".": {
-      "types": "./index.d.ts",
+      "types": "./types/ng-util-lazy.d.ts",
       "default": "./fesm2022/ng-util-lazy.mjs"
     }
   },

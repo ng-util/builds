@@ -22,13 +22,13 @@
   ],
   "sideEffects": false,
   "module": "fesm2022/ng-util-monaco-editor.mjs",
-  "typings": "index.d.ts",
+  "typings": "types/ng-util-monaco-editor.d.ts",
   "exports": {
     "./package.json": {
       "default": "./package.json"
     },
     ".": {
-      "types": "./index.d.ts",
+      "types": "./types/ng-util-monaco-editor.d.ts",
       "default": "./fesm2022/ng-util-monaco-editor.mjs"
     }
   },
