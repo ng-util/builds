@@ -1,8 +1,8 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, makeEnvironmentProviders, inject, ElementRef, DestroyRef, input, numberAttribute, booleanAttribute, output, effect, Component, untracked, forwardRef, ChangeDetectionStrategy } from '@angular/core';
+import { InjectionToken, makeEnvironmentProviders, inject, ElementRef, DestroyRef, input, numberAttribute, booleanAttribute, output, effect, afterNextRender, Component, untracked, forwardRef, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { fromEvent, timer, take } from 'rxjs';
+import { timer, fromEvent, take } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { debounceTime } from 'rxjs/operators';
 
@@ -37,7 +37,13 @@ class NuMonacoEditorBase {
         });
         effect(() => {
             const options = this.options();
+            const _ = this.height();
             this.updateOptions(options);
+        });
+        afterNextRender(() => {
+            timer(this.delay())
+                .pipe(takeUntilDestroyed(this.destroy$))
+                .subscribe(() => this.init());
         });
     }
     notifyEvent(type, other) {
@@ -120,9 +126,6 @@ class NuMonacoEditorBase {
         this._editor.dispose();
         this.initMonaco(v, false);
     }
-    ngAfterViewInit() {
-        setTimeout(() => this.init(), +this.delay());
-    }
     ngOnDestroy() {
         this.cleanResize();
         this._editor?.dispose();
@@ -184,6 +187,7 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
     placeholder = input(...(ngDevMode ? [undefined, { debugName: "placeholder" }] : []));
     model = input(...(ngDevMode ? [undefined, { debugName: "model" }] : []));
     autoFormat = input(true, ...(ngDevMode ? [{ debugName: "autoFormat", transform: booleanAttribute }] : [{ transform: booleanAttribute }]));
+    maxHeight = input(1000, ...(ngDevMode ? [{ debugName: "maxHeight", transform: numberAttribute }] : [{ transform: numberAttribute }]));
     get editor() {
         return this._editor;
     }
@@ -219,6 +223,11 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
     initMonaco(options, initEvent) {
         const hasModel = !!this.model();
         options = { ...this.config?.defaultOptions, ...options };
+        const heightAuto = this.height() === 'auto';
+        if (heightAuto) {
+            options.scrollBeyondLastLine = false;
+            options.overviewRulerLanes = 0;
+        }
         if (hasModel) {
             const model = monaco.editor.getModel(this.model().uri || '');
             if (model) {
@@ -246,6 +255,10 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
         editor.onDidBlurEditorWidget(() => this.onTouched());
         this.togglePlaceholder();
         this.registerResize();
+        if (heightAuto) {
+            editor.onDidContentSizeChange(() => this.updateHeight());
+            this.updateHeight();
+        }
         const eventName = initEvent ? 'init' : 're-init';
         if (this.autoFormat()) {
             timer(this._config.autoFormatTime)
@@ -256,6 +269,13 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
             return;
         }
         this.notifyEvent(eventName);
+    }
+    updateHeight() {
+        const editor = this.editor;
+        if (editor == null)
+            return;
+        const contentHeight = Math.min(this.maxHeight(), editor.getContentHeight());
+        editor.layout({ width: editor.getLayoutInfo().width, height: contentHeight });
     }
     format() {
         const action = this.editor?.getAction('editor.action.formatDocument');
@@ -280,7 +300,7 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
         this.setDisabled(v);
     }
     /** @nocollapse */ static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "21.0.0", ngImport: i0, type: NuMonacoEditorComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
-    /** @nocollapse */ static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.1.0", version: "21.0.0", type: NuMonacoEditorComponent, isStandalone: true, selector: "nu-monaco-editor", inputs: { placeholder: { classPropertyName: "placeholder", publicName: "placeholder", isSignal: true, isRequired: false, transformFunction: null }, model: { classPropertyName: "model", publicName: "model", isSignal: true, isRequired: false, transformFunction: null }, autoFormat: { classPropertyName: "autoFormat", publicName: "autoFormat", isSignal: true, isRequired: false, transformFunction: null } }, host: { properties: { "style.display": "'block'", "style.height": "height()" } }, providers: [
+    /** @nocollapse */ static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.1.0", version: "21.0.0", type: NuMonacoEditorComponent, isStandalone: true, selector: "nu-monaco-editor", inputs: { placeholder: { classPropertyName: "placeholder", publicName: "placeholder", isSignal: true, isRequired: false, transformFunction: null }, model: { classPropertyName: "model", publicName: "model", isSignal: true, isRequired: false, transformFunction: null }, autoFormat: { classPropertyName: "autoFormat", publicName: "autoFormat", isSignal: true, isRequired: false, transformFunction: null }, maxHeight: { classPropertyName: "maxHeight", publicName: "maxHeight", isSignal: true, isRequired: false, transformFunction: null } }, host: { properties: { "style.display": "'block'", "style.height": "height()" } }, providers: [
             {
                 provide: NG_VALUE_ACCESSOR,
                 useExisting: forwardRef((() => NuMonacoEditorComponent)),
@@ -307,7 +327,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.0.0", ngImpor
                     ],
                     changeDetection: ChangeDetectionStrategy.OnPush
                 }]
-        }], ctorParameters: () => [], propDecorators: { placeholder: [{ type: i0.Input, args: [{ isSignal: true, alias: "placeholder", required: false }] }], model: [{ type: i0.Input, args: [{ isSignal: true, alias: "model", required: false }] }], autoFormat: [{ type: i0.Input, args: [{ isSignal: true, alias: "autoFormat", required: false }] }] } });
+        }], ctorParameters: () => [], propDecorators: { placeholder: [{ type: i0.Input, args: [{ isSignal: true, alias: "placeholder", required: false }] }], model: [{ type: i0.Input, args: [{ isSignal: true, alias: "model", required: false }] }], autoFormat: [{ type: i0.Input, args: [{ isSignal: true, alias: "autoFormat", required: false }] }], maxHeight: [{ type: i0.Input, args: [{ isSignal: true, alias: "maxHeight", required: false }] }] } });
 
 class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
     old = input(...(ngDevMode ? [undefined, { debugName: "old" }] : []));
