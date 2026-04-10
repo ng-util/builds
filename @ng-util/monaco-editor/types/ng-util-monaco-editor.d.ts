@@ -58,10 +58,11 @@ declare abstract class NuMonacoEditorBase implements OnDestroy {
     protected _resize$: Subscription | null;
     protected _config: NuMonacoEditorConfig;
     protected _disabled?: boolean;
-    height: _angular_core.InputSignal<string>;
-    delay: _angular_core.InputSignalWithTransform<number, unknown>;
-    disabled: _angular_core.InputSignalWithTransform<boolean, unknown>;
-    options: _angular_core.InputSignal<monaco.editor.IStandaloneEditorConstructionOptions | undefined>;
+    protected readonly _disposables: monaco.IDisposable[];
+    readonly height: _angular_core.InputSignal<string>;
+    readonly delay: _angular_core.InputSignalWithTransform<number, unknown>;
+    readonly disabled: _angular_core.InputSignalWithTransform<boolean, unknown>;
+    readonly options: _angular_core.InputSignal<monaco.editor.IStandaloneEditorConstructionOptions | undefined>;
     readonly event: _angular_core.OutputEmitterRef<NuMonacoEditorEvent>;
     constructor();
     protected abstract initMonaco(_options: monaco.editor.IStandaloneEditorConstructionOptions | undefined, _initEvent: boolean): void;
@@ -70,6 +71,7 @@ declare abstract class NuMonacoEditorBase implements OnDestroy {
     private init;
     protected cleanResize(): this;
     protected registerResize(): this;
+    protected disposeEditor(): this;
     updateOptions(v: monaco.editor.IStandaloneEditorConstructionOptions | undefined): void;
     ngOnDestroy(): void;
     static ɵfac: _angular_core.ɵɵFactoryDeclaration<NuMonacoEditorBase, never>;
@@ -79,10 +81,11 @@ declare abstract class NuMonacoEditorBase implements OnDestroy {
 declare class NuMonacoEditorComponent extends NuMonacoEditorBase implements ControlValueAccessor {
     private _value;
     private _placeholderWidget?;
-    placeholder: _angular_core.InputSignal<string | undefined>;
-    model: _angular_core.InputSignal<NuMonacoEditorModel | null | undefined>;
-    autoFormat: _angular_core.InputSignalWithTransform<boolean, unknown>;
-    maxHeight: _angular_core.InputSignalWithTransform<number, unknown>;
+    readonly placeholder: _angular_core.InputSignal<string | undefined>;
+    readonly model: _angular_core.InputSignal<NuMonacoEditorModel | null | undefined>;
+    readonly autoFormat: _angular_core.InputSignalWithTransform<boolean, unknown>;
+    readonly maxHeight: _angular_core.InputSignalWithTransform<number | undefined, unknown>;
+    readonly minHeight: _angular_core.InputSignalWithTransform<number | undefined, unknown>;
     get editor(): monaco.editor.IStandaloneCodeEditor | null | undefined;
     constructor();
     private togglePlaceholder;
@@ -93,15 +96,15 @@ declare class NuMonacoEditorComponent extends NuMonacoEditorBase implements Cont
     format(): Promise<void> | undefined;
     writeValue(value: string): void;
     registerOnChange(fn: (_: string) => void): void;
-    registerOnTouched(fn: any): void;
+    registerOnTouched(fn: () => void): void;
     setDisabledState(v: boolean): void;
     static ɵfac: _angular_core.ɵɵFactoryDeclaration<NuMonacoEditorComponent, never>;
-    static ɵcmp: _angular_core.ɵɵComponentDeclaration<NuMonacoEditorComponent, "nu-monaco-editor", ["nuMonacoEditor"], { "placeholder": { "alias": "placeholder"; "required": false; "isSignal": true; }; "model": { "alias": "model"; "required": false; "isSignal": true; }; "autoFormat": { "alias": "autoFormat"; "required": false; "isSignal": true; }; "maxHeight": { "alias": "maxHeight"; "required": false; "isSignal": true; }; }, {}, never, never, true, never>;
+    static ɵcmp: _angular_core.ɵɵComponentDeclaration<NuMonacoEditorComponent, "nu-monaco-editor", ["nuMonacoEditor"], { "placeholder": { "alias": "placeholder"; "required": false; "isSignal": true; }; "model": { "alias": "model"; "required": false; "isSignal": true; }; "autoFormat": { "alias": "autoFormat"; "required": false; "isSignal": true; }; "maxHeight": { "alias": "maxHeight"; "required": false; "isSignal": true; }; "minHeight": { "alias": "minHeight"; "required": false; "isSignal": true; }; }, {}, never, never, true, never>;
 }
 
 declare class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
-    old: _angular_core.InputSignal<NuMonacoEditorDiffModel | undefined>;
-    new: _angular_core.InputSignal<NuMonacoEditorDiffModel | undefined>;
+    readonly old: _angular_core.InputSignal<NuMonacoEditorDiffModel | undefined>;
+    readonly new: _angular_core.InputSignal<NuMonacoEditorDiffModel | undefined>;
     get editor(): monaco.editor.IStandaloneDiffEditor | null | undefined;
     initMonaco(options: monaco.editor.IStandaloneEditorConstructionOptions, initEvent: boolean): void;
     static ɵfac: _angular_core.ɵɵFactoryDeclaration<NuMonacoEditorDiffComponent, never>;

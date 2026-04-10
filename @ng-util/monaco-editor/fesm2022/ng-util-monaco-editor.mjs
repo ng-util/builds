@@ -14,8 +14,7 @@ function provideNuMonacoEditorConfig(config) {
     return makeEnvironmentProviders([{ provide: NU_MONACO_EDITOR_CONFIG, useValue: config }]);
 }
 
-let loadedMonaco = false;
-let loadPromise;
+let monacoLoadPromise = null;
 class NuMonacoEditorBase {
     el = inject(ElementRef);
     config = inject(NU_MONACO_EDITOR_CONFIG, { optional: true });
@@ -25,6 +24,7 @@ class NuMonacoEditorBase {
     _resize$ = null;
     _config;
     _disabled;
+    _disposables = [];
     height = input(`200px`, ...(ngDevMode ? [{ debugName: "height" }] : []));
     delay = input(0, ...(ngDevMode ? [{ debugName: "delay", transform: numberAttribute }] : [{ transform: numberAttribute }]));
     disabled = input(false, ...(ngDevMode ? [{ debugName: "disabled", transform: booleanAttribute }] : [{ transform: booleanAttribute }]));
@@ -37,7 +37,7 @@ class NuMonacoEditorBase {
         });
         effect(() => {
             const options = this.options();
-            const _ = this.height();
+            this.height();
             this.updateOptions(options);
         });
         afterNextRender(() => {
@@ -54,57 +54,59 @@ class NuMonacoEditorBase {
         return this;
     }
     init() {
-        if (loadedMonaco) {
-            loadPromise.then(() => this.initMonaco(this.options(), true));
+        if (typeof window === 'undefined')
             return;
-        }
-        loadedMonaco = true;
-        loadPromise = new Promise((resolve, reject) => {
-            const win = window;
-            if (win == null) {
-                resolve();
-                return;
-            }
-            if (win.monaco) {
-                resolve();
-                return;
-            }
-            let baseUrl = `${this._config.baseUrl}/vs`;
-            // fix: https://github.com/microsoft/monaco-editor/issues/4778
-            if (!/^https?:\/\//g.test(baseUrl)) {
-                baseUrl = `${window.location.origin}/${baseUrl.startsWith('/') ? baseUrl.substring(1) : baseUrl}`;
-            }
-            const amdLoader = () => {
-                win.require.config({
-                    paths: {
-                        vs: baseUrl
-                    }
-                });
-                if (typeof this._config.monacoPreLoad === 'function') {
-                    this._config.monacoPreLoad();
-                }
-                win.require(['vs/editor/editor.main'], () => {
-                    if (typeof this._config.monacoLoad === 'function') {
-                        this._config.monacoLoad(win.monaco);
-                    }
-                    this.initMonaco(this.options(), true);
+        if (!monacoLoadPromise) {
+            monacoLoadPromise = new Promise((resolve, reject) => {
+                const windowRef = window;
+                if (windowRef.monaco) {
                     resolve();
-                }, () => {
-                    reject(`Unable to load editor/editor.main module, please check your network environment.`);
-                });
-            };
-            if (!win.require) {
-                const loaderScript = this.doc.createElement('script');
-                loaderScript.type = 'text/javascript';
-                loaderScript.src = `${baseUrl}/loader.js`;
-                loaderScript.onload = amdLoader;
-                loaderScript.onerror = () => reject(`Unable to load ${loaderScript.src}, please check your network environment.`);
-                this.doc.getElementsByTagName('head')[0].appendChild(loaderScript);
-            }
-            else {
-                amdLoader();
-            }
-        }).catch(error => this.notifyEvent('load-error', { error }));
+                    return;
+                }
+                let baseUrl = `${this._config.baseUrl}/vs`;
+                // fix: https://github.com/microsoft/monaco-editor/issues/4778
+                if (!/^https?:\/\//.test(baseUrl)) {
+                    baseUrl = `${window.location.origin}/${baseUrl.startsWith('/') ? baseUrl.substring(1) : baseUrl}`;
+                }
+                const amdLoader = () => {
+                    windowRef.require.config({
+                        paths: {
+                            vs: baseUrl
+                        }
+                    });
+                    if (typeof this._config.monacoPreLoad === 'function') {
+                        this._config.monacoPreLoad();
+                    }
+                    windowRef.require(['vs/editor/editor.main'], () => {
+                        if (typeof this._config.monacoLoad === 'function') {
+                            this._config.monacoLoad(windowRef.monaco);
+                        }
+                        resolve();
+                    }, () => {
+                        reject(`Unable to load editor/editor.main module, please check your network environment.`);
+                    });
+                };
+                if (!windowRef.require) {
+                    const loaderScript = this.doc.createElement('script');
+                    loaderScript.type = 'text/javascript';
+                    loaderScript.src = `${baseUrl}/loader.js`;
+                    loaderScript.onload = amdLoader;
+                    loaderScript.onerror = () => {
+                        reject(`Unable to load ${loaderScript.src}, please check your network environment.`);
+                    };
+                    this.doc.getElementsByTagName('head')[0].appendChild(loaderScript);
+                }
+                else {
+                    amdLoader();
+                }
+            }).catch(error => {
+                monacoLoadPromise = null;
+                throw error;
+            });
+        }
+        monacoLoadPromise
+            .then(() => this.initMonaco(this.options(), true))
+            .catch(error => this.notifyEvent('load-error', { error }));
     }
     cleanResize() {
         this._resize$?.unsubscribe();
@@ -115,20 +117,27 @@ class NuMonacoEditorBase {
         this._resize$ = fromEvent(window, 'resize')
             .pipe(debounceTime(100))
             .subscribe(() => {
-            this._editor.layout();
+            this._editor?.layout();
             this.notifyEvent('resize');
         });
+        return this;
+    }
+    disposeEditor() {
+        this._disposables.forEach(d => d.dispose());
+        this._disposables.length = 0;
+        this._editor?.dispose();
+        this._editor = undefined;
         return this;
     }
     updateOptions(v) {
         if (!this._editor)
             return;
-        this._editor.dispose();
+        this.disposeEditor();
         this.initMonaco(v, false);
     }
     ngOnDestroy() {
         this.cleanResize();
-        this._editor?.dispose();
+        this.disposeEditor();
     }
     /** @nocollapse */ static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "21.0.0", ngImport: i0, type: NuMonacoEditorBase, deps: [], target: i0.ɵɵFactoryTarget.Component });
     /** @nocollapse */ static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.1.0", version: "21.0.0", type: NuMonacoEditorBase, isStandalone: true, selector: "nu-monaco-base", inputs: { height: { classPropertyName: "height", publicName: "height", isSignal: true, isRequired: false, transformFunction: null }, delay: { classPropertyName: "delay", publicName: "delay", isSignal: true, isRequired: false, transformFunction: null }, disabled: { classPropertyName: "disabled", publicName: "disabled", isSignal: true, isRequired: false, transformFunction: null }, options: { classPropertyName: "options", publicName: "options", isSignal: true, isRequired: false, transformFunction: null } }, outputs: { event: "event" }, ngImport: i0, template: ``, isInline: true });
@@ -187,7 +196,8 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
     placeholder = input(...(ngDevMode ? [undefined, { debugName: "placeholder" }] : []));
     model = input(...(ngDevMode ? [undefined, { debugName: "model" }] : []));
     autoFormat = input(true, ...(ngDevMode ? [{ debugName: "autoFormat", transform: booleanAttribute }] : [{ transform: booleanAttribute }]));
-    maxHeight = input(1000, ...(ngDevMode ? [{ debugName: "maxHeight", transform: numberAttribute }] : [{ transform: numberAttribute }]));
+    maxHeight = input(undefined, ...(ngDevMode ? [{ debugName: "maxHeight", transform: numberAttribute }] : [{ transform: numberAttribute }]));
+    minHeight = input(undefined, ...(ngDevMode ? [{ debugName: "minHeight", transform: numberAttribute }] : [{ transform: numberAttribute }]));
     get editor() {
         return this._editor;
     }
@@ -206,16 +216,17 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
     }
     togglePlaceholder() {
         const text = this.placeholder();
-        if (text == null || text.length <= 0 || this.editor == null)
+        if (typeof text !== 'string' || text.length <= 0 || this.editor == null)
             return;
-        if (this._placeholderWidget == null) {
-            this._placeholderWidget = new PlaceholderWidget(this.editor, text);
+        let widget = this._placeholderWidget;
+        if (widget == null) {
+            this._placeholderWidget = widget = new PlaceholderWidget(this.editor, text);
         }
         if (this._value.length > 0) {
-            this.editor.removeContentWidget(this._placeholderWidget);
+            this.editor.removeContentWidget(widget);
         }
         else {
-            this.editor.addContentWidget(this._placeholderWidget);
+            this.editor.addContentWidget(widget);
         }
     }
     onChange = (_) => { };
@@ -246,17 +257,17 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
         if (!hasModel) {
             editor.setValue(this._value);
         }
-        editor.onDidChangeModelContent(() => {
+        this._disposables.push(editor.onDidChangeModelContent(() => {
             const value = editor.getValue();
             this._value = value;
             this.onChange(value);
             this.togglePlaceholder();
-        });
-        editor.onDidBlurEditorWidget(() => this.onTouched());
+        }));
+        this._disposables.push(editor.onDidBlurEditorWidget(() => this.onTouched()));
         this.togglePlaceholder();
         this.registerResize();
         if (heightAuto) {
-            editor.onDidContentSizeChange(() => this.updateHeight());
+            this._disposables.push(editor.onDidContentSizeChange(() => this.updateHeight()));
             this.updateHeight();
         }
         const eventName = initEvent ? 'init' : 're-init';
@@ -274,8 +285,16 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
         const editor = this.editor;
         if (editor == null)
             return;
-        const contentHeight = Math.min(this.maxHeight(), editor.getContentHeight());
-        editor.layout({ width: editor.getLayoutInfo().width, height: contentHeight });
+        const isFiniteNumber = (value) => value != null && Number.isFinite(value);
+        const contentHeight = editor.getContentHeight();
+        const minHeightLimit = this.minHeight();
+        const maxHeightInput = this.maxHeight();
+        const maxHeightLimit = isFiniteNumber(maxHeightInput) ? maxHeightInput : 1000;
+        let targetHeight = Math.min(contentHeight, maxHeightLimit);
+        if (isFiniteNumber(minHeightLimit)) {
+            targetHeight = Math.max(targetHeight, minHeightLimit);
+        }
+        editor.layout({ width: editor.getLayoutInfo().width, height: targetHeight });
     }
     format() {
         const action = this.editor?.getAction('editor.action.formatDocument');
@@ -300,7 +319,7 @@ class NuMonacoEditorComponent extends NuMonacoEditorBase {
         this.setDisabled(v);
     }
     /** @nocollapse */ static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "21.0.0", ngImport: i0, type: NuMonacoEditorComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
-    /** @nocollapse */ static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.1.0", version: "21.0.0", type: NuMonacoEditorComponent, isStandalone: true, selector: "nu-monaco-editor", inputs: { placeholder: { classPropertyName: "placeholder", publicName: "placeholder", isSignal: true, isRequired: false, transformFunction: null }, model: { classPropertyName: "model", publicName: "model", isSignal: true, isRequired: false, transformFunction: null }, autoFormat: { classPropertyName: "autoFormat", publicName: "autoFormat", isSignal: true, isRequired: false, transformFunction: null }, maxHeight: { classPropertyName: "maxHeight", publicName: "maxHeight", isSignal: true, isRequired: false, transformFunction: null } }, host: { properties: { "style.display": "'block'", "style.height": "height()" } }, providers: [
+    /** @nocollapse */ static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.1.0", version: "21.0.0", type: NuMonacoEditorComponent, isStandalone: true, selector: "nu-monaco-editor", inputs: { placeholder: { classPropertyName: "placeholder", publicName: "placeholder", isSignal: true, isRequired: false, transformFunction: null }, model: { classPropertyName: "model", publicName: "model", isSignal: true, isRequired: false, transformFunction: null }, autoFormat: { classPropertyName: "autoFormat", publicName: "autoFormat", isSignal: true, isRequired: false, transformFunction: null }, maxHeight: { classPropertyName: "maxHeight", publicName: "maxHeight", isSignal: true, isRequired: false, transformFunction: null }, minHeight: { classPropertyName: "minHeight", publicName: "minHeight", isSignal: true, isRequired: false, transformFunction: null } }, host: { properties: { "style.display": "'block'", "style.height": "height()" } }, providers: [
             {
                 provide: NG_VALUE_ACCESSOR,
                 useExisting: forwardRef((() => NuMonacoEditorComponent)),
@@ -327,7 +346,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.0.0", ngImpor
                     ],
                     changeDetection: ChangeDetectionStrategy.OnPush
                 }]
-        }], ctorParameters: () => [], propDecorators: { placeholder: [{ type: i0.Input, args: [{ isSignal: true, alias: "placeholder", required: false }] }], model: [{ type: i0.Input, args: [{ isSignal: true, alias: "model", required: false }] }], autoFormat: [{ type: i0.Input, args: [{ isSignal: true, alias: "autoFormat", required: false }] }], maxHeight: [{ type: i0.Input, args: [{ isSignal: true, alias: "maxHeight", required: false }] }] } });
+        }], ctorParameters: () => [], propDecorators: { placeholder: [{ type: i0.Input, args: [{ isSignal: true, alias: "placeholder", required: false }] }], model: [{ type: i0.Input, args: [{ isSignal: true, alias: "model", required: false }] }], autoFormat: [{ type: i0.Input, args: [{ isSignal: true, alias: "autoFormat", required: false }] }], maxHeight: [{ type: i0.Input, args: [{ isSignal: true, alias: "maxHeight", required: false }] }], minHeight: [{ type: i0.Input, args: [{ isSignal: true, alias: "minHeight", required: false }] }] } });
 
 class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
     old = input(...(ngDevMode ? [undefined, { debugName: "old" }] : []));
@@ -352,8 +371,7 @@ class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
             original: monaco.editor.createModel(oldModel.code, oldModel.language || options.language),
             modified: monaco.editor.createModel(newModel.code, newModel.language || options.language)
         });
-        // this.setDisabled();
-        editor.onDidUpdateDiff(() => this.notifyEvent('update-diff', { diffValue: editor.getModifiedEditor().getValue() }));
+        this._disposables.push(editor.onDidUpdateDiff(() => this.notifyEvent('update-diff', { diffValue: editor.getModifiedEditor().getValue() })));
         this.registerResize();
         if (initEvent)
             this.notifyEvent('init');
