@@ -104,7 +104,7 @@ declare class NuMonacoEditorComponent extends NuMonacoEditorBase implements Cont
 
 declare class NuMonacoEditorDiffComponent extends NuMonacoEditorBase {
     readonly old: _angular_core.InputSignal<NuMonacoEditorDiffModel | undefined>;
-    readonly new: _angular_core.InputSignal<NuMonacoEditorDiffModel | undefined>;
+    readonly new: _angular_core.InputSignal<NuMonacoEditorDiffModel | null | undefined>;
     get editor(): monaco.editor.IStandaloneDiffEditor | null | undefined;
     initMonaco(options: monaco.editor.IStandaloneEditorConstructionOptions, initEvent: boolean): void;
     static ɵfac: _angular_core.ɵɵFactoryDeclaration<NuMonacoEditorDiffComponent, never>;

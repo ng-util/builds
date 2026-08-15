@@ -35,5 +35,6 @@
       "default": "./fesm2022/ng-util-markdown.mjs"
     }
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "type": "module"
 }

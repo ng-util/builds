@@ -27,7 +27,7 @@ declare class NuLazyService {
      *
      * - It's recommended to pass the value in accordance with the `load()` method
      */
-    monitor(paths?: string | (string | NuLazyResources)[]): Observable<NuLazyResult[]>;
+    monitor(paths?: string | Array<string | NuLazyResources>): Observable<NuLazyResult[]>;
     clear(): void;
     /**
      * Load the specified resources, includes `.js`, `.css`
@@ -35,7 +35,7 @@ declare class NuLazyService {
      * - The returned Promise does not mean that it was successfully loaded
      * - You can monitor load is success via `monitor()`
      */
-    load(paths: string | (string | NuLazyResources)[]): Promise<NuLazyResult[]>;
+    load(paths: string | Array<string | NuLazyResources>): Promise<NuLazyResult[]>;
     loadScript(path: string, options?: {
         innerContent?: string;
         callback?: string;
